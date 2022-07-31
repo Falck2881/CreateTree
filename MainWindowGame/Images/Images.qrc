@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ImgMode">
+        <file>MainMenu.jpg</file>
+    </qresource>
+</RCC>

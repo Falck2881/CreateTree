@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/Image">
+        <file>logo.gif</file>
+        <file>TreeRead.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>gifTree.gif</file>
+    </qresource>
+</RCC>

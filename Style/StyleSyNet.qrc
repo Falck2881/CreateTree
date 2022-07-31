@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Style">
+        <file>SyNet.qss</file>
+    </qresource>
+</RCC>
