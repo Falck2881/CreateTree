@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14.0)
+cmake_minimum_required(VERSION 3.21)
 
 project(GameTree VERSION 0.1 LANGUAGES CXX)
 
@@ -37,10 +37,6 @@ set(PROJECT_SOURCES
         StartWindow.h
         StartWindow.cpp
         StartWindow.ui
-        WindowInputData.cpp
-        WindowInputData.h
-        WindowInputData.ui
-
 )
 
 set(PROJECT_SOURCES_TEST_DIR

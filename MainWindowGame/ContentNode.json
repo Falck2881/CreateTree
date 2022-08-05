@@ -1,0 +1,266 @@
+{
+    "Ё": {
+        "Ansii": "401",
+        "Image": ":/Image/Node_7.png"
+    },
+    "А": {
+        "Ansii": "410",
+        "Image": ":/Image/Node_1.png"
+    },
+    "Б": {
+        "Ansii": "411",
+        "Image": ":/Image/Node_2.png"
+    },
+    "В": {
+        "Ansii": "412",
+        "Image": ":/Image/Node_3.png"
+    },
+    "Г": {
+        "Ansii": "413",
+        "Image": ":/Image/Node_4.png"
+    },
+    "Д": {
+        "Ansii": "414",
+        "Image": ":/Image/Node_5.png"
+    },
+    "Е": {
+        "Ansii": "415",
+        "Image": ":/Image/Node_6.png"
+    },
+    "Ж": {
+        "Ansii": "416",
+        "Image": ":/Image/Node_8.png"
+    },
+    "З": {
+        "Ansii": "417",
+        "Image": ":/Image/Node_9.png"
+    },
+    "И": {
+        "Ansii": "418",
+        "Image": ":/Image/Node_10.png"
+    },
+    "Й": {
+        "Ansii": "419",
+        "Image": ":/Image/Node_11.png"
+    },
+    "К": {
+        "Ansii": "41a",
+        "Image": ":/Image/Node_12.png"
+    },
+    "Л": {
+        "Ansii": "41b",
+        "Image": ":/Image/Node_13.png"
+    },
+    "М": {
+        "Ansii": "41c",
+        "Image": ":/Image/Node_14.png"
+    },
+    "Н": {
+        "Ansii": "41d",
+        "Image": ":/Image/Node_15.png"
+    },
+    "О": {
+        "Ansii": "41e",
+        "Image": ":/Image/Node_16.png"
+    },
+    "П": {
+        "Ansii": "41f",
+        "Image": ":/Image/Node_17.png"
+    },
+    "Р": {
+        "Ansii": "420",
+        "Image": ":/Image/Node_18.png"
+    },
+    "С": {
+        "Ansii": "421",
+        "Image": ":/Image/Node_19.png"
+    },
+    "Т": {
+        "Ansii": "422",
+        "Image": ":/Image/Node_20.png"
+    },
+    "У": {
+        "Ansii": "423",
+        "Image": ":/Image/Node_21.png"
+    },
+    "Ф": {
+        "Ansii": "424",
+        "Image": ":/Image/Node_22.png"
+    },
+    "Х": {
+        "Ansii": "425",
+        "Image": ":/Image/Node_23.png"
+    },
+    "Ц": {
+        "Ansii": "426",
+        "Image": ":/Image/Node_24.png"
+    },
+    "Ч": {
+        "Ansii": "427",
+        "Image": ":/Image/Node_25.png"
+    },
+    "Ш": {
+        "Ansii": "428",
+        "Image": ":/Image/Node_26.png"
+    },
+    "Щ": {
+        "Ansii": "429",
+        "Image": ":/Image/Node_27.png"
+    },
+    "Ъ": {
+        "Ansii": "42a",
+        "Image": ":/Image/Node_28.png"
+    },
+    "Ы": {
+        "Ansii": "42b",
+        "Image": ":/Image/Node_29.png"
+    },
+    "Ь": {
+        "Ansii": "42c",
+        "Image": ":/Image/Node_30.png"
+    },
+    "Э": {
+        "Ansii": "42d",
+        "Image": ":/Image/Node_31.png"
+    },
+    "Ю": {
+        "Ansii": "42e",
+        "Image": ":/Image/Node_32.png"
+    },
+    "Я": {
+        "Ansii": "42f",
+        "Image": ":/Image/Node_33.png"
+    },
+    "а": {
+        "Ansii": "430",
+        "Image": ":/Image/Node_34.png"
+    },
+    "б": {
+        "Ansii": "431",
+        "Image": ":/Image/Node_35.png"
+    },
+    "в": {
+        "Ansii": "432",
+        "Image": ":/Image/Node_36.png"
+    },
+    "г": {
+        "Ansii": "433",
+        "Image": ":/Image/Node_37.png"
+    },
+    "д": {
+        "Ansii": "434",
+        "Image": ":/Image/Node_38.png"
+    },
+    "е": {
+        "Ansii": "435",
+        "Image": ":/Image/Node_39.png"
+    },
+    "ж": {
+        "Ansii": "436",
+        "Image": ":/Image/Node_41.png"
+    },
+    "з": {
+        "Ansii": "437",
+        "Image": ":/Image/Node_42.png"
+    },
+    "и": {
+        "Ansii": "438",
+        "Image": ":/Image/Node_43.png"
+    },
+    "й": {
+        "Ansii": "439",
+        "Image": ":/Image/Node_44.png"
+    },
+    "к": {
+        "Ansii": "43a",
+        "Image": ":/Image/Node_45.png"
+    },
+    "л": {
+        "Ansii": "43b",
+        "Image": ":/Image/Node_46.png"
+    },
+    "м": {
+        "Ansii": "43c",
+        "Image": ":/Image/Node_47.png"
+    },
+    "н": {
+        "Ansii": "43d",
+        "Image": ":/Image/Node_48.png"
+    },
+    "о": {
+        "Ansii": "43e",
+        "Image": ":/Image/Node_49.png"
+    },
+    "п": {
+        "Ansii": "43f",
+        "Image": ":/Image/Node_50.png"
+    },
+    "р": {
+        "Ansii": "440",
+        "Image": ":/Image/Node_51.png"
+    },
+    "с": {
+        "Ansii": "441",
+        "Image": ":/Image/Node_52.png"
+    },
+    "т": {
+        "Ansii": "442",
+        "Image": ":/Image/Node_53.png"
+    },
+    "у": {
+        "Ansii": "443",
+        "Image": ":/Image/Node_54.png"
+    },
+    "ф": {
+        "Ansii": "444",
+        "Image": ":/Image/Node_55.png"
+    },
+    "х": {
+        "Ansii": "445",
+        "Image": ":/Image/Node_56.png"
+    },
+    "ц": {
+        "Ansii": "446",
+        "Image": ":/Image/Node_57.png"
+    },
+    "ч": {
+        "Ansii": "447",
+        "Image": ":/Image/Node_58.png"
+    },
+    "ш": {
+        "Ansii": "448",
+        "Image": ":/Image/Node_59.png"
+    },
+    "щ": {
+        "Ansii": "449",
+        "Image": ":/Image/Node_60.png"
+    },
+    "ъ": {
+        "Ansii": "44a",
+        "Image": ":/Image/Node_61.png"
+    },
+    "ы": {
+        "Ansii": "44b",
+        "Image": ":/Image/Node_62.png"
+    },
+    "ь": {
+        "Ansii": "44c",
+        "Image": ":/Image/Node_63.png"
+    },
+    "э": {
+        "Ansii": "44d",
+        "Image": ":/Image/Node_64.png"
+    },
+    "ю": {
+        "Ansii": "44e",
+        "Image": ":/Image/Node_65.png"
+    },
+    "я": {
+        "Ansii": "44f",
+        "Image": ":/Image/Node_66.png"
+    },
+    "ё": {
+        "Ansii": "451",
+        "Image": ":/Image/Node_40.png"
+    }
+}

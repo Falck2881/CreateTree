@@ -1,10 +1,13 @@
 #ifndef MAINWINDOWGAME_H
 #define MAINWINDOWGAME_H
 
+#include "SourceBinaryTree/StreamJson.h"
+#include "LinkerCommands.h"
 #include <QWidget>
 #include <memory>
-#include "LinkerCommands.h"
 #include <QPixmap>
+
+class WindowInputData;
 
 namespace Ui {
 class MainWindowGame;
@@ -15,18 +18,19 @@ class MainWindowGame : public QWidget
     Q_OBJECT
 
     public:
-        explicit MainWindowGame(QWidget * const winInputDataUser);
+        MainWindowGame();
         ~MainWindowGame();
     public slots:
-        void loadingConstructionBlocks(const QString& data);
+        void updateData(const QString nameBuilder);
 
     private:
-        void connectWithWindowsInputData();
-        void addCommandToLinkerWindowInputData();
+        void setAnimation();
+        void connectToDifferentButton() const;
+
     private:
-        QPixmap background;
+        StreamJson streamJson;
         Ui::MainWindowGame *ui;
-        QWidget* const winInputDataUser;
+        std::unique_ptr<QWidget> winInputData;
         std::unique_ptr<LinkerCommands> linkerWindowInputData;
 
 };

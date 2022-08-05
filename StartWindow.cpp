@@ -1,10 +1,8 @@
 #include "StartWindow.h"
 #include "ui_StartWindow.h"
-#include "WindowInputData.h"
 #include "MainWindowGame.h"
 #include "ShowWgdCommand.h"
 #include "HideWgdCommand.h"
-#include <QIcon>
 #include <QMovie>
 #include <QPainter>
 #include <QImage>
@@ -15,7 +13,7 @@
 StartWindow::StartWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::StartWindow),
-    windowInput{std::make_unique<WindowInputData>(this)},
+    mainWinGame{std::make_unique<MainWindowGame>()},
     linkerWinSwitching{std::make_unique<LinkerCommands>()}
 {
     ui->setupUi(this); 
@@ -31,7 +29,6 @@ void StartWindow::connectLogoGif()
     logoGif->start();
 }
 
-
 void StartWindow::connectToWindowInputData()
 {
     QObject::connect(ui->startButton, &QPushButton::clicked,
@@ -41,7 +38,7 @@ void StartWindow::connectToWindowInputData()
 void StartWindow::addCommandInLinker()
 {
     linkerWinSwitching->addCommand(std::make_unique<HideWgdCommand>(this));
-    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(windowInput.get()));
+    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(mainWinGame.get()));
 }
 
 void StartWindow::paintEvent(QPaintEvent *)
@@ -50,8 +47,6 @@ void StartWindow::paintEvent(QPaintEvent *)
     QImage img(QSize(size().width(),size().height()),QImage::Format_ARGB32);
     img.load(":/Image/TreeRead.png");
     painter.drawImage(0,0,img);
-    QGraphicsBlurEffect effect;
-    setGraphicsEffect(&effect);
 }
 
 StartWindow::~StartWindow()

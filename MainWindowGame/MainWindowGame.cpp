@@ -2,35 +2,46 @@
 #include "ShowWgdCommand.h"
 #include "HideWgdCommand.h"
 #include "ui_MainWindowGame.h"
+#include "SourceBinaryTree/StreamJson.h"
+#include "WindowInputData.h"
+#include <QMovie>
 #include <QPainter>
 
 
-MainWindowGame::MainWindowGame(QWidget *winInputDataUser):
+MainWindowGame::MainWindowGame():
+    streamJson(QString(":/ContentNode.json")),
     ui(new Ui::MainWindowGame),
-    winInputDataUser(winInputDataUser),
+    winInputData(std::make_unique<WindowInputData>(this)),
     linkerWindowInputData(std::make_unique<LinkerCommands>())
 {
-    Q_INIT_RESOURCE(Images);
+    Q_INIT_RESOURCE(DifferentImages);
     ui->setupUi(this);
-    addCommandToLinkerWindowInputData();
-    connectWithWindowsInputData();
+    setAnimation();
+    connectToDifferentButton();
 }
 
-void MainWindowGame::addCommandToLinkerWindowInputData()
+void MainWindowGame::setAnimation()
 {
-    linkerWindowInputData.get()->addCommand(std::make_unique<HideWgdCommand>(this));
-    linkerWindowInputData.get()->addCommand(std::make_unique<ShowWgdCommand>(winInputDataUser));
+    QMovie* bobAnimation = new QMovie(":/DiffImg/bobBuilder.gif");
+    ui->animation->setMovie(bobAnimation);
+    bobAnimation->start();
 }
 
-void MainWindowGame::connectWithWindowsInputData()
+void MainWindowGame::connectToDifferentButton() const
 {
-    QObject::connect(ui->backButton, &QPushButton::clicked,
-                     linkerWindowInputData.get(), &LinkerCommands::executeAllCommands);
+    QObject::connect(ui->changeNameButton, &QPushButton::clicked,
+                     winInputData.get(), &QWidget::show);
+
+    QObject::connect(ui->endButton, &QPushButton::clicked,
+                     this, &QApplication::quit);
 }
 
-void MainWindowGame::loadingConstructionBlocks(const QString& str)
+void MainWindowGame::updateData(const QString nameBuilder)
 {
+    if(!streamJson.isEmpty())
+    {
 
+    }
 }
 
 MainWindowGame::~MainWindowGame()

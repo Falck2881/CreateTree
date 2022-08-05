@@ -4,7 +4,7 @@
 #include <QApplication>
 int main(int argc, char *argv[])
 {
-    QFile fileStyle(QString(":/Style/SyNet.qss"));
+    QFile fileStyle(QString(":/Style/Toolery.qss"));
     fileStyle.open(QIODevice::ReadOnly);
     QTextStream streamStyle(&fileStyle);
     QApplication app(argc, argv);

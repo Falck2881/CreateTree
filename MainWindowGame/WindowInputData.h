@@ -4,8 +4,9 @@
 #include "LinkerCommands.h"
 #include "InputData.h"
 #include "ButtonActivityCommand.h"
-#include "MainWindowGame.h"
 #include <vector>
+
+class MainWindowGame;
 
 namespace Ui {
 class  WindowInputData;
@@ -16,24 +17,18 @@ class  WindowInputData : public QWidget
     Q_OBJECT
 
     public:
-        WindowInputData(QWidget* startGameWindow);
+        WindowInputData(MainWindowGame* const mainWinGame);
         ~WindowInputData();
-
+    public slots:
+        void show();
     private:
         void initializeCondition();
-        void addCommandsInLinkerForDemonstrationStartGameWindow();
-        void addCommandsInLinkerForDemonstrationMainWindowGame();
         void addCommandsInDevelopmentConstructionBlocks();
-        void connectToStartWindows();
         void connectToInputData();
-        void connectToMainWWindowGameForTransferInputData();
-        void connectToMainWindow();
+        void connectToMainWindowGameForTransferInputData();
     private:
-        Ui:: WindowInputData *ui;
-        QWidget* startGameWindow;
-        std::unique_ptr<MainWindowGame> mainWinGame;
-        std::unique_ptr<LinkerCommands> linkerStartGameWindow;
-        std::unique_ptr<LinkerCommands> linkerMainWindowGame;
+        Ui::WindowInputData *ui;
+        MainWindowGame* const mainWinGame;
         std::unique_ptr<ButtonActivityCommand> onNextButton;
         std::unique_ptr<ButtonActivityCommand> offNextButton;
         std::unique_ptr<InputData> inputData;

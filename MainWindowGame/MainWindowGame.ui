@@ -12,77 +12,59 @@
   </property>
   <property name="palette">
    <palette>
-    <active/>
-    <inactive/>
-    <disabled/>
+    <active>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>120</red>
+        <green>120</green>
+        <blue>120</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Main Window</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../Image/RccImage.qrc">
+    <normaloff>:/Image/titleImg.jpg</normaloff>:/Image/titleImg.jpg</iconset>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>70</y>
+     <x>10</x>
+     <y>30</y>
      <width>221</width>
-     <height>271</height>
+     <height>291</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pbtButton">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Perfect Balanced Binary Tree</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="bTreeButton">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>B-Tree</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="rtsButton">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Random Tree Search</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0">
-     <widget class="QPushButton" name="tosButton">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Tree Optional Search</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
      <widget class="QPushButton" name="avlButton">
       <property name="maximumSize">
        <size>
@@ -96,28 +78,109 @@
      </widget>
     </item>
     <item row="5" column="0">
-     <widget class="QPushButton" name="backButton">
+     <widget class="QPushButton" name="bTreeButton">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
       <property name="text">
-       <string>Back</string>
+       <string>B-Tree</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="rtsButton">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Random Tree Search</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="tosButton">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Tree Optional Search</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pbtButton">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Perfect Balanced Binary Tree</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="titile">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#aa55ff;&quot;&gt;Choice Tree&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="titile">
+  <widget class="QLabel" name="animation">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>10</y>
-     <width>211</width>
-     <height>51</height>
+     <x>260</x>
+     <y>40</y>
+     <width>200</width>
+     <height>180</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#8a0000;&quot;&gt;Choice Tree&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="changeNameButton">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>250</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Input Name Builder</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="endButton">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>290</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../Image/RccImage.qrc"/>
+  <include location="../Image/RccImage.qrc"/>
+ </resources>
  <connections/>
 </ui>
