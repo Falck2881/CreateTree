@@ -26,8 +26,8 @@ set(PATTERNS_COMMANDS
     Commands/ShowWgdCommand.cpp
     Commands/HideWgdCommand.h
     Commands/HideWgdCommand.cpp
-    Commands/InputData.h
-    Commands/InputData.cpp
+    Commands/KeyboardInput.h
+    Commands/KeyboardInput.cpp
     Commands/ButtonActivityCommand.h
     Commands/ButtonActivityCommand.cpp
 )

@@ -2,6 +2,7 @@
 #define SHOWWGDCOMMAND_H
 
 #include "Command.h"
+#include <QWidget>
 
 class ShowWgdCommand: public Command
 {

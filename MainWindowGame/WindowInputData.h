@@ -2,7 +2,7 @@
 #define WindowInputData_H
 
 #include "LinkerCommands.h"
-#include "InputData.h"
+#include "KeyboardInput.h"
 #include "ButtonActivityCommand.h"
 #include <vector>
 
@@ -25,13 +25,13 @@ class  WindowInputData : public QWidget
         void initializeCondition();
         void addCommandsInDevelopmentConstructionBlocks();
         void connectToInputData();
-        void connectToMainWindowGameForTransferInputData();
+        void connectWithCurrentWindow();
     private:
         Ui::WindowInputData *ui;
         MainWindowGame* const mainWinGame;
         std::unique_ptr<ButtonActivityCommand> onNextButton;
         std::unique_ptr<ButtonActivityCommand> offNextButton;
-        std::unique_ptr<InputData> inputData;
+        std::unique_ptr<KeyboardInput> inputData;
 };
 
 #endif //  WindowInputData

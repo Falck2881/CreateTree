@@ -2,7 +2,6 @@
 #define COMMAND_H
 
 #include <QObject>
-#include <QWidget>
 
 class Command: public QObject
 {

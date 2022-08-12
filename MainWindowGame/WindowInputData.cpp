@@ -11,35 +11,42 @@ WindowInputData::WindowInputData(MainWindowGame* const mainWinGame):
     ui->setupUi(this);
     initializeCondition();
     connectToInputData();
-    connectToMainWindowGameForTransferInputData();
+    connectWithCurrentWindow();
 }
 
 void WindowInputData::initializeCondition()
 {
-    onNextButton = std::make_unique<ButtonActivityCommand>(ui->nextButton);
-    offNextButton = std::make_unique<ButtonActivityCommand>(ui->nextButton);
-    inputData = std::make_unique<InputData>(ui->lineEditUserName);
+    onNextButton = std::make_unique<ButtonActivityCommand>(ui->okButton);
+    offNextButton = std::make_unique<ButtonActivityCommand>(ui->okButton);
+    inputData = std::make_unique<KeyboardInput>(ui->lineEditUserName);
 }
 
 void WindowInputData::connectToInputData()
 {
 
     QObject::connect(ui->lineEditUserName, &QLineEdit::textEdited,
-                     inputData.get(), &InputData::check);
+                     inputData.get(), &KeyboardInput::transferData);
 
-    QObject::connect(inputData.get(), &InputData::controlPassed,
+    QObject::connect(inputData.get(), &KeyboardInput::controlPassed,
                      onNextButton.get(), &ButtonActivityCommand::on);
 
-    QObject::connect(inputData.get(), &InputData::controlNotPassed,
+    QObject::connect(inputData.get(), &KeyboardInput::controlNotPassed,
                      offNextButton.get(), &ButtonActivityCommand::off);
 
+    QObject::connect(inputData.get(), &KeyboardInput::transferInputData,
+                     mainWinGame, &MainWindowGame::updateData);
+
 }
 
-void WindowInputData::connectToMainWindowGameForTransferInputData()
+void WindowInputData::connectWithCurrentWindow()
 {
-    QObject::connect(inputData.get(), &InputData::transferInputData,
-                     mainWinGame, &MainWindowGame::updateData);
+    QObject::connect(ui->okButton, &QPushButton::clicked,
+                     this, &WindowInputData::hide);
+
+    QObject::connect(ui->okButton, &QPushButton::clicked,
+                     inputData.get(), &KeyboardInput::clearLineEdit);
 }
+
 
 void WindowInputData::show()
 {

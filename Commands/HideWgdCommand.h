@@ -2,6 +2,7 @@
 #define HIDEWGDCOMMAND_H
 
 #include "Command.h"
+#include <QWidget>
 
 class HideWgdCommand: public Command
 {
