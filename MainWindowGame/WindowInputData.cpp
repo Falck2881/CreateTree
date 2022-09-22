@@ -34,7 +34,7 @@ void WindowInputData::connectToInputData()
                      offNextButton.get(), &ButtonActivityCommand::off);
 
     QObject::connect(inputData.get(), &KeyboardInput::transferInputData,
-                     mainWinGame, &MainWindowGame::updateData);
+                     mainWinGame, &MainWindowGame::updateStateObjects);
 
 }
 

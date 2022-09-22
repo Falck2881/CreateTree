@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/DiffImg">
         <file>bobBuilder.gif</file>
-        <file>MainMenu.jpg</file>
     </qresource>
 </RCC>

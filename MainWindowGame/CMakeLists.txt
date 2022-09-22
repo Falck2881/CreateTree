@@ -10,52 +10,64 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory(GameWindow)
+
 find_package(Qt6 COMPONENTS Widgets Core REQUIRED)
-qt6_add_resources(QRC_JSON JsonData.qrc)
+qt6_add_resources(QRC_DIFF_IMG "${CMAKE_CURRENT_SOURCE_DIR}/DifferentImages/DifferentImages.qrc")
+qt6_add_resources(QRC_BUILD_DATA "${CMAKE_CURRENT_SOURCE_DIR}/BuildDataQrc/BuildData.qrc")
 qt6_add_resources(QRC_IMAGE_NODE_DATA "${CMAKE_CURRENT_SOURCE_DIR}/ImagesNode/Images.qrc")
-qt6_add_resources(RCC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/DifferentImages/DifferentImages.qrc")
+
+set(WINDOWS MainWindowGame.cpp
+            MainWindowGame.h
+            MainWindowGame.ui
+            WindowInputData.cpp
+            WindowInputData.h
+            WindowInputData.ui
+            GameWindow.cpp
+            GameWindow.h
+            GameWindow.ui)
+
+set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
+                          SourceBinaryTree/Archive.cpp
+                          SourceBinaryTree/Node.cpp
+                          SourceBinaryTree/Node.h
+                          SourceBinaryTree/StreamJson.h
+                          SourceBinaryTree/StreamJson.cpp
+                          SourceBinaryTree/Tree.h
+                          SourceBinaryTree/SimpleBinaryTree.h
+                          SourceBinaryTree/SimpleBinaryTree.cpp
+                          SourceBinaryTree/BalancedBTree.h
+                          SourceBinaryTree/BalancedBTree.cpp
+                          SourceBinaryTree/ManagerGameWindow.h
+                          SourceBinaryTree/ManagerGameWindow.cpp
+                          SourceBinaryTree/Builder.h
+                          SourceBinaryTree/Builder.cpp
+                          SourceBinaryTree/BuilderRandomTree.h
+                          SourceBinaryTree/BuilderRandomTree.cpp
+                          SourceBinaryTree/BuilderPerfectBalanced.h
+                          SourceBinaryTree/BuilderPerfectBalanced.cpp
+                          SourceBinaryTree/BuilderAvlTree.h
+                          SourceBinaryTree/BuilderAvlTree.cpp
+                          SourceBinaryTree/SimpleRandom.h
+                          SourceBinaryTree/SimpleRandom.cpp
+                          SourceBinaryTree/MethodBuild.h
+                          SourceBinaryTree/MethodBuild.cpp
+                          SourceBinaryTree/MethodCustomizationUi.h
+                          SourceBinaryTree/MethodCustomizationUi.cpp
+                          SourceBinaryTree/ArrayNodes.h
+                          SourceBinaryTree/ArrayNodes.cpp
+                          SourceBinaryTree/GraphicsSceneNode.h
+                          SourceBinaryTree/GraphicsSceneNode.cpp)
 
 
-set(SOURCE_BINARYTREE SourceBinaryTree/Node.cpp
-                      SourceBinaryTree/Node.h
-                      SourceBinaryTree/StreamJson.h
-                      SourceBinaryTree/StreamJson.cpp
-                      SourceBinaryTree/Tree.h
-                      SourceBinaryTree/BalancedTree.h
-                      SourceBinaryTree/BalancedTree.cpp
-                      SourceBinaryTree/BalancedBTree.h
-                      SourceBinaryTree/BalancedBTree.cpp
-                      SourceBinaryTree/BuilderTreeStrategy.h
-                      SourceBinaryTree/ManagerBuilder.h
-                      SourceBinaryTree/ManagerBuilder.cpp
-                      SourceBinaryTree/NodeProxy.h
-                      SourceBinaryTree/NodeProxy.cpp
-                      SourceBinaryTree/MethodsChoiceBuildersTree.h
-                      SourceBinaryTree/MethodsChoiceBuildersTree.cpp
-)
-
-
-
-set(LIB_SOURCE  MainWindowGame.cpp
-                MainWindowGame.h
-                MainWindowGame.ui
-                WindowInputData.cpp
-                WindowInputData.h
-                WindowInputData.ui
-)
-
-add_library(MainWindowGame STATIC ${LIB_SOURCE}
-                                  ${RCC_FILE}
-                                  ${SOURCE_BINARYTREE}
+add_library(MainWindowGame STATIC ${WINDOWS}
+                                  ${SOURCE_BINARY_TREE}
                                   ${QRC_IMAGE_NODE_DATA}
-                                  ${QRC_JSON}
-                                  )
+                                  ${QRC_BUILD_DATA}
+                                  ${QRC_DIFF_IMG})
 
 target_link_libraries(MainWindowGame PRIVATE Qt6::Widgets
-                                             Qt6::Core
-                                             GameWindow)
+                                             Qt6::Core)
 
-target_include_directories(MainWindowGame PRIVATE "../Commands" "/GameWindow")
+target_include_directories(MainWindowGame PRIVATE "../Commands" "${CMAKE_CURRENT_SOURCE_DIR}/SourceBinaryTree")
 
 target_compile_definitions(MainWindowGame PRIVATE MAINWINDOWGAME_LIBRARY)

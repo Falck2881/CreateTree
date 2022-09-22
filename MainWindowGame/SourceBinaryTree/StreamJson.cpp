@@ -4,8 +4,8 @@
 
 StreamJson::StreamJson(const QString nameFile)
 {
-    Q_INIT_RESOURCE(JsonData);
-    jsonDoc.fromJson(extractDataFromJsonFile(nameFile));
+    Q_INIT_RESOURCE(BuildData);
+    jsonDoc = QJsonDocument::fromJson(extractDataFromJsonFile(nameFile));
 }
 
 const QByteArray StreamJson::extractDataFromJsonFile(const QString nameFile)
@@ -25,7 +25,7 @@ bool StreamJson::isEmpty() const
     return jsonDoc.isEmpty();
 }
 
-QJsonValue StreamJson::getJsonValue(const QString& index) const
+QJsonValue StreamJson::getJsonValue(const QStringView index) const
 {
     return jsonDoc[index];
 }

@@ -51,10 +51,10 @@ if(WIN32)
                                       ${PATTERNS_COMMANDS}
                                       )
 else()
-    add_executable(MainGameTree UNIX ${PROJECT_SOURCES}
-                                     ${RCC_FILE}
-                                     ${PATTERNS_COMMANDS}
-                                     )
+    add_executable(MainGameTree ${PROJECT_SOURCES}
+                                ${RCC_FILE}
+                                ${PATTERNS_COMMANDS}
+                                )
 endif()
 
 target_link_libraries(MainGameTree PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
