@@ -28,8 +28,8 @@ set(WINDOWS MainWindowGame.cpp
 
 set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/Archive.cpp
-                          SourceBinaryTree/Node.cpp
-                          SourceBinaryTree/Node.h
+                          SourceBinaryTree/GraphicsNode.cpp
+                          SourceBinaryTree/GraphicsNode.h
                           SourceBinaryTree/StreamJson.h
                           SourceBinaryTree/StreamJson.cpp
                           SourceBinaryTree/Tree.h
@@ -55,8 +55,8 @@ set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/MethodCustomizationUi.cpp
                           SourceBinaryTree/ArrayNodes.h
                           SourceBinaryTree/ArrayNodes.cpp
-                          SourceBinaryTree/GraphicsSceneNode.h
-                          SourceBinaryTree/GraphicsSceneNode.cpp)
+                          SourceBinaryTree/GraphicsTree.h
+                          SourceBinaryTree/GraphicsTree.cpp)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}

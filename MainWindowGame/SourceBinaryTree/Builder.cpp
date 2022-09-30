@@ -1,11 +1,11 @@
 #include "Builder.h"
 #include <QGraphicsLineItem>
 
-Builder::Builder():graphicsScene(std::make_unique<GraphicsSceneNode>())
+Builder::Builder():graphicsTree(std::make_unique<GraphicsTree>())
 {
 }
 
 QGraphicsScene* Builder::scene() const
 {
-    return graphicsScene->scene();
+    return graphicsTree->scene();
 }

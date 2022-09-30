@@ -5,61 +5,32 @@ BuilderPerfectBalanced::BuilderPerfectBalanced():tree(nullptr)
 
 }
 
-void BuilderPerfectBalanced::addNodeInTree(Node* const newNode)
+void BuilderPerfectBalanced::addNodeInTree(GraphicsNode* const newNode)
 {
    tree = addNodeInTree(newNode,tree);
 }
 
-SimpleBinaryTree* BuilderPerfectBalanced::addNodeInTree(Node *const newItemNode, SimpleBinaryTree* currentNode)
+SimpleBinaryTree* BuilderPerfectBalanced::addNodeInTree(GraphicsNode *const itemNode, SimpleBinaryTree* currentNode)
 {
     if(currentNode == nullptr)
     {
-        currentNode = new SimpleBinaryTree(newItemNode);
-        currentNode->itemNode()->setPos(graphicsScene->coordinateNode());
-        graphicsScene->addItem(currentNode->itemNode());
+        currentNode = new SimpleBinaryTree(itemNode);
+        currentNode->itemNode()->setPos(graphicsTree->posNode());
+        graphicsTree->addItem(currentNode->itemNode());
     }
-    else if(newItemNode->keyUtf16() < currentNode->key())
+    else if(itemNode->key() < currentNode->key())
     {
-        graphicsScene->addLeftBranch(currentNode);
-        currentNode->leftNode = addNodeInTree(newItemNode,
-                                              currentNode->leftNode,
-                                              currentNode->itemLeftBranch());
+        graphicsTree->addLeftBranch(currentNode);
+        graphicsTree->increaseIndex();
+        currentNode->leftNode = addNodeInTree(itemNode,currentNode->leftNode);
+        graphicsTree->reduceIndex();
     }
-    else if(newItemNode->keyUtf16() > currentNode->key())
+    else if(itemNode->key() > currentNode->key())
     {
-        graphicsScene->addRightBranch(currentNode);
-        currentNode->rightNode = addNodeInTree(newItemNode,
-                                               currentNode->rightNode,
-                                               currentNode->itemRightBranch());
-    }
-
-    return currentNode;
-}
-
-SimpleBinaryTree* BuilderPerfectBalanced::addNodeInTree(Node *const newItemNode,
-                                                        SimpleBinaryTree* currentNode,
-                                                        QGraphicsLineItem*& lineItem)
-{
-    if(currentNode == nullptr)
-    {
-        currentNode = new SimpleBinaryTree(newItemNode);
-        currentNode->itemNode()->setPos(graphicsScene->coordinateNode());
-        graphicsScene->bindBranchWithNewNode(lineItem,currentNode->itemNode());
-        graphicsScene->addItem(currentNode->itemNode());
-    }
-    else if(newItemNode->keyUtf16() < currentNode->key())
-    {
-        graphicsScene->addLeftBranch(currentNode,50.0,60.0);
-        currentNode->leftNode = addNodeInTree(newItemNode,
-                                              currentNode->leftNode,
-                                              currentNode->itemLeftBranch());
-    }
-    else if(newItemNode->keyUtf16() > currentNode->key())
-    {
-        graphicsScene->addRightBranch(currentNode,80.0,60.0);
-        currentNode->rightNode = addNodeInTree(newItemNode,
-                                               currentNode->rightNode,
-                                               currentNode->itemRightBranch());
+        graphicsTree->addRightBranch(currentNode);
+        graphicsTree->increaseIndex();
+        currentNode->rightNode = addNodeInTree(itemNode, currentNode->rightNode);
+        graphicsTree->reduceIndex();
     }
 
     return currentNode;

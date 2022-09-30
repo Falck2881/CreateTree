@@ -8,13 +8,10 @@ class BuilderPerfectBalanced: public Builder
 {
     public:
         BuilderPerfectBalanced();
-        void addNodeInTree(Node* const newNode) override final;
+        void addNodeInTree(GraphicsNode* const newNode) override final;
     private:
-        SimpleBinaryTree* addNodeInTree(Node* const newNode,
+        SimpleBinaryTree* addNodeInTree(GraphicsNode* const newNode,
                                         SimpleBinaryTree* const currentNode);
-        SimpleBinaryTree* addNodeInTree(Node* const newNode,
-                                        SimpleBinaryTree* const currentNode,
-                                        QGraphicsLineItem*& itemLine);
 
         SimpleBinaryTree* tree;
 };

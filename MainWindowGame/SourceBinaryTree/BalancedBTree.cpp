@@ -5,8 +5,7 @@ BalancedBTree::BalancedBTree()
 
 }
 
-const ushort* BalancedBTree::key()
+uint BalancedBTree::key()
 {
-    ushort* ted = nullptr;
-    return ted;
+    return 0;
 }

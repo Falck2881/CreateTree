@@ -8,14 +8,10 @@ class BuilderRandomTree: public Builder
 {
     public:
         BuilderRandomTree();
-        void addNodeInTree(Node* const newNode) override final;
+        void addNodeInTree(GraphicsNode* const newNode) override final;
     private:
-        SimpleBinaryTree* addNodeInTree(Node* const itemNode,
+        SimpleBinaryTree* addNodeInTree(GraphicsNode* const itemNode,
                                         SimpleBinaryTree* currentNode);
-
-        SimpleBinaryTree* addNodeInTree(Node* const itemNode,
-                                        SimpleBinaryTree* currentNode,
-                                        QGraphicsLineItem*& itemBranch);
         SimpleBinaryTree* tree;
 };
 #endif // BUILDERRANDOMTREE_H

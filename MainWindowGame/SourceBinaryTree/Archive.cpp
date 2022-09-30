@@ -28,9 +28,9 @@ void Archive::updateArrayNodes(ArrayNodes *newArrayNodes)
     }
 }
 
-Node* Archive::nextElement()
+GraphicsNode* Archive::nextElement()
 {
-    Node* node = array->moveData();
+    GraphicsNode* node = array->moveData();
     std::pair<QString,QPixmap> pair(node->keyNameLetter(),node->image());
     gameWin->updateInformationAboutNode(pair);
     return node;

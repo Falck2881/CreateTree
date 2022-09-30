@@ -8,7 +8,7 @@ class BuilderAvlTree: public Builder
 {
     public:
         BuilderAvlTree() = default;
-        void addNodeInTree(Node* const newNode) override final;
+        void addNodeInTree(GraphicsNode* const newNode) override final;
 
 };
 

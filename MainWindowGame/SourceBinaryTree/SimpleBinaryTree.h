@@ -7,17 +7,17 @@
 class SimpleBinaryTree: public Tree
 {
     public:
-        explicit SimpleBinaryTree(Node* const data);
+        explicit SimpleBinaryTree(GraphicsNode* const data);
         SimpleBinaryTree* leftNode;
         SimpleBinaryTree* rightNode;
-        const ushort* key() override final;
-        Node*& itemNode();
+        uint key() override final;
+        GraphicsNode*& itemNode();
         QGraphicsLineItem*& itemLeftBranch();
         QGraphicsLineItem*& itemRightBranch();
         void setLeftBranch(QGraphicsLineItem* const newLeftBranch);
         void setRightBranch(QGraphicsLineItem* const newRightBranch);
     private:
-        Node* node;
+        GraphicsNode* node;
         QGraphicsLineItem* leftBranch;
         QGraphicsLineItem* rightBranch;
 };

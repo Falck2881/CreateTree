@@ -12,7 +12,7 @@ class Archive
         explicit Archive(GameWindow* const gameWin);
         void updateArrayNodes(ArrayNodes* newArrayNodes);
         bool empty();
-        Node* nextElement();
+        GraphicsNode* nextElement();
     private:
         ArrayNodes* array;
         GameWindow* const gameWin;

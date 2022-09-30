@@ -1,17 +1,17 @@
 #include "SimpleBinaryTree.h"
 #include <QPen>
 
-SimpleBinaryTree::SimpleBinaryTree(Node* const data):
-    leftNode(nullptr),rightNode(nullptr),node(data),
-    leftBranch(nullptr),rightBranch(nullptr)
+SimpleBinaryTree::SimpleBinaryTree(GraphicsNode* const data):
+    leftNode(nullptr),rightNode(nullptr),
+    node(data),leftBranch(nullptr),rightBranch(nullptr)
 {}
 
-const ushort* SimpleBinaryTree::key()
+uint SimpleBinaryTree::key()
 {
-    return node->keyUtf16();
+    return node->key();
 }
 
-Node*& SimpleBinaryTree::itemNode()
+GraphicsNode*& SimpleBinaryTree::itemNode()
 {
     return node;
 }

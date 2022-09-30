@@ -17,8 +17,10 @@ void ArrayNodes::extractContent(const QString nameBuilder)
 {
     StreamJson stream(QString(":/ContentNode.json"));
 
-        for(auto charecter: nameBuilder)
-            nodes.push_back(new Node(stream.getJsonValue(QString(charecter))));
+    for(auto charecter: nameBuilder){
+       if(charecter != QString(" "))
+          nodes.push_back(new GraphicsNode(stream.getJsonValue(QString(charecter))));
+    }
 }
 
 void ArrayNodes::updateArrayBoundaries(const qint32 minSize, const qint32 maxSize)
@@ -52,10 +54,10 @@ LinearArrayNodes::LinearArrayNodes(const QString nameBuilder):ArrayNodes(nameBui
 {
 }
 
-Node* LinearArrayNodes::moveData()
+GraphicsNode* LinearArrayNodes::moveData()
 {
     const quint32 index = getIndex();
-    Node* node = nodes.at(index);
+    GraphicsNode* node = nodes.at(index);
     updateArrayBoundaries(0,nodes.size()-1);
     updateIndex();
     return node;
@@ -64,10 +66,10 @@ Node* LinearArrayNodes::moveData()
 ArrayNodesForRandomTree::ArrayNodesForRandomTree(const QString nameBuilder):ArrayNodes(nameBuilder)
 {}
 
-Node* ArrayNodesForRandomTree::moveData()
+GraphicsNode* ArrayNodesForRandomTree::moveData()
 {
     qint32 index = simplRandom.getNumber(minSizeVector,maxSizeVector);
-    Node* node = nodes.at(index);
+    GraphicsNode* node = nodes.at(index);
     clearOldReferenceOnData(index);
     updateArrayBoundaries(0,nodes.size()-1);
     return node;
@@ -91,7 +93,7 @@ void ArrayNodesForPBTTree::fillArrayAnIndexes(const qint32 leftEdge, const qint3
     }
 }
 
-void ArrayNodesForPBTTree::sortingByInsertion(std::vector<Node*> &nodes)
+void ArrayNodesForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
 {
     for(quint32 jndex = 0; jndex < nodes.size(); ++jndex)
     {
@@ -104,7 +106,7 @@ void ArrayNodesForPBTTree::sortingByInsertion(std::vector<Node*> &nodes)
             --leftEdgeIndex)
         {
             if( leftEdgeIndex <  rightEdgeIndex &&
-                nodes.at(leftEdgeIndex)->keyUtf16() > nodes.at(rightEdgeIndex)->keyUtf16())
+                nodes.at(leftEdgeIndex)->key() > nodes.at(rightEdgeIndex)->key())
                 std::swap(nodes[leftEdgeIndex],nodes[rightEdgeIndex]);
             else
                 break;
@@ -112,10 +114,10 @@ void ArrayNodesForPBTTree::sortingByInsertion(std::vector<Node*> &nodes)
     }
 }
 
-Node* ArrayNodesForPBTTree::moveData()
+GraphicsNode* ArrayNodesForPBTTree::moveData()
 {
     const quint32 index = arrIndex.at(getIndex());
-    Node* node = nodes.at(index);
+    GraphicsNode* node = nodes.at(index);
     updateIndex();
     return node;
 }
