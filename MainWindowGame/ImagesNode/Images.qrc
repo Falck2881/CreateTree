@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/ImgMode">
+    <qresource prefix="/Image">
         <file>Node_1.png</file>
         <file>Node_2.png</file>
         <file>Node_3.png</file>

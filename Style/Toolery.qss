@@ -58,14 +58,14 @@ QPushButton
 
 QPushButton::disabled
 {
-	background-color: #5c5c5c;
+        background-color: #5c5c5c;
 
 }
 
 
 QPushButton::hover
 {
-	background-color: #5564f2;
+        background-color: #5564f2;
 
 }
 

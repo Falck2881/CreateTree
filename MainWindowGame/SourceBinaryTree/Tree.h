@@ -1,15 +1,16 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "NodeProxy.h"
+#include "GraphicsNode.h"
 #include <QString>
+#include <QStringView>
+#include <QGraphicsLineItem>
 
 class Tree
 {
     public:
-        Tree() = default;
+        Tree()= default;
         virtual ~Tree() = default;
-        virtual const Node* searchNode(QStringView viewKey) = 0;
+        virtual uint key() = 0;
 };
-
 #endif // TREE_H

@@ -1,9 +1,10 @@
 #include "MainWindowGame.h"
-#include "GameWindow/GameWindow.h"
+#include "GameWindow.h"
 #include "ui_MainWindowGame.h"
 #include "WindowInputData.h"
 #include "HideWgdCommand.h"
 #include "ShowWgdCommand.h"
+#include "MethodBuild.h"
 #include <QMovie>
 #include <QPainter>
 
@@ -11,14 +12,15 @@
 MainWindowGame::MainWindowGame():
     ui(new Ui::MainWindowGame),
     winInputData(std::make_unique<WindowInputData>(this)),
-    managerBuilder{std::make_unique<ManagerBuilder>()},
-    gameWindow{std::make_unique<GameWindow>()},
-    linkerShowGameWindow{std::make_unique<LinkerCommands>()}
+    gameWindow{std::make_unique<GameWindow>(this)},
+    linkerGameWindow{std::make_unique<LinkerCommands>()},
+    linkerMethodsBuilds{std::make_unique<LinkerMethodsBuilds>(gameWindow.get())}
 {
     Q_INIT_RESOURCE(DifferentImages);
     ui->setupUi(this);
     setAnimation();
-    setBinaryTreeConstructionStrategies();
+    setStatyStartButton();
+    addMethodBuildInLinkerMethodsBuilds();
     addCommandsInLinkerShowGameWindow();
     connectToWindowInputData();
     connectToGameWindow();
@@ -32,18 +34,22 @@ void MainWindowGame::setAnimation()
     bobAnimation->start();
 }
 
-void MainWindowGame::setBinaryTreeConstructionStrategies()
+void MainWindowGame::setStatyStartButton()
 {
-    std::vector<QPushButton*&> buttonsStrategy{ui->pbtButton,ui->rtsButton,ui->avlButton,
-                                              ui->bTreeButton,ui->tosButton};
+   ui->startButton->setEnabled(false);
+}
 
-    managerBuilder->setBinaryTreeConstractionsStrategy(buttonsStrategy);
+void MainWindowGame::addMethodBuildInLinkerMethodsBuilds()
+{
+    linkerMethodsBuilds->append(std::make_unique<MethodBuildRandomTree>(ui->randButton));
+    linkerMethodsBuilds->append(std::make_unique<MethodBuildPerfectBalancedTree>(ui->pbtButton));
+    linkerMethodsBuilds->append(std::make_unique<MethodBuildAvlTree>(ui->avlButton));
 }
 
 void MainWindowGame::addCommandsInLinkerShowGameWindow()
 {
-    linkerShowGameWindow->addCommand(std::make_unique<HideWgdCommand>(this));
-    linkerShowGameWindow->addCommand(std::make_unique<ShowWgdCommand>(gameWindow));
+    linkerGameWindow->addCommand(std::make_unique<HideWgdCommand>(this));
+    linkerGameWindow->addCommand(std::make_unique<ShowWgdCommand>(gameWindow.get()));
 }
 
 
@@ -55,11 +61,12 @@ void MainWindowGame::connectToWindowInputData() const
 
 void MainWindowGame::connectToGameWindow() const
 {
-    std::vector<QPushButton*> buttonsStrategy{ui->pbtButton,ui->rtsButton,ui->avlButton,
-                                              ui->bTreeButton,ui->tosButton};
+    QObject::connect(ui->startButton, &QPushButton::clicked,
+                     linkerMethodsBuilds.get(), &LinkerMethodsBuilds::choiceMethodBuilding);
 
-    for(auto button: buttonsStrategy)
-        QObject::connect(button, &QPushButton::clicked, gameWindow.get(), &GameWindow::show);
+    QObject::connect(ui->startButton, &QPushButton::clicked,
+                     linkerGameWindow.get(), &LinkerCommands::executeAllCommands);
+
 }
 
 void MainWindowGame::disconect() const
@@ -68,10 +75,11 @@ void MainWindowGame::disconect() const
                      this, &QApplication::quit);
 }
 
-void MainWindowGame::updateData(const QString nameBuilder)
+void MainWindowGame::updateStateObjects(const QString nameBuilder)
 {
     updateTitleNameBuilder(nameBuilder);
-    managerBuilder->updateDataInNodeProxy(nameBuilder);
+    updateStatyStartButton(nameBuilder);
+    linkerMethodsBuilds->updateNameBuilder(nameBuilder);
 }
 
 void MainWindowGame::updateTitleNameBuilder(const QString &nameBuilder)
@@ -79,9 +87,10 @@ void MainWindowGame::updateTitleNameBuilder(const QString &nameBuilder)
     ui->titleNameBuilder->setText(nameBuilder);
 }
 
-void MainWindowGame::updateDataInGameWindow(std::vector<std::unique_ptr<NodeProxy>> nodesProxy)
+void MainWindowGame::updateStatyStartButton(const QString &nameBuilder)
 {
-    gameWindow->setNodesProxy(std::move(nodesProxy));
+    if(nameBuilder != "")
+        ui->startButton->setEnabled(true);
 }
 
 MainWindowGame::~MainWindowGame()

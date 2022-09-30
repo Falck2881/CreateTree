@@ -4,7 +4,7 @@
 
 KeyboardInput::KeyboardInput(QLineEdit*& lineNameBuild):lineNameBuild(lineNameBuild)
 {
-    QRegularExpression regExpInput("[^!-~]{15}");
+    QRegularExpression regExpInput("[^!-~]{20}");
     QRegularExpressionValidator* valForInputUserName = new QRegularExpressionValidator(regExpInput);
     lineNameBuild->setValidator(valForInputUserName);
 }
@@ -17,8 +17,8 @@ void KeyboardInput::transferData(const QString& data)
 
 bool KeyboardInput::checkInputData(const QString &data)
 {
-    qsizetype minSizeUserName = 12;
-    if(data != "" && data.size() >= minSizeUserName){;
+    qsizetype maxLengthUserName = 20;
+    if(data != "" && data.size() <= maxLengthUserName){;
         emit this->controlPassed();
         return true;
     }

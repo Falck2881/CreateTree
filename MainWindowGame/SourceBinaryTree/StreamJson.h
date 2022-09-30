@@ -11,7 +11,7 @@ class StreamJson
         StreamJson() = default;
         explicit StreamJson(const QString nameFile);
         bool isEmpty() const;
-        QJsonValue getJsonValue(const QString& key) const;
+        QJsonValue getJsonValue(const QStringView key) const;
     private:
         const QByteArray extractDataFromJsonFile(const QString nameFile);
         QJsonDocument jsonDoc;

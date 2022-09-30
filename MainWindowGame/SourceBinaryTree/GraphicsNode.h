@@ -1,21 +1,21 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef GRAPHICSNODE_H
+#define GRAPHICSNODE_H
 
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QJsonObject>
 #include <QPointF>
 
-class Node: public QGraphicsItem
+class GraphicsNode: public QGraphicsItem
 {
     public:
-        explicit Node(const QJsonValue obj);
+        explicit GraphicsNode(const QJsonValue obj);
         void setPos(QPointF point);
         QPointF pos() const;
         QPixmap image() const;
         QString keyNameLetter() const;
-        const ushort* keyUtf16() const;
-        void setParentItem(QGraphicsItem* item);
+        uint key() const;
+        void setParent(QGraphicsItem* item);
         QRectF boundingRect() const override final;
     private:
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override final;
@@ -26,4 +26,4 @@ class Node: public QGraphicsItem
         QRectF rect;
 };
 
-#endif // NODE_H
+#endif // GRAPHICSNODE_H

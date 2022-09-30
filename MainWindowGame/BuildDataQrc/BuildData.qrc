@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
+        <file>bobNotFound.jpg</file>
         <file>ContentNode.json</file>
+        <file>advertisingImg.png</file>
     </qresource>
 </RCC>

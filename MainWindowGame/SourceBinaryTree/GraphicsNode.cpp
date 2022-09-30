@@ -1,9 +1,9 @@
-#include "Node.h"
+#include "GraphicsNode.h"
 #include <QDebug>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
-Node::Node(const QJsonValue value):rect(0.0,0.0,1000.0,1000.0)
+GraphicsNode::GraphicsNode(const QJsonValue value):rect(0.0,0.0,1000.0,1000.0)
 {
     Q_INIT_RESOURCE(Images);
     QJsonObject obj = value.toObject();
@@ -16,42 +16,44 @@ Node::Node(const QJsonValue value):rect(0.0,0.0,1000.0,1000.0)
     this->setCacheMode(QGraphicsItem::NoCache);
 }
 
-QPixmap Node::image() const
+QPixmap GraphicsNode::image() const
 {
     return imageNode;
 }
 
-QString Node::keyNameLetter() const
+QString GraphicsNode::keyNameLetter() const
 {
     return _keyNameletter;
 }
 
-const ushort* Node::keyUtf16() const
+uint GraphicsNode::key() const
 {
-    return _keyNameletter.utf16();
+    bool ok;
+    uint key = _keyNameletter.toUInt(&ok,16);
+    return key;
 }
 
-void Node::setParentItem(QGraphicsItem *item)
+void GraphicsNode::setParent(QGraphicsItem *item)
 {
-    QGraphicsItem::setParentItem(item);
+    this->setParentItem(item);
 }
 
-void Node::setPos(QPointF newPos)
+void GraphicsNode::setPos(QPointF newPos)
 {
     position = newPos;
 }
 
-QPointF Node::pos() const
+QPointF GraphicsNode::pos() const
 {
     return this->mapFromScene(position);
 }
 
-QRectF Node::boundingRect() const
+QRectF GraphicsNode::boundingRect() const
 {
     return rect;
 }
 
-void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void GraphicsNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -60,7 +62,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawPixmap(position,imageNode,sourceRect);
 }
 
-void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void GraphicsNode::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
 }

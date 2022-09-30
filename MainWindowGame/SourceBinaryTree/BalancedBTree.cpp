@@ -4,3 +4,8 @@ BalancedBTree::BalancedBTree()
 {
 
 }
+
+uint BalancedBTree::key()
+{
+    return 0;
+}

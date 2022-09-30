@@ -7,7 +7,7 @@ class BalancedBTree: public Tree
 {
     public:
         BalancedBTree();
-        const Node* searchNode(QStringView viewKey) override final;
+        uint key() override final;
 };
 
 #endif // BALANCEDBTREE_H
