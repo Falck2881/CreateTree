@@ -8,6 +8,7 @@ class SimpleBinaryTree: public Tree
 {
     public:
         explicit SimpleBinaryTree(GraphicsNode* const data);
+        ~SimpleBinaryTree();
         SimpleBinaryTree* leftNode;
         SimpleBinaryTree* rightNode;
         uint key() override final;

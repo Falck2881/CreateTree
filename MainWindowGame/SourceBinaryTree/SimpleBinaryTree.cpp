@@ -38,3 +38,12 @@ void SimpleBinaryTree::setRightBranch(QGraphicsLineItem *const newRightBranch)
     rightBranch = newRightBranch;
     rightBranch->setPen(QPen(Qt::black,3));
 }
+
+SimpleBinaryTree::~SimpleBinaryTree()
+{
+    delete node;
+    delete leftBranch;
+    delete rightBranch;
+    delete leftNode;
+    delete rightNode;
+}

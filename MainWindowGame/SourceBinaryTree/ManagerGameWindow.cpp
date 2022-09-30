@@ -12,6 +12,8 @@ void ManagerGameWindow::updateBuilder(Builder* newBuilder)
     if(builder != nullptr){
         delete builder;
         builder = newBuilder;
+        gameWin->updateGraphicsView(builder->scene());
+        newBuilder = nullptr;
     }
     else if(builder == nullptr){
         builder = newBuilder;

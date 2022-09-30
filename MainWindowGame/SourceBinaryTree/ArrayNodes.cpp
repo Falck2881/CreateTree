@@ -49,6 +49,11 @@ quint32 ArrayNodes::getIndex()
     return currentIndex;
 }
 
+ArrayNodes::~ArrayNodes()
+{
+    nodes.clear();
+    nodes.shrink_to_fit();
+}
 
 LinearArrayNodes::LinearArrayNodes(const QString nameBuilder):ArrayNodes(nameBuilder)
 {
@@ -121,4 +126,3 @@ GraphicsNode* ArrayNodesForPBTTree::moveData()
     updateIndex();
     return node;
 }
-

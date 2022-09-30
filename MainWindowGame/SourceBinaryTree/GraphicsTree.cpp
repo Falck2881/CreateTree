@@ -22,7 +22,7 @@ void GraphicsTree::initializeArrayOffsetBranch()
         leftOffsetByAxesXY2.setY(leftOffsetByAxesXY2.y() + ratioAxesY2);
         rightOffsetByAxesXY2.setX(rightOffsetByAxesXY2.x() / ratioAxesX2);
         rightOffsetByAxesXY2.setY(rightOffsetByAxesXY2.y() + ratioAxesY2);
-        ratioAxesX2 += 0.4;
+        ratioAxesX2 += 0.1;
         ratioAxesY2 += 1.2;
     }
 }
