@@ -1,7 +1,6 @@
 #include "MethodBuild.h"
-#include "BuilderRandomTree.h"
-#include "BuilderAvlTree.h"
-#include "BuilderPerfectBalanced.h"
+#include "GraphicsBuilderBinaryTree.h"
+#include "GraphicsBuilderAvlTree.h"
 #include "GameWindow.h"
 
 MethodBuild::MethodBuild(QRadioButton* const ptrButton):button(ptrButton)
@@ -17,11 +16,11 @@ MethodBuildRandomTree::MethodBuildRandomTree(QRadioButton* const ptrButton):Meth
 {
 }
 
-Builder* MethodBuildRandomTree::methodBuild()
+GraphicsBuilder* MethodBuildRandomTree::methodBuild()
 {
-    Builder* builder = nullptr;
+    GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new BuilderRandomTree;
+        builder = new GraphicsBuilderBinaryTree;
 
     return builder;
 }
@@ -48,11 +47,11 @@ ArrayNodes* MethodBuildRandomTree::managerDefinesTypeArrayInArchive(const QStrin
 MethodBuildPerfectBalancedTree::MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
 {}
 
-Builder* MethodBuildPerfectBalancedTree::methodBuild()
+GraphicsBuilder* MethodBuildPerfectBalancedTree::methodBuild()
 {
-    Builder* builder = nullptr;
+    GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new BuilderPerfectBalanced;
+        builder = new GraphicsBuilderBinaryTree;
 
     return builder;
 }
@@ -79,11 +78,11 @@ ArrayNodes* MethodBuildPerfectBalancedTree::managerDefinesTypeArrayInArchive(con
 MethodBuildAvlTree::MethodBuildAvlTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
 {}
 
-Builder* MethodBuildAvlTree::methodBuild()
+GraphicsBuilder* MethodBuildAvlTree::methodBuild()
 {
-    Builder* builder = nullptr;
+    GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new BuilderAvlTree;
+        builder = new GraphicsBuilderAvlTree;
 
     return builder;
 }

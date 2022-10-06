@@ -35,3 +35,9 @@ GraphicsNode* Archive::nextElement()
     gameWin->updateInformationAboutNode(pair);
     return node;
 }
+
+Archive::~Archive()
+{
+    delete array;
+    qDebug() << "Archive::~Archive()";
+}

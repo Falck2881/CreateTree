@@ -21,10 +21,8 @@ GameWindow::GameWindow(QWidget* const mainWindow):
 
 void GameWindow::postAUiTheGameWindow()
 {
-    uiGameWin.balancedButton = new QPushButton(QString("Bulanced Tree"));
     ui->formLayoutForLocalUi->addRow(&titleStrategy, &uiGameWin.strategy);
     ui->formLayoutForLocalUi->addRow(&titleBuilder, &uiGameWin.builder);
-    ui->vertLayoutForButton->addWidget(uiGameWin.balancedButton,1);
 }
 
 void GameWindow::addCommandsInLinkerMainWindow()
@@ -63,7 +61,7 @@ void GameWindow::gameEnd()
 {
    ui->insertButton->setCheckable(true);
    ui->insertButton->setChecked(false);
-   ui->imgNode->setPixmap(QString(":/bobNotFound.jpg"));
+   ui->imgNode->setPixmap(QString(":/bobNotFound.png"));
    ui->unicode->setText(QString("There in no more data"));
 }
 

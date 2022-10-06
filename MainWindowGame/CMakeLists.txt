@@ -39,14 +39,12 @@ set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/BalancedBTree.cpp
                           SourceBinaryTree/ManagerGameWindow.h
                           SourceBinaryTree/ManagerGameWindow.cpp
-                          SourceBinaryTree/Builder.h
-                          SourceBinaryTree/Builder.cpp
-                          SourceBinaryTree/BuilderRandomTree.h
-                          SourceBinaryTree/BuilderRandomTree.cpp
-                          SourceBinaryTree/BuilderPerfectBalanced.h
-                          SourceBinaryTree/BuilderPerfectBalanced.cpp
-                          SourceBinaryTree/BuilderAvlTree.h
-                          SourceBinaryTree/BuilderAvlTree.cpp
+                          SourceBinaryTree/GraphicsBuilder.h
+                          SourceBinaryTree/GraphicsBuilder.cpp
+                          SourceBinaryTree/GraphicsBuilderBinaryTree.h
+                          SourceBinaryTree/GraphicsBuilderBinaryTree.cpp
+                          SourceBinaryTree/GraphicsBuilderAvlTree.h
+                          SourceBinaryTree/GraphicsBuilderAvlTree.cpp
                           SourceBinaryTree/SimpleRandom.h
                           SourceBinaryTree/SimpleRandom.cpp
                           SourceBinaryTree/MethodBuild.h
@@ -54,9 +52,7 @@ set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/MethodCustomizationUi.h
                           SourceBinaryTree/MethodCustomizationUi.cpp
                           SourceBinaryTree/ArrayNodes.h
-                          SourceBinaryTree/ArrayNodes.cpp
-                          SourceBinaryTree/GraphicsTree.h
-                          SourceBinaryTree/GraphicsTree.cpp)
+                          SourceBinaryTree/ArrayNodes.cpp)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}

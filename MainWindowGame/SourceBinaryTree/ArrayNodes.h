@@ -9,7 +9,7 @@
     {
         public:
             ArrayNodes(const QString nameBuilder);
-            virtual ~ArrayNodes() = default;
+            virtual ~ArrayNodes();
             bool empty();
             virtual GraphicsNode* moveData() = 0;
         private:

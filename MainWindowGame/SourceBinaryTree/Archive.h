@@ -10,6 +10,7 @@ class Archive
 {
     public:
         explicit Archive(GameWindow* const gameWin);
+        ~Archive();
         void updateArrayNodes(ArrayNodes* newArrayNodes);
         bool empty();
         GraphicsNode* nextElement();

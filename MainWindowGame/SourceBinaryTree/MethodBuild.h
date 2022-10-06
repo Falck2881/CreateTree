@@ -5,7 +5,7 @@
 #include <QRadioButton>
 #include <vector>
 #include <memory>
-#include "Builder.h"
+#include "GraphicsBuilder.h"
 #include "MethodCustomizationUi.h"
 #include "ArrayNodes.h"
 
@@ -16,7 +16,7 @@ class MethodBuild
     public:
         virtual ~MethodBuild() = default;
         bool isMethodBuild();
-        virtual Builder* methodBuild() = 0;
+        virtual GraphicsBuilder* methodBuild() = 0;
         virtual std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) = 0;
         virtual ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) = 0;
     protected:
@@ -29,7 +29,7 @@ class MethodBuildRandomTree: public MethodBuild
     public:
         MethodBuildRandomTree(QRadioButton* const ptrButton);
     private:
-        Builder* methodBuild() override final;
+        GraphicsBuilder* methodBuild() override final;
         std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
         ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
 };
@@ -39,7 +39,7 @@ class MethodBuildAvlTree: public MethodBuild
     public:
         MethodBuildAvlTree(QRadioButton* const ptrButton);
     private:
-        Builder* methodBuild() override final;
+        GraphicsBuilder* methodBuild() override final;
         std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
         ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
 };
@@ -49,7 +49,7 @@ class MethodBuildPerfectBalancedTree: public MethodBuild
     public:
         MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton);
     private:
-        Builder* methodBuild() override final;
+        GraphicsBuilder* methodBuild() override final;
         std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
         ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
 };
