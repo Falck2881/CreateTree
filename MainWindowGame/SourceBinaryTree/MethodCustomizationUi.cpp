@@ -16,7 +16,6 @@ void CustomizationUiUnderBalancedTree::customizationUi(GW::Ui& uiGameWin)
 {
     uiGameWin.builder.setText(nameBuilder);
     uiGameWin.strategy.setText(methodBuild);
-    uiGameWin.balancedButton->show();
 }
 
 CustomizationUiUnderSimpleTree::CustomizationUiUnderSimpleTree(const QString nameMethod, const QString nameBuilder):
@@ -29,5 +28,4 @@ void CustomizationUiUnderSimpleTree::customizationUi(GW::Ui& uiGameWin)
 {
     uiGameWin.builder.setText(nameBuilder);
     uiGameWin.strategy.setText(methodBuild);
-    uiGameWin.balancedButton->hide();
 }

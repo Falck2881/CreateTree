@@ -20,7 +20,6 @@ namespace GW
     {
         QLabel builder;
         QLabel strategy;
-        QPushButton* balancedButton;
     };
 }
 

@@ -7,7 +7,7 @@ ManagerGameWindow::ManagerGameWindow(GameWindow* const gameWin):
 {
 }
 
-void ManagerGameWindow::updateBuilder(Builder* newBuilder)
+void ManagerGameWindow::updateBuilder(GraphicsBuilder* newBuilder)
 {
     if(builder != nullptr){
         delete builder;
@@ -30,7 +30,7 @@ void ManagerGameWindow::updateArrayNodes(ArrayNodes*newDataType)
 void ManagerGameWindow::insertNode()
 {
     if(!archive->empty())
-        builder->addNodeInTree(archive->nextElement());
+        builder->addGraphicsNodeInTree(archive->nextElement());
     else
         gameWin->gameEnd();
 }

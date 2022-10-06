@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
-GraphicsNode::GraphicsNode(const QJsonValue value):rect(0.0,0.0,1000.0,1000.0)
+GraphicsNode::GraphicsNode(const QJsonValue value):position(0.0,0.0),rect(0.0,0.0,1200.0,1200.0)
 {
     Q_INIT_RESOURCE(Images);
     QJsonObject obj = value.toObject();
