@@ -13,7 +13,7 @@
 StartWindow::StartWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::StartWindow),
-    mainWinGame{std::make_unique<MainWindowGame>()},
+    mainWin{std::make_unique<MainWindowGame>()},
     linkerWinSwitching{std::make_unique<LinkerCommands>()}
 {
     ui->setupUi(this); 
@@ -38,7 +38,7 @@ void StartWindow::connectToWindowInputData()
 void StartWindow::addCommandInLinker()
 {
     linkerWinSwitching->addCommand(std::make_unique<HideWgdCommand>(this));
-    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(mainWinGame.get()));
+    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(mainWin.get()));
 }
 
 void StartWindow::paintEvent(QPaintEvent *)

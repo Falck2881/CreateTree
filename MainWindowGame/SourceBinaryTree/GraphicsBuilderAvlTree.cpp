@@ -1,21 +1,5 @@
 #include "GraphicsBuilderAvlTree.h"
 
-PositionItems::PositionItems(QPointF oldPos,
-                             std::pair<QLineF, QLineF> branchParent,
-                             std::pair<QLineF,QLineF> branchChild):
-    oldPosParentNode(oldPos),
-    branchesParendNode(std::move(branchParent)),
-    branchesChildNode(std::move(branchChild))
-{
-}
-
-PositionItems::PositionItems(PositionItems& oldPosItems)
-{
-    this->oldPosParentNode = oldPosItems.oldPosParentNode;
-    this->branchesParendNode = std::move(oldPosItems.branchesParendNode);
-    this->branchesChildNode = std::move(oldPosItems.branchesChildNode);
-}
-
 GraphicsBuilderAvlTree::GraphicsBuilderAvlTree():tree(nullptr)
 {
 
@@ -33,7 +17,7 @@ SimpleBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* co
     if(currentNode == nullptr)
     {
         currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(QPointF(500.0,200.0),arrayOffsetBranch.at(index));
+        currentNode->setPositionGraphicsItems(QPointF(500.0,200.0),array.element());
         sceneNode->addItem(currentNode->itemNode());
         sceneNode->addItem(currentNode->itemLeftBranch());
         sceneNode->addItem(currentNode->itemRightBranch());
@@ -41,18 +25,18 @@ SimpleBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* co
     else if(itemNode->key() < currentNode->key())
     {
         currentNode->itemLeftBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
                                                       currentNode->itemLeftBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
     else if(itemNode->key() > currentNode->key())
     {
         currentNode->itemRightBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode, currentNode->rightNode,
                                                        currentNode->itemRightBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
 
     fixBalanced(currentNode);
@@ -68,7 +52,7 @@ SimpleBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* co
     if(currentNode == nullptr)
     {
         currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(newPosNode,arrayOffsetBranch.at(index));
+        currentNode->setPositionGraphicsItems(newPosNode,array.element());
         sceneNode->addItem(currentNode->itemNode());
         sceneNode->addItem(currentNode->itemLeftBranch());
         sceneNode->addItem(currentNode->itemRightBranch());
@@ -76,18 +60,18 @@ SimpleBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* co
     else if(itemNode->key() < currentNode->key())
     {
         currentNode->itemLeftBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
                                                       currentNode->itemLeftBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
     else if(itemNode->key() > currentNode->key())
     {
         currentNode->itemRightBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode, currentNode->rightNode,
                                                        currentNode->itemRightBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
 
     fixBalanced(currentNode);
@@ -170,18 +154,26 @@ SimpleBinaryTree* GraphicsBuilderAvlTree::rotateOnRight(SimpleBinaryTree *curren
 }
 
 void GraphicsBuilderAvlTree::updatePositionAllItems(SimpleBinaryTree*& currentNode,
-                                                    const QPointF posBranchXY2)
+                                                    const QPointF posBranchXY2,
+                                                    QGraphicsLineItem* const branch)
 {
-    if(currentNode == nullptr)
+    if(currentNode == nullptr){
+        branch->hide();
         return;
+    }
+    else
     {
         updateItemsTree(currentNode, posBranchXY2);
-        incrementIndex();
+        array.increment();
         currentNode->itemLeftBranch()->show();
-        updatePositionAllItems(currentNode->leftNode,currentNode->itemLeftBranch()->line().p2());
+        updatePositionAllItems(currentNode->leftNode,
+                               currentNode->itemLeftBranch()->line().p2(),
+                               currentNode->itemLeftBranch());
         currentNode->itemRightBranch()->show();
-        updatePositionAllItems(currentNode->rightNode,currentNode->itemRightBranch()->line().p2());
-        decrimentIndex();
+        updatePositionAllItems(currentNode->rightNode,
+                               currentNode->itemRightBranch()->line().p2(),
+                               currentNode->itemRightBranch());
+        array.decriment();
     }
 }
 
@@ -189,7 +181,7 @@ void GraphicsBuilderAvlTree::updateItemsTree(SimpleBinaryTree *&currentNode, con
 {
     const QPointF currentPosNode = updatePositionNode(currentNode->itemNode(), newPosNode);
 
-    auto offsetBranch = arrayOffsetBranch.at(index);
+    auto offsetBranch = array.element();
 
     const QPointF beginXY1(currentPosNode.x() + qreal(20.0),
                            currentPosNode.y() + qreal(40.0));

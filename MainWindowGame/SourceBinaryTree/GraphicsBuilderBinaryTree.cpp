@@ -7,7 +7,6 @@ GraphicsBuilderBinaryTree::GraphicsBuilderBinaryTree():tree(nullptr)
 }
 
 void GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode* const newNode)
-
 {
     tree = addGraphicsNodeInTree(newNode,tree);
 }
@@ -18,7 +17,7 @@ SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode*
     if(currentNode == nullptr)
     {
         currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(QPointF(500.0,200.0),arrayOffsetBranch.at(index));
+        currentNode->setPositionGraphicsItems(QPointF(500.0,200.0),array.element());
         sceneNode->addItem(currentNode->itemNode());
         sceneNode->addItem(currentNode->itemLeftBranch());
         sceneNode->addItem(currentNode->itemRightBranch());
@@ -27,18 +26,18 @@ SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode*
     else if(itemNode->key() < currentNode->key())
     {
         currentNode->itemLeftBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
                                                       currentNode->itemLeftBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
     else if(itemNode->key() > currentNode->key())
     {
         currentNode->itemRightBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode,currentNode->rightNode,
                                                        currentNode->itemRightBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
     return currentNode;
 }
@@ -50,7 +49,7 @@ SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode 
     if(currentNode == nullptr)
     {
         currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(newPosNode,arrayOffsetBranch.at(index));
+        currentNode->setPositionGraphicsItems(newPosNode,array.element());
         sceneNode->addItem(currentNode->itemNode());
         sceneNode->addItem(currentNode->itemLeftBranch());
         sceneNode->addItem(currentNode->itemRightBranch());
@@ -58,18 +57,18 @@ SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode 
     else if(itemNode->key() < currentNode->key())
     {
         currentNode->itemLeftBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
                                                       currentNode->itemLeftBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
     else if(itemNode->key() > currentNode->key())
     {
         currentNode->itemRightBranch()->show();
-        incrementIndex();
+        array.increment();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode, currentNode->rightNode,
                                                        currentNode->itemRightBranch()->line().p2());
-        decrimentIndex();
+        array.decriment();
     }
 
     return currentNode;

@@ -59,7 +59,7 @@ class LinkerMethodsBuilds: public QObject
     Q_OBJECT
 
     public:
-        LinkerMethodsBuilds(GameWindow * const ptrGameWin);
+        LinkerMethodsBuilds(GameWindow* const gameWindow);
         void append(std::unique_ptr<MethodBuild> newMethod);
         void updateNameBuilder(const QString newNameBuilder);
     public slots:

@@ -5,24 +5,19 @@
 #include "GraphicsNode.h"
 #include <QtGlobal>
 
+class GameWindow;
+
     class ArrayNodes
     {
         public:
             ArrayNodes(const QString nameBuilder);
             virtual ~ArrayNodes();
             bool empty();
-            virtual GraphicsNode* moveData() = 0;
+            virtual GraphicsNode* getData() = 0;
         private:
             void extractContent(const QString nameBuilder);
         protected:
-            void clearOldReferenceOnData(const quint32 index);
-            void updateArrayBoundaries(const qint32 min, const qint32 max);
-            void updateIndex();
-            quint32 getIndex();
             std::vector<GraphicsNode*> nodes;
-            qint32 minSizeVector;
-            qint32 maxSizeVector;
-            quint32 currentIndex;
     };
 
     class ArrayNodesForRandomTree: public ArrayNodes
@@ -30,7 +25,7 @@
         public:
             ArrayNodesForRandomTree(const QString nameBuilder);
         private:
-            GraphicsNode* moveData() override final;
+            GraphicsNode* getData() override final;
             SimpleRandom simplRandom;
     };
 
@@ -42,8 +37,9 @@
             void fillArrayAnIndexes(const qint32 leftEdge, const qint32 rightEdge);
             void sortingByInsertion(std::vector<GraphicsNode*>& nodes);
         private:
-            GraphicsNode* moveData() override final;
+            GraphicsNode* getData() override final;
             std::vector<qint32> arrIndex;
+            std::vector<qint32>::iterator currIndex;
     };
 
     class LinearArrayNodes: public ArrayNodes
@@ -51,6 +47,7 @@
         public:
             LinearArrayNodes(const QString nameBuilder);
         private:
-            GraphicsNode* moveData() override final;
+            GraphicsNode* getData() override final;
+            std::vector<GraphicsNode*>::iterator currNode;
     };
 #endif // ARRAYNODES_H

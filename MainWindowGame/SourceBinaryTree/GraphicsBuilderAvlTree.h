@@ -3,6 +3,7 @@
 
 #include "GraphicsBuilder.h"
 #include "SimpleBinaryTree.h"
+#include "MethodsInitArrOffsets.h"
 
 class PositionItems
 {
@@ -20,6 +21,7 @@ class GraphicsBuilderAvlTree: public GraphicsBuilder
 {
     public:
         GraphicsBuilderAvlTree();
+        ~GraphicsBuilderAvlTree() = default;
         void addGraphicsNodeInTree(GraphicsNode* const newNode) override final;
 
     private:
@@ -35,11 +37,12 @@ class GraphicsBuilderAvlTree: public GraphicsBuilder
         SimpleBinaryTree* rotateOnLeft(SimpleBinaryTree* currentNode);
         SimpleBinaryTree* rotateOnRight(SimpleBinaryTree* currentNode);
         void updatePositionAllItems(SimpleBinaryTree*& currentNode,
-                                    const QPointF posBranchXY2 = QPointF(0.0,0.0));
+                                    const QPointF posBranchXY2 = QPointF(0.0,0.0),
+                                    QGraphicsLineItem* const branch = nullptr);
         void updateItemsTree(SimpleBinaryTree*& currentNode, const QPointF newPosNode);
         QPointF updatePositionNode(GraphicsNode*& node, const QPointF newPosNode);
         SimpleBinaryTree* tree;
-
+        ArrayOffsets<OffsetsBranchForAvlTree, std::pair<QPointF,QPointF>> array;
 };
 
 #endif // BUILDERAVLTREE_H

@@ -1,11 +1,11 @@
 ﻿#include "ArrayNodes.h"
 #include "StreamJson.h"
+#include "GameWindow.h"
 
-ArrayNodes::ArrayNodes(const QString nameBuilder):currentIndex{0}
+ArrayNodes::ArrayNodes(const QString nameBuilder)
 {
     Q_INIT_RESOURCE(BuildData);
     extractContent(nameBuilder);
-    updateArrayBoundaries(0,nodes.size()-1);
 }
 
 bool ArrayNodes::empty()
@@ -23,67 +23,51 @@ void ArrayNodes::extractContent(const QString nameBuilder)
     }
 }
 
-void ArrayNodes::updateArrayBoundaries(const qint32 minSize, const qint32 maxSize)
-{
-    minSizeVector = minSize;
-    maxSizeVector = maxSize;
-}
-
-
-void ArrayNodes::clearOldReferenceOnData(const quint32 index)
-{
-    nodes.erase(std::begin(nodes)+index);
-}
-
-void  ArrayNodes::updateIndex()
-{
-    if(currentIndex < quint32(maxSizeVector))
-        ++currentIndex;
-
-    if(currentIndex == quint32(maxSizeVector))
-        nodes.clear();
-}
-
-quint32 ArrayNodes::getIndex()
-{
-    return currentIndex;
-}
-
 ArrayNodes::~ArrayNodes()
 {
     nodes.clear();
     nodes.shrink_to_fit();
 }
 
-LinearArrayNodes::LinearArrayNodes(const QString nameBuilder):ArrayNodes(nameBuilder)
+LinearArrayNodes::LinearArrayNodes(const QString nameBuilder):ArrayNodes(nameBuilder),currNode(nodes.begin())
 {
 }
 
-GraphicsNode* LinearArrayNodes::moveData()
+GraphicsNode* LinearArrayNodes::getData()
 {
-    const quint32 index = getIndex();
-    GraphicsNode* node = nodes.at(index);
-    updateArrayBoundaries(0,nodes.size()-1);
-    updateIndex();
+    GraphicsNode* node = nullptr;
+
+    if(currNode != nodes.end()){
+        node = *currNode;
+        ++currNode;
+    }
+
     return node;
 }
 
 ArrayNodesForRandomTree::ArrayNodesForRandomTree(const QString nameBuilder):ArrayNodes(nameBuilder)
 {}
 
-GraphicsNode* ArrayNodesForRandomTree::moveData()
+GraphicsNode* ArrayNodesForRandomTree::getData()
 {
-    qint32 index = simplRandom.getNumber(minSizeVector,maxSizeVector);
-    GraphicsNode* node = nodes.at(index);
-    clearOldReferenceOnData(index);
-    updateArrayBoundaries(0,nodes.size()-1);
+    GraphicsNode* node = nullptr;
+
+    if(!nodes.empty())
+    {
+        const qint32 index = simplRandom.getNumber(0,nodes.size()-1);
+        node = *(nodes.begin()+index);
+        nodes.erase(std::begin(nodes)+index);
+        nodes.shrink_to_fit();
+    }
+
     return node;
 }
 
 ArrayNodesForPBTTree::ArrayNodesForPBTTree(const QString nameBuilder):ArrayNodes(nameBuilder)
 {
-    fillArrayAnIndexes(minSizeVector,maxSizeVector);
+    fillArrayAnIndexes(0,nodes.size()-1);
     sortingByInsertion(nodes);
+    currIndex = arrIndex.begin();
 }
 
 void ArrayNodesForPBTTree::fillArrayAnIndexes(const qint32 leftEdge, const qint32 rightEdge)
@@ -119,10 +103,18 @@ void ArrayNodesForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
     }
 }
 
-GraphicsNode* ArrayNodesForPBTTree::moveData()
+GraphicsNode* ArrayNodesForPBTTree::getData()
 {
-    const quint32 index = arrIndex.at(getIndex());
-    GraphicsNode* node = nodes.at(index);
-    updateIndex();
+    GraphicsNode* node = nullptr;
+
+    if(currIndex != arrIndex.end())
+    {
+        const quint32 index = *currIndex;
+        node = *(nodes.begin()+index);
+        ++currIndex;
+        return node;
+    }
+
     return node;
 }
+

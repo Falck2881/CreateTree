@@ -2,12 +2,13 @@
 #include "ui_GameWindow.h"
 #include "HideWgdCommand.h"
 #include "ShowWgdCommand.h"
+#include "MainWindowGame.h"
 
-GameWindow::GameWindow(QWidget* const mainWindow):
+GameWindow::GameWindow(QWidget* const mainWin):
     managerGameWin(std::make_unique<ManagerGameWindow>(this)),
     linkerMainWindow(std::make_unique<LinkerCommands>()),
     ui(new Ui::GameWindow),
-    mainWindow(mainWindow),
+    mainWindow(mainWin),
     titleStrategy(QString("Strategy: ")),
     titleBuilder(QString("Builder: "))
 {
@@ -57,12 +58,22 @@ void GameWindow::updateGraphicsView(QGraphicsScene *const scene)
     ui->graphicsView->setScene(scene);
 }
 
-void GameWindow::gameEnd()
+void GameWindow::completionConstruction()
 {
    ui->insertButton->setCheckable(true);
    ui->insertButton->setChecked(false);
    ui->imgNode->setPixmap(QString(":/bobNotFound.png"));
    ui->unicode->setText(QString("There in no more data"));
+}
+
+void GameWindow::updateStatyManager(GraphicsBuilder *builder)
+{
+    managerGameWin->updateBuilder(builder);
+}
+
+void GameWindow::updateStatyManager(ArrayNodes *newTypeArray)
+{
+    managerGameWin->updateArrayNodes(newTypeArray);
 }
 
 GameWindow::~GameWindow()

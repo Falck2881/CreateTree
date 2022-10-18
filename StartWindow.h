@@ -25,7 +25,7 @@ class StartWindow : public QWidget
         void addCommandInLinker();
     private:
         Ui::StartWindow *ui;
-        std::unique_ptr<QWidget> mainWinGame;
+        std::unique_ptr<QWidget> mainWin;
         std::unique_ptr<LinkerCommands> linkerWinSwitching;
 };
 

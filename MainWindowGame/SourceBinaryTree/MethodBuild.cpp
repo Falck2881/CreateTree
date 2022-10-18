@@ -105,9 +105,8 @@ ArrayNodes* MethodBuildAvlTree::managerDefinesTypeArrayInArchive(const QString n
     return dataType;
 }
 
-LinkerMethodsBuilds::LinkerMethodsBuilds(GameWindow* const ptrGameWin):gameWin{ptrGameWin}
+LinkerMethodsBuilds::LinkerMethodsBuilds(GameWindow* const gameWindow):gameWin(gameWindow)
 {
-
 }
 
 void LinkerMethodsBuilds::updateNameBuilder(const QString newNameBuilder)
@@ -126,9 +125,9 @@ void LinkerMethodsBuilds::choiceMethodBuilding()
     {
        if(method->isMethodBuild())
        {
-           gameWin->managerGameWin->updateBuilder(method->methodBuild());
+           gameWin->updateStatyManager(method->methodBuild());
            gameWin->updateUiAboutStrategy(method->builderCustomizationUi(nameBuilder));
-           gameWin->managerGameWin->updateArrayNodes(method->managerDefinesTypeArrayInArchive(nameBuilder));
+           gameWin->updateStatyManager(method->managerDefinesTypeArrayInArchive(nameBuilder));
            break;
        }
     }

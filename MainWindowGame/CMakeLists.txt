@@ -26,8 +26,7 @@ set(WINDOWS MainWindowGame.cpp
             GameWindow.h
             GameWindow.ui)
 
-set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
-                          SourceBinaryTree/Archive.cpp
+set(SOURCE_BINARY_TREE
                           SourceBinaryTree/GraphicsNode.cpp
                           SourceBinaryTree/GraphicsNode.h
                           SourceBinaryTree/StreamJson.h
@@ -52,7 +51,10 @@ set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/MethodCustomizationUi.h
                           SourceBinaryTree/MethodCustomizationUi.cpp
                           SourceBinaryTree/ArrayNodes.h
-                          SourceBinaryTree/ArrayNodes.cpp)
+                          SourceBinaryTree/ArrayNodes.cpp
+                          SourceBinaryTree/ArrayOffsets.h
+                          SourceBinaryTree/MethodsInitArrOffsets.h
+                          SourceBinaryTree/ConceptMethodInitArr.h)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}

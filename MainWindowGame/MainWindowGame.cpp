@@ -11,8 +11,8 @@
 
 MainWindowGame::MainWindowGame():
     ui(new Ui::MainWindowGame),
-    winInputData(std::make_unique<WindowInputData>(this)),
     gameWindow{std::make_unique<GameWindow>(this)},
+    winInputData{std::make_unique<WindowInputData>(this)},
     linkerGameWindow{std::make_unique<LinkerCommands>()},
     linkerMethodsBuilds{std::make_unique<LinkerMethodsBuilds>(gameWindow.get())}
 {
@@ -92,6 +92,7 @@ void MainWindowGame::updateStatyStartButton(const QString &nameBuilder)
     if(nameBuilder != "")
         ui->startButton->setEnabled(true);
 }
+
 
 MainWindowGame::~MainWindowGame()
 {
