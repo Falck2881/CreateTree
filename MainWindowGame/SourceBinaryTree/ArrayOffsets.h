@@ -11,20 +11,17 @@ class ArrayOffsets
     public:
         ArrayOffsets();
         ~ArrayOffsets() = default;
-        void increment();
-        void decriment();
-        auto element();
+        auto elementAt(const qsizetype index);
     private:
         std::vector<TypeElement> arrayOffsetBranch;
         MethodInit method;
-        qint32 index;
     private:
         void initialize();
 };
 
 template<typename MethodInit, typename TypeElement>
 requires IsAcceptableTypeVector<TypeElement> && IsInitializeOffsetBranch<MethodInit,TypeElement>
-ArrayOffsets<MethodInit,TypeElement>::ArrayOffsets():index(0)
+ArrayOffsets<MethodInit,TypeElement>::ArrayOffsets()
 {
     initialize();
 }
@@ -38,24 +35,9 @@ void ArrayOffsets<MethodInit,TypeElement>::initialize()
 
 template<typename MethodInit, typename TypeElement>
 requires IsAcceptableTypeVector<TypeElement> && IsInitializeOffsetBranch<MethodInit,TypeElement>
-auto ArrayOffsets<MethodInit,TypeElement>::element()
+auto ArrayOffsets<MethodInit,TypeElement>::elementAt(const qsizetype index)
 {
     return arrayOffsetBranch.at(index);
-}
-
-template<typename MethodInit, typename TypeElement>
-requires IsAcceptableTypeVector<TypeElement> && IsInitializeOffsetBranch<MethodInit,TypeElement>
-void ArrayOffsets<MethodInit,TypeElement>::increment()
-{
-    ++index;
-}
-
-template<typename MethodInit, typename TypeElement>
-requires IsAcceptableTypeVector<TypeElement> && IsInitializeOffsetBranch<MethodInit,TypeElement>
-void ArrayOffsets<MethodInit,TypeElement>::decriment()
-{
-    if(index != 0)
-         --index;
 }
 
 #endif // ARRAYOFFSETS_H

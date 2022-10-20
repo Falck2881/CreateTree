@@ -8,16 +8,17 @@ GraphicsBuilderBinaryTree::GraphicsBuilderBinaryTree():tree(nullptr)
 
 void GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode* const newNode)
 {
-    tree = addGraphicsNodeInTree(newNode,tree);
+    tree = addGraphicsNodeInTree(newNode,tree,QPointF(500.0,200.0));
 }
 
-SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                   SimpleBinaryTree* currentNode)
+GraphicsBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree
+(GraphicsNode* const itemNode, GraphicsBinaryTree* currentNode,
+ QPointF startPosNode, qsizetype index)
 {
     if(currentNode == nullptr)
     {
-        currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(QPointF(500.0,200.0),array.element());
+        currentNode = new GraphicsBinaryTree(itemNode);
+        currentNode->setPosition(startPosNode,array.elementAt(index));
         sceneNode->addItem(currentNode->itemNode());
         sceneNode->addItem(currentNode->itemLeftBranch());
         sceneNode->addItem(currentNode->itemRightBranch());
@@ -26,50 +27,16 @@ SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode*
     else if(itemNode->key() < currentNode->key())
     {
         currentNode->itemLeftBranch()->show();
-        array.increment();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
-                                                      currentNode->itemLeftBranch()->line().p2());
-        array.decriment();
+                                                      currentNode->p2LeftBranch(),
+                                                      index+1);
     }
     else if(itemNode->key() > currentNode->key())
     {
         currentNode->itemRightBranch()->show();
-        array.increment();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode,currentNode->rightNode,
-                                                       currentNode->itemRightBranch()->line().p2());
-        array.decriment();
+                                                       currentNode->p2RightBranch(),
+                                                       index+1);
     }
-    return currentNode;
-}
-
-SimpleBinaryTree* GraphicsBuilderBinaryTree::addGraphicsNodeInTree(GraphicsNode *const itemNode,
-                                                                   SimpleBinaryTree* currentNode,
-                                                                   const QPointF newPosNode)
-{
-    if(currentNode == nullptr)
-    {
-        currentNode = new SimpleBinaryTree(itemNode);
-        currentNode->setPositionGraphicsItems(newPosNode,array.element());
-        sceneNode->addItem(currentNode->itemNode());
-        sceneNode->addItem(currentNode->itemLeftBranch());
-        sceneNode->addItem(currentNode->itemRightBranch());
-    }
-    else if(itemNode->key() < currentNode->key())
-    {
-        currentNode->itemLeftBranch()->show();
-        array.increment();
-        currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode,
-                                                      currentNode->itemLeftBranch()->line().p2());
-        array.decriment();
-    }
-    else if(itemNode->key() > currentNode->key())
-    {
-        currentNode->itemRightBranch()->show();
-        array.increment();
-        currentNode->rightNode = addGraphicsNodeInTree(itemNode, currentNode->rightNode,
-                                                       currentNode->itemRightBranch()->line().p2());
-        array.decriment();
-    }
-
     return currentNode;
 }

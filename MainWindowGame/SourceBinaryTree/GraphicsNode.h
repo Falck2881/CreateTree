@@ -9,6 +9,7 @@
 class GraphicsNode: public QGraphicsItem
 {
     public:
+        GraphicsNode() = default;
         explicit GraphicsNode(const QJsonValue obj);
         void setPos(QPointF point);
         QPointF pos() const;
@@ -17,6 +18,7 @@ class GraphicsNode: public QGraphicsItem
         uint key() const;
         void setParent(QGraphicsItem* item);
         QRectF boundingRect() const override final;
+        GraphicsNode& operator=(GraphicsNode* const);
     private:
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override final;
         void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override final;

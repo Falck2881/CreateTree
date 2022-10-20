@@ -3,7 +3,7 @@
 
 #include "ConceptMethodInitArr.h"
 #include "ArrayOffsets.h"
-#include "SimpleBinaryTree.h"
+#include "GraphicsNode.h"
 #include <QGraphicsScene>
 #include <stdexcept>
 

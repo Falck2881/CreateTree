@@ -66,3 +66,16 @@ void GraphicsNode::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
 }
+
+GraphicsNode& GraphicsNode::operator=(GraphicsNode* const old)
+{
+    if(this == old)
+        return *this;
+
+    this->imageNode = old->imageNode;
+    this->position = old->position;
+    this->_keyNameletter = old->_keyNameletter;
+    this->rect = old->rect;
+
+    return *this;
+}

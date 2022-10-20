@@ -4,6 +4,7 @@
 #include <QPointF>
 #include <utility>
 #include <vector>
+#include "GraphicsBinaryTree.h"
 
 template<typename MethodInit, typename Element>
 concept IsInitializeOffsetBranch =
@@ -13,7 +14,7 @@ concept IsInitializeOffsetBranch =
     };
 
 template<typename TypeElement>
-concept IsAcceptableTypeVector = std::same_as<TypeElement, std::pair<QPointF,QPointF>> ||
+concept IsAcceptableTypeVector = std::same_as<TypeElement, ValuesBranches> ||
                                  std::same_as<TypeElement, QPointF>;
 
 #endif // CONCEPTMETHODINITARR_H

@@ -31,11 +31,10 @@ set(SOURCE_BINARY_TREE
                           SourceBinaryTree/GraphicsNode.h
                           SourceBinaryTree/StreamJson.h
                           SourceBinaryTree/StreamJson.cpp
-                          SourceBinaryTree/Tree.h
-                          SourceBinaryTree/SimpleBinaryTree.h
-                          SourceBinaryTree/SimpleBinaryTree.cpp
-                          SourceBinaryTree/BalancedBTree.h
-                          SourceBinaryTree/BalancedBTree.cpp
+                          SourceBinaryTree/GraphicsBinaryTree.h
+                          SourceBinaryTree/GraphicsBinaryTree.cpp
+                          SourceBinaryTree/GraphicsBTree.h
+                          SourceBinaryTree/GraphicsBTree.cpp
                           SourceBinaryTree/ManagerGameWindow.h
                           SourceBinaryTree/ManagerGameWindow.cpp
                           SourceBinaryTree/GraphicsBuilder.h
@@ -53,8 +52,11 @@ set(SOURCE_BINARY_TREE
                           SourceBinaryTree/ArrayNodes.h
                           SourceBinaryTree/ArrayNodes.cpp
                           SourceBinaryTree/ArrayOffsets.h
-                          SourceBinaryTree/MethodsInitArrOffsets.h
-                          SourceBinaryTree/ConceptMethodInitArr.h)
+                          SourceBinaryTree/OffsetBinaryBranch.h
+                          SourceBinaryTree/OffsetBinaryBranch.cpp
+                          SourceBinaryTree/ConceptMethodInitArr.h
+                          SourceBinaryTree/GraphicsBuilderBTree.h
+                          SourceBinaryTree/GraphicsBuilderBTree.cpp)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}
