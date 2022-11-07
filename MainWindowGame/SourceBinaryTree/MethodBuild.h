@@ -6,8 +6,7 @@
 #include <vector>
 #include <memory>
 #include "GraphicsBuilder.h"
-#include "MethodCustomizationUi.h"
-#include "ArrayNodes.h"
+#include "Array.h"
 
 class GameWindow;
 
@@ -17,8 +16,7 @@ class MethodBuild
         virtual ~MethodBuild() = default;
         bool isMethodBuild();
         virtual GraphicsBuilder* methodBuild() = 0;
-        virtual std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) = 0;
-        virtual ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) = 0;
+        virtual Array* typeArray(const QString data) = 0;
     protected:
         MethodBuild(QRadioButton* const ptrButton);
         QRadioButton* const button;
@@ -30,8 +28,7 @@ class MethodBuildRandomTree: public MethodBuild
         MethodBuildRandomTree(QRadioButton* const ptrButton);
     private:
         GraphicsBuilder* methodBuild() override final;
-        std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
-        ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
+        Array* typeArray(const QString data) override final;
 };
 
 class MethodBuildAvlTree: public MethodBuild
@@ -40,8 +37,7 @@ class MethodBuildAvlTree: public MethodBuild
         MethodBuildAvlTree(QRadioButton* const ptrButton);
     private:
         GraphicsBuilder* methodBuild() override final;
-        std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
-        ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
+        Array* typeArray(const QString data) override final;
 };
 
 class MethodBuildPerfectBalancedTree: public MethodBuild
@@ -50,8 +46,16 @@ class MethodBuildPerfectBalancedTree: public MethodBuild
         MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton);
     private:
         GraphicsBuilder* methodBuild() override final;
-        std::unique_ptr<MethodCustomizationUi> builderCustomizationUi(const QString nameBuilder) override final;
-        ArrayNodes* managerDefinesTypeArrayInArchive(const QString nameBuilder) override final;
+        Array* typeArray(const QString data) override final;
+};
+
+class MethodBuildBTree: public MethodBuild
+{
+    public:
+        MethodBuildBTree(QRadioButton* const ptrButton);
+    private:
+        GraphicsBuilder* methodBuild() override final;
+        Array* typeArray(const QString data) override final;
 };
 
 class LinkerMethodsBuilds: public QObject
@@ -59,15 +63,15 @@ class LinkerMethodsBuilds: public QObject
     Q_OBJECT
 
     public:
-        LinkerMethodsBuilds(GameWindow * const ptrGameWin);
+        LinkerMethodsBuilds(GameWindow* const gameWindow);
         void append(std::unique_ptr<MethodBuild> newMethod);
-        void updateNameBuilder(const QString newNameBuilder);
+        void updateDataForBuilding(const QString nameBuilder);
     public slots:
         void choiceMethodBuilding();
     private:
         GameWindow* const gameWin;
         std::vector<std::shared_ptr<MethodBuild>> methods;
-        QString nameBuilder;
+        QString data;
 };
 
 #endif // METHODBUILD_H

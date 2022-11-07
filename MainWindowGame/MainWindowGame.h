@@ -2,11 +2,12 @@
 #define MAINWINDOWGAME_H
 
 #include "LinkerCommands.h"
-#include <QWidget>
 #include <memory>
 #include <QPixmap>
+#include <QWidget>
 
 class GameWindow;
+class WindowInputData;
 class LinkerMethodsBuilds;
 
 namespace Ui {
@@ -33,10 +34,11 @@ class MainWindowGame : public QWidget
         void addCommandsInLinkerShowGameWindow();
         void addMethodBuildInLinkerMethodsBuilds();
         void updateStatyStartButton(const QString& nameBuilder);
+        void windowPlacementInParentPos();
     private:
         Ui::MainWindowGame *ui;
-        std::unique_ptr<QWidget> winInputData;
         std::unique_ptr<GameWindow> gameWindow;
+        std::unique_ptr<WindowInputData> winInputData;
         std::unique_ptr<LinkerCommands> linkerGameWindow;
         std::unique_ptr<LinkerMethodsBuilds> linkerMethodsBuilds;
 };

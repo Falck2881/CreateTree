@@ -1,24 +1,22 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
-#include "SimpleBinaryTree.h"
+#include "GraphicsNode.h"
 #include <QGraphicsScene>
+#include <stdexcept>
 
 class GraphicsBuilder
 {
     public:
-        GraphicsBuilder();
+        explicit GraphicsBuilder(const QString methodBuild);
         virtual ~GraphicsBuilder() = default;
-        QGraphicsScene* scene() const;
+        QString methodBuild() const;
+        QGraphicsScene* scene();
         virtual void addGraphicsNodeInTree(GraphicsNode* const newItemNode) = 0;
-    protected:
-        void incrementIndex();
-        void decrimentIndex();
-        std::unique_ptr<QGraphicsScene> sceneNode;
-        std::vector<std::pair<QPointF,QPointF>> arrayOffsetBranch;
-        quint32 index;
     private:
-        void initializeArrayOffsetBranch();
+        const QString method;
+    protected:
+        std::unique_ptr<QGraphicsScene> sceneDisplayTree;
 };
 
 #endif // BUILDER_H

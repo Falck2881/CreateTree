@@ -17,7 +17,7 @@ class  WindowInputData : public QWidget
     Q_OBJECT
 
     public:
-        WindowInputData(MainWindowGame* const mainWinGame);
+        WindowInputData(MainWindowGame* const mainWin);
         ~WindowInputData();
     public slots:
         void show();
@@ -26,9 +26,10 @@ class  WindowInputData : public QWidget
         void addCommandsInDevelopmentConstructionBlocks();
         void connectToInputData();
         void connectWithCurrentWindow();
+        void windowPlacementInParentPos();
     private:
         Ui::WindowInputData *ui;
-        MainWindowGame* const mainWinGame;
+        MainWindowGame* const mainWindow;
         std::unique_ptr<ButtonActivityCommand> onNextButton;
         std::unique_ptr<ButtonActivityCommand> offNextButton;
         std::unique_ptr<KeyboardInput> inputData;

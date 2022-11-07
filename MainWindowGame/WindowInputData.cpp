@@ -4,14 +4,15 @@
 #include "HideWgdCommand.h"
 #include "MainWindowGame.h"
 
-WindowInputData::WindowInputData(MainWindowGame* const mainWinGame):
+WindowInputData::WindowInputData(MainWindowGame* const mainWin):
     ui(new Ui::WindowInputData),
-    mainWinGame(mainWinGame)
+    mainWindow(mainWin)
 {
     ui->setupUi(this);
     initializeCondition();
     connectToInputData();
     connectWithCurrentWindow();
+    windowPlacementInParentPos();
 }
 
 void WindowInputData::initializeCondition()
@@ -34,7 +35,7 @@ void WindowInputData::connectToInputData()
                      offNextButton.get(), &ButtonActivityCommand::off);
 
     QObject::connect(inputData.get(), &KeyboardInput::transferInputData,
-                     mainWinGame, &MainWindowGame::updateStateObjects);
+                     mainWindow, &MainWindowGame::updateStateObjects);
 
 }
 
@@ -47,6 +48,10 @@ void WindowInputData::connectWithCurrentWindow()
                      inputData.get(), &KeyboardInput::clearLineEdit);
 }
 
+void WindowInputData::windowPlacementInParentPos()
+{
+    this->move(600,350);
+}
 
 void WindowInputData::show()
 {

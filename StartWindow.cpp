@@ -13,13 +13,14 @@
 StartWindow::StartWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::StartWindow),
-    mainWinGame{std::make_unique<MainWindowGame>()},
+    mainWin{std::make_unique<MainWindowGame>()},
     linkerWinSwitching{std::make_unique<LinkerCommands>()}
 {
     ui->setupUi(this); 
     connectLogoGif();
     addCommandInLinker();
     connectToWindowInputData();
+    windowPlacementInParentPos();
 }
 
 void StartWindow::connectLogoGif()
@@ -29,16 +30,21 @@ void StartWindow::connectLogoGif()
     logoGif->start();
 }
 
+void StartWindow::addCommandInLinker()
+{
+    linkerWinSwitching->addCommand(std::make_unique<HideWgdCommand>(this));
+    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(mainWin.get()));
+}
+
 void StartWindow::connectToWindowInputData()
 {
     QObject::connect(ui->startButton, &QPushButton::clicked,
                      linkerWinSwitching.get(), &LinkerCommands::executeAllCommands);
 }
 
-void StartWindow::addCommandInLinker()
+void StartWindow::windowPlacementInParentPos()
 {
-    linkerWinSwitching->addCommand(std::make_unique<HideWgdCommand>(this));
-    linkerWinSwitching->addCommand(std::make_unique<ShowWgdCommand>(mainWinGame.get()));
+    this->move(600,350);
 }
 
 void StartWindow::paintEvent(QPaintEvent *)

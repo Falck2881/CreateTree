@@ -44,13 +44,19 @@
    <property name="horizontalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOn</enum>
    </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustIgnored</enum>
+   </property>
    <property name="sceneRect">
     <rectf>
      <x>0.000000000000000</x>
      <y>0.000000000000000</y>
-     <width>1000.000000000000000</width>
-     <height>1000.000000000000000</height>
+     <width>2000.000000000000000</width>
+     <height>1600.000000000000000</height>
     </rectf>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
    <property name="renderHints">
     <set>QPainter::Antialiasing|QPainter::LosslessImageRendering|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing|QPainter::VerticalSubpixelPositioning</set>
@@ -66,7 +72,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>150</y>
+     <y>200</y>
      <width>222</width>
      <height>301</height>
     </rect>
@@ -136,9 +142,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>470</y>
+     <y>510</y>
      <width>221</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="vertLayoutForButton">
@@ -176,16 +182,87 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>221</width>
-     <height>119</height>
+     <height>80</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayoutForLocalUi"/>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="titleNameBuilder">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string> Name Builder:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="name">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>221</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="titleMethodBuild">
+      <property name="maximumSize">
+       <size>
+        <width>260</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string> Method Build:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="method">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>

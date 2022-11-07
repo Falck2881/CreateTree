@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
-GraphicsNode::GraphicsNode(const QJsonValue value):position(0.0,0.0),rect(0.0,0.0,1200.0,1200.0)
+GraphicsNode::GraphicsNode(const QJsonValue value):position(0.0,0.0),boundingRectDisplayItem(0.0,0.0,2000.0,1600.0)
 {
     Q_INIT_RESOURCE(Images);
     QJsonObject obj = value.toObject();
@@ -19,6 +19,11 @@ GraphicsNode::GraphicsNode(const QJsonValue value):position(0.0,0.0),rect(0.0,0.
 QPixmap GraphicsNode::image() const
 {
     return imageNode;
+}
+
+QRectF GraphicsNode::rectItem() const
+{
+    return _rectItem;
 }
 
 QString GraphicsNode::keyNameLetter() const
@@ -38,9 +43,10 @@ void GraphicsNode::setParent(QGraphicsItem *item)
     this->setParentItem(item);
 }
 
-void GraphicsNode::setPos(QPointF newPos)
+void GraphicsNode::updatePos(QPointF newPos)
 {
     position = newPos;
+    _rectItem.setCoords(position.x(),position.y(),position.x()+40.0,position.y()+40.0);
 }
 
 QPointF GraphicsNode::pos() const
@@ -48,9 +54,19 @@ QPointF GraphicsNode::pos() const
     return this->mapFromScene(position);
 }
 
+qreal GraphicsNode::topRightX() const
+{
+    return _rectItem.topRight().x();
+}
+
+qreal GraphicsNode::topRightY() const
+{
+    return _rectItem.topRight().y();
+}
+
 QRectF GraphicsNode::boundingRect() const
 {
-    return rect;
+    return boundingRectDisplayItem;
 }
 
 void GraphicsNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -65,4 +81,17 @@ void GraphicsNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void GraphicsNode::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
+}
+
+GraphicsNode& GraphicsNode::operator=(GraphicsNode* const old)
+{
+    if(this == old)
+        return *this;
+
+    this->imageNode = old->imageNode;
+    this->position = old->position;
+    this->_keyNameletter = old->_keyNameletter;
+    this->boundingRectDisplayItem = old->boundingRectDisplayItem;
+
+    return *this;
 }

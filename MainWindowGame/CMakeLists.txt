@@ -26,17 +26,15 @@ set(WINDOWS MainWindowGame.cpp
             GameWindow.h
             GameWindow.ui)
 
-set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
-                          SourceBinaryTree/Archive.cpp
+set(SOURCE_BINARY_TREE
                           SourceBinaryTree/GraphicsNode.cpp
                           SourceBinaryTree/GraphicsNode.h
                           SourceBinaryTree/StreamJson.h
                           SourceBinaryTree/StreamJson.cpp
-                          SourceBinaryTree/Tree.h
-                          SourceBinaryTree/SimpleBinaryTree.h
-                          SourceBinaryTree/SimpleBinaryTree.cpp
-                          SourceBinaryTree/BalancedBTree.h
-                          SourceBinaryTree/BalancedBTree.cpp
+                          SourceBinaryTree/GraphicsBinaryTree.h
+                          SourceBinaryTree/GraphicsBinaryTree.cpp
+                          SourceBinaryTree/GraphicsBTree.h
+                          SourceBinaryTree/GraphicsBTree.cpp
                           SourceBinaryTree/ManagerGameWindow.h
                           SourceBinaryTree/ManagerGameWindow.cpp
                           SourceBinaryTree/GraphicsBuilder.h
@@ -49,10 +47,18 @@ set(SOURCE_BINARY_TREE    SourceBinaryTree/Archive.h
                           SourceBinaryTree/SimpleRandom.cpp
                           SourceBinaryTree/MethodBuild.h
                           SourceBinaryTree/MethodBuild.cpp
-                          SourceBinaryTree/MethodCustomizationUi.h
-                          SourceBinaryTree/MethodCustomizationUi.cpp
-                          SourceBinaryTree/ArrayNodes.h
-                          SourceBinaryTree/ArrayNodes.cpp)
+                          SourceBinaryTree/Array.h
+                          SourceBinaryTree/Array.cpp
+                          SourceBinaryTree/UpdateBinaryTree.h
+                          SourceBinaryTree/UpdateBinaryTree.cpp
+                          SourceBinaryTree/UpdateBTree.h
+                          SourceBinaryTree/UpdateBTree.cpp
+                          SourceBinaryTree/GraphicsBuilderBTree.h
+                          SourceBinaryTree/GraphicsBuilderBTree.cpp
+                          SourceBinaryTree/UpdateTree.h
+                          SourceBinaryTree/ConceptUpdateTree.h
+                          SourceBinaryTree/OffsetBranch.h
+                          SourceBinaryTree/OffsetBranch.cpp)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}

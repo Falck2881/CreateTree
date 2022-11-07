@@ -4,28 +4,26 @@
 #include <QRadioButton>
 #include <QObject>
 #include <QGraphicsView>
-#include "Archive.h"
 #include "GraphicsBuilder.h"
 #include "MethodBuild.h"
+#include "Array.h"
 
 class GameWindow;
 
 class ManagerGameWindow: public QObject
 {
     Q_OBJECT
+
     public:
-        explicit ManagerGameWindow(GameWindow* const gameWin);
+        ManagerGameWindow(GameWindow* const gameWindow);
         void updateBuilder(GraphicsBuilder* newBuilder);
-        void updateArrayNodes(ArrayNodes* newTypeArray);
+        void updateArray(Array* newTypeArray);
     public slots:
-        void insertNode();
-    private:
-        void clearDataManager();
-        void deleteDataManager();
+        void insertData();
     private:
         GameWindow* const gameWin;
         GraphicsBuilder* builder;
-        std::unique_ptr<Archive> archive;
+        Array* array;
 };
 
 #endif // MANAGERGAMEWINDOW_H

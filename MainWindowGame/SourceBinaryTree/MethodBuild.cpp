@@ -1,6 +1,7 @@
 #include "MethodBuild.h"
 #include "GraphicsBuilderBinaryTree.h"
 #include "GraphicsBuilderAvlTree.h"
+#include "GraphicsBuilderBTree.h"
 #include "GameWindow.h"
 
 MethodBuild::MethodBuild(QRadioButton* const ptrButton):button(ptrButton)
@@ -20,28 +21,19 @@ GraphicsBuilder* MethodBuildRandomTree::methodBuild()
 {
     GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new GraphicsBuilderBinaryTree;
+        builder = new GraphicsBuilderBinaryTree("Random Binary Tree");
 
     return builder;
 }
 
-std::unique_ptr<MethodCustomizationUi> MethodBuildRandomTree::builderCustomizationUi(const QString nameBuilder)
+Array* MethodBuildRandomTree::typeArray(const QString data)
 {
-    std::unique_ptr<MethodCustomizationUi> method;
-    if(button->isChecked())
-        method = std::make_unique<CustomizationUiUnderSimpleTree>(QString("Random Build Tree"), nameBuilder);
-
-    return method;
-}
-
-ArrayNodes* MethodBuildRandomTree::managerDefinesTypeArrayInArchive(const QString nameBuilder)
-{
-    ArrayNodes* dataType = nullptr;
+    Array* typeArray = nullptr;
 
     if(button->isChecked())
-        dataType = new ArrayNodesForRandomTree(nameBuilder);
+        typeArray = new ArrayForRandomTree(data);
 
-    return dataType;
+    return typeArray;
 }
 
 MethodBuildPerfectBalancedTree::MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
@@ -51,28 +43,19 @@ GraphicsBuilder* MethodBuildPerfectBalancedTree::methodBuild()
 {
     GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new GraphicsBuilderBinaryTree;
+        builder = new GraphicsBuilderBinaryTree(QString("Perfect Balanced Tree"));
 
     return builder;
 }
 
-std::unique_ptr<MethodCustomizationUi> MethodBuildPerfectBalancedTree::
-    builderCustomizationUi(const QString nameBuilder)
+
+Array* MethodBuildPerfectBalancedTree::typeArray(const QString data)
 {
-    std::unique_ptr<MethodCustomizationUi> method;
+    Array* typeArray = nullptr;
     if(button->isChecked())
-        method = std::make_unique<CustomizationUiUnderSimpleTree>(QString("Perfect Balanced Tree"),nameBuilder);
+        typeArray = new ArrayForPBTTree(data);
 
-    return method;
-}
-
-ArrayNodes* MethodBuildPerfectBalancedTree::managerDefinesTypeArrayInArchive(const QString nameBuilder)
-{
-    ArrayNodes* dataType = nullptr;
-    if(button->isChecked())
-        dataType = new ArrayNodesForPBTTree(nameBuilder);
-
-    return dataType;
+    return typeArray;
 }
 
 MethodBuildAvlTree::MethodBuildAvlTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
@@ -82,37 +65,51 @@ GraphicsBuilder* MethodBuildAvlTree::methodBuild()
 {
     GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        builder = new GraphicsBuilderAvlTree;
+        builder = new GraphicsBuilderAvlTree(QString("Avl Tree"));
 
     return builder;
 }
 
-
-std::unique_ptr<MethodCustomizationUi> MethodBuildAvlTree::builderCustomizationUi(const QString nameBuilder)
+Array* MethodBuildAvlTree::typeArray(const QString data)
 {
-    std::unique_ptr<MethodCustomizationUi> method;
+    Array* typeArray = nullptr;
     if(button->isChecked())
-        method = std::make_unique<CustomizationUiUnderBalancedTree>(QString("Avl Tree"), nameBuilder);
+        typeArray = new LinearArray(data);
 
-    return method;
+    return typeArray;
 }
-ArrayNodes* MethodBuildAvlTree::managerDefinesTypeArrayInArchive(const QString nameBuilder)
+
+MethodBuildBTree::MethodBuildBTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
 {
-    ArrayNodes* dataType = nullptr;
+
+}
+
+GraphicsBuilder* MethodBuildBTree::methodBuild()
+{
+    const quint32 coefficient{2};
+    GraphicsBuilder* builder = nullptr;
     if(button->isChecked())
-        dataType = new LinearArrayNodes(nameBuilder);
+        builder = new GraphicsBuilderBTree(QString("B-Tree"),coefficient);
 
-    return dataType;
+    return builder;
 }
 
-LinkerMethodsBuilds::LinkerMethodsBuilds(GameWindow* const ptrGameWin):gameWin{ptrGameWin}
+Array* MethodBuildBTree::typeArray(const QString data)
 {
+    Array* typeArray = nullptr;
+    if(button->isChecked())
+        typeArray = new LinearArray(data);
 
+    return typeArray;
 }
 
-void LinkerMethodsBuilds::updateNameBuilder(const QString newNameBuilder)
+LinkerMethodsBuilds::LinkerMethodsBuilds(GameWindow* const gameWindow):gameWin(gameWindow)
 {
-    nameBuilder = std::move(newNameBuilder);
+}
+
+void LinkerMethodsBuilds::updateDataForBuilding(const QString nameBuilder)
+{
+    data = nameBuilder;
 }
 
 void LinkerMethodsBuilds::append(std::unique_ptr<MethodBuild> newMethod)
@@ -126,9 +123,8 @@ void LinkerMethodsBuilds::choiceMethodBuilding()
     {
        if(method->isMethodBuild())
        {
-           gameWin->managerGameWin->updateBuilder(method->methodBuild());
-           gameWin->updateUiAboutStrategy(method->builderCustomizationUi(nameBuilder));
-           gameWin->managerGameWin->updateArrayNodes(method->managerDefinesTypeArrayInArchive(nameBuilder));
+           gameWin->updateStatyManager(method->methodBuild());
+           gameWin->updateStatyManager(method->typeArray(data));
            break;
        }
     }

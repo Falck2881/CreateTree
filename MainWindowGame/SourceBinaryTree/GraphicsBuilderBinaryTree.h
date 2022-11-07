@@ -2,19 +2,17 @@
 #define BUILDERBINARYTREE_H
 
 #include "GraphicsBuilder.h"
-#include "SimpleBinaryTree.h"
+#include "GraphicsBinaryTree.h"
 
 class GraphicsBuilderBinaryTree: public GraphicsBuilder
 {
     public:
-        GraphicsBuilderBinaryTree();
+        explicit GraphicsBuilderBinaryTree(const QString methodBuild);
+        ~GraphicsBuilderBinaryTree();
         void addGraphicsNodeInTree(GraphicsNode* const newNode) override final;
     private:
-        SimpleBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                SimpleBinaryTree* currentNode);
-        SimpleBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                SimpleBinaryTree* currentNode,
-                                                const QPointF newPosNode);
-        SimpleBinaryTree* tree;
+        GraphicsBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
+                                                  GraphicsBinaryTree* currentNode);
+        GraphicsBinaryTree* tree;
 };
 #endif // BUILDERBINARYTREE_H

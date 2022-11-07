@@ -2,44 +2,29 @@
 #define BUILDERAVLTREE_H
 
 #include "GraphicsBuilder.h"
-#include "SimpleBinaryTree.h"
-
-class PositionItems
-{
-public:
-    PositionItems(QPointF oldPos,
-                  std::pair<QLineF, QLineF> branchParent,
-                  std::pair<QLineF,QLineF> branchChild);
-    PositionItems(PositionItems& oldPosItems);
-    QPointF oldPosParentNode;
-    std::pair<QLineF, QLineF> branchesParendNode;
-    std::pair<QLineF, QLineF> branchesChildNode;
-};
+#include "GraphicsBinaryTree.h"
 
 class GraphicsBuilderAvlTree: public GraphicsBuilder
 {
     public:
-        GraphicsBuilderAvlTree();
+        explicit GraphicsBuilderAvlTree(const QString methodBuild);
+        ~GraphicsBuilderAvlTree();
         void addGraphicsNodeInTree(GraphicsNode* const newNode) override final;
 
     private:
-        SimpleBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                SimpleBinaryTree* currentNode);
-        SimpleBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                SimpleBinaryTree* currentNode,
-                                                const QPointF newPosNode);
-        void fixBalanced(SimpleBinaryTree*& currentNode);
-        void fixHeight(SimpleBinaryTree*& currentNode);
-        qint32 learnHeightNode(SimpleBinaryTree* const node);
-        qint32 learnBalance(SimpleBinaryTree* currentNode);
-        SimpleBinaryTree* rotateOnLeft(SimpleBinaryTree* currentNode);
-        SimpleBinaryTree* rotateOnRight(SimpleBinaryTree* currentNode);
-        void updatePositionAllItems(SimpleBinaryTree*& currentNode,
-                                    const QPointF posBranchXY2 = QPointF(0.0,0.0));
-        void updateItemsTree(SimpleBinaryTree*& currentNode, const QPointF newPosNode);
-        QPointF updatePositionNode(GraphicsNode*& node, const QPointF newPosNode);
-        SimpleBinaryTree* tree;
-
+        GraphicsBinaryTree* addGraphicsNodeInTree(GraphicsNode* const itemNode,
+                                                  GraphicsBinaryTree* currentNode);
+        void fixBalanced(GraphicsBinaryTree*& currentNode);
+        void fixHeight(GraphicsBinaryTree*& currentNode);
+        qint32 learnHeightNode(GraphicsBinaryTree* const node);
+        qint32 learnBalance(GraphicsBinaryTree* currentNode);
+        GraphicsBinaryTree* rotateOnLeft(GraphicsBinaryTree* currentNode);
+        GraphicsBinaryTree* rotateOnRight(GraphicsBinaryTree* currentNode);
+        void updatePositionTree(GraphicsBinaryTree*& parentNode,
+                                const QPointF posNode,
+                                QGraphicsLineItem* const branch = nullptr,
+                                const qsizetype index = 0);
+        GraphicsBinaryTree* tree;
 };
 
 #endif // BUILDERAVLTREE_H
