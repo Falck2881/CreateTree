@@ -26,10 +26,13 @@ class GameWindow : public QWidget
         void updateStatyManager(Array* const newTypeArray);
         void setNameBuilder(const QString nameBuilder);
         void setMethodBuild(const QString methodBuild);
+    private slots:
+        void updateUi();
     private:
         void addCommandsInLinkerMainWindow();
         void connectToMainWindow();
         void connectToManagerBuildingTree();
+        void windowPlacementInParentPos();
     private:
         std::unique_ptr<ManagerGameWindow> managerGameWin;
         std::unique_ptr<LinkerCommands> linkerMainWindow;

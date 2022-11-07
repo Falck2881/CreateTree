@@ -17,7 +17,7 @@ GameWindow::GameWindow(QWidget* const mainWin):
     addCommandsInLinkerMainWindow();
     connectToManagerBuildingTree();
     connectToMainWindow();
-    this->move(250,250);
+    windowPlacementInParentPos();
 }
 
 void GameWindow::addCommandsInLinkerMainWindow()
@@ -34,6 +34,12 @@ void GameWindow::connectToManagerBuildingTree()
 void GameWindow::connectToMainWindow()
 {
     QObject::connect(ui->exitButton, &QPushButton::clicked, linkerMainWindow.get(), &LinkerCommands::executeAllCommands);
+    QObject::connect(ui->exitButton, &QPushButton::clicked, this, &GameWindow::updateUi);
+}
+
+void GameWindow::windowPlacementInParentPos()
+{
+    this->move(250,250);
 }
 
 void GameWindow::updateInformationAboutNode(std::pair<QString, QPixmap> node)
@@ -49,10 +55,16 @@ void GameWindow::updateGraphicsView(QGraphicsScene *const scene)
 
 void GameWindow::completionConstruction()
 {
-   ui->insertButton->setCheckable(true);
-   ui->insertButton->setChecked(false);
+   ui->insertButton->setEnabled(false);
    ui->imgNode->setPixmap(QString(":/bobNotFound.png"));
    ui->unicode->setText(QString("There in no more data"));
+}
+
+void GameWindow::updateUi()
+{
+    ui->insertButton->setEnabled(true);
+    ui->imgNode->setPixmap(QString(":/warningImg.jpg"));
+    ui->unicode->setText(QString("empty"));
 }
 
 void GameWindow::updateStatyManager(GraphicsBuilder *builder)

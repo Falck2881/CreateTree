@@ -150,6 +150,9 @@
    <layout class="QVBoxLayout" name="vertLayoutForButton">
     <item>
      <widget class="QPushButton" name="insertButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -267,7 +270,6 @@
  </widget>
  <resources>
   <include location="BuildDataQrc/BuildData.qrc"/>
-  <include location="../Image/RccImage.qrc"/>
   <include location="../Image/RccImage.qrc"/>
  </resources>
  <connections/>
