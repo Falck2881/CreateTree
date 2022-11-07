@@ -5,7 +5,7 @@
 ManagerGameWindow::ManagerGameWindow(GameWindow* const gameWindow):
     gameWin(gameWindow),
     builder(nullptr),
-    arrayNodes(nullptr)
+    array(nullptr)
 {
 }
 
@@ -24,25 +24,25 @@ void ManagerGameWindow::updateBuilder(GraphicsBuilder* newBuilder)
     }
 }
 
-void ManagerGameWindow::updateArrayNodes(ArrayNodes* newArrayNodes)
+void ManagerGameWindow::updateArray(Array* newTypeArray)
 {
-    if(arrayNodes != nullptr)
+    if(array != nullptr)
     {
-        delete arrayNodes;
-        arrayNodes = newArrayNodes;
-        newArrayNodes = nullptr;
+        delete array;
+        array = newTypeArray;
+        newTypeArray = nullptr;
     }
-    else if(arrayNodes == nullptr)
+    else if(array == nullptr)
     {
-        arrayNodes = newArrayNodes;
-        newArrayNodes = nullptr;
+        array = newTypeArray;
+        newTypeArray = nullptr;
     }
 }
 
-void ManagerGameWindow::insertNode()
+void ManagerGameWindow::insertData()
 {
     try{
-        if(GraphicsNode* node = arrayNodes->getData(); node != nullptr){
+        if(GraphicsNode* node = array->getData(); node != nullptr){
             builder->addGraphicsNodeInTree(node);
             std::pair<QString, QPixmap> dataNode(node->keyNameLetter(),node->image());
             gameWin->updateInformationAboutNode(dataNode);

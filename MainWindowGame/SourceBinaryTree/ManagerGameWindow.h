@@ -6,7 +6,7 @@
 #include <QGraphicsView>
 #include "GraphicsBuilder.h"
 #include "MethodBuild.h"
-#include "ArrayNodes.h"
+#include "Array.h"
 
 class GameWindow;
 
@@ -17,13 +17,13 @@ class ManagerGameWindow: public QObject
     public:
         ManagerGameWindow(GameWindow* const gameWindow);
         void updateBuilder(GraphicsBuilder* newBuilder);
-        void updateArrayNodes(ArrayNodes* newTypeArray);
+        void updateArray(Array* newTypeArray);
     public slots:
-        void insertNode();
+        void insertData();
     private:
         GameWindow* const gameWin;
         GraphicsBuilder* builder;
-        ArrayNodes* arrayNodes;
+        Array* array;
 };
 
 #endif // MANAGERGAMEWINDOW_H

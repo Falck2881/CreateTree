@@ -1,76 +1,73 @@
-﻿#include "ArrayNodes.h"
+﻿#include "Array.h"
 #include "StreamJson.h"
 #include "GameWindow.h"
 
-ArrayNodes::ArrayNodes(const QString nameBuilder)
+Array::Array(const QString nameBuilder)
 {
     Q_INIT_RESOURCE(BuildData);
-    extractContent(nameBuilder);
-}
 
-bool ArrayNodes::empty()
-{
-    return nodes.empty();
-}
-
-void ArrayNodes::extractContent(const QString nameBuilder)
-{
     StreamJson stream(QString(":/ContentNode.json"));
 
     for(auto charecter: nameBuilder){
        if(charecter != QString(" "))
-          nodes.push_back(new GraphicsNode(stream.getJsonValue(QString(charecter))));
+          arrItems.push_back(new GraphicsNode(stream.getJsonValue(QString(charecter))));
     }
 }
 
-ArrayNodes::~ArrayNodes()
+bool Array::empty()
 {
-    nodes.clear();
-    nodes.shrink_to_fit();
+    return arrItems.empty();
 }
 
-LinearArrayNodes::LinearArrayNodes(const QString nameBuilder):ArrayNodes(nameBuilder),currNode(nodes.begin())
+Array::~Array()
 {
+    arrItems.clear();
+    arrItems.shrink_to_fit();
 }
 
-GraphicsNode* LinearArrayNodes::getData()
+LinearArray::LinearArray(const QString nameBuilder):Array(nameBuilder)
+{
+    currItem = arrItems.begin();
+}
+
+GraphicsNode* LinearArray::getData()
 {
     GraphicsNode* node = nullptr;
 
-    if(currNode != nodes.end()){
-        node = *currNode;
-        ++currNode;
+    if(currItem != arrItems.end()){
+        node = *currItem;
+        ++currItem;
     }
 
     return node;
 }
 
-ArrayNodesForRandomTree::ArrayNodesForRandomTree(const QString nameBuilder):ArrayNodes(nameBuilder)
+ArrayForRandomTree::ArrayForRandomTree(const QString nameBuilder):Array(nameBuilder)
 {}
 
-GraphicsNode* ArrayNodesForRandomTree::getData()
+GraphicsNode* ArrayForRandomTree::getData()
 {
     GraphicsNode* node = nullptr;
 
-    if(!nodes.empty())
+    if(!arrItems.empty())
     {
-        const qint32 index = simplRandom.getNumber(0,nodes.size()-1);
-        node = *(nodes.begin()+index);
-        nodes.erase(std::begin(nodes)+index);
-        nodes.shrink_to_fit();
+        const qint32 index = simplRandom.getNumber(0,arrItems.size()-1);
+        node = *(arrItems.begin()+index);
+        arrItems.erase(std::begin(arrItems)+index);
+        arrItems.shrink_to_fit();
     }
 
     return node;
 }
 
-ArrayNodesForPBTTree::ArrayNodesForPBTTree(const QString nameBuilder):ArrayNodes(nameBuilder)
+ArrayForPBTTree::ArrayForPBTTree(const QString nameBuilder):Array(nameBuilder)
 {
-    fillArrayAnIndexes(0,nodes.size()-1);
-    sortingByInsertion(nodes);
+    fillArrayAnIndexes(0,arrItems.size()-1);
+    sortingByInsertion(arrItems);
     currIndex = arrIndex.begin();
 }
 
-void ArrayNodesForPBTTree::fillArrayAnIndexes(const qint32 leftEdge, const qint32 rightEdge)
+void ArrayForPBTTree::fillArrayAnIndexes(const qint32 leftEdge, const qint32 rightEdge)
 {
     if(leftEdge > rightEdge)
         return;
@@ -82,7 +79,7 @@ void ArrayNodesForPBTTree::fillArrayAnIndexes(const qint32 leftEdge, const qint3
     }
 }
 
-void ArrayNodesForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
+void ArrayForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
 {
     for(quint32 jndex = 0; jndex < nodes.size(); ++jndex)
     {
@@ -103,14 +100,14 @@ void ArrayNodesForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
     }
 }
 
-GraphicsNode* ArrayNodesForPBTTree::getData()
+GraphicsNode* ArrayForPBTTree::getData()
 {
     GraphicsNode* node = nullptr;
 
     if(currIndex != arrIndex.end())
     {
         const quint32 index = *currIndex;
-        node = *(nodes.begin()+index);
+        node = *(arrItems.begin()+index);
         ++currIndex;
         return node;
     }

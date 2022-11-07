@@ -1,8 +1,6 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
-#include "ConceptMethodInitArr.h"
-#include "ArrayOffsets.h"
 #include "GraphicsNode.h"
 #include <QGraphicsScene>
 #include <stdexcept>
@@ -10,12 +8,15 @@
 class GraphicsBuilder
 {
     public:
-        GraphicsBuilder();
+        explicit GraphicsBuilder(const QString methodBuild);
         virtual ~GraphicsBuilder() = default;
-        QGraphicsScene* scene() const;
+        QString methodBuild() const;
+        QGraphicsScene* scene();
         virtual void addGraphicsNodeInTree(GraphicsNode* const newItemNode) = 0;
+    private:
+        const QString method;
     protected:
-        std::unique_ptr<QGraphicsScene> sceneNode;
+        std::unique_ptr<QGraphicsScene> sceneDisplayTree;
 };
 
 #endif // BUILDER_H

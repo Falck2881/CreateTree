@@ -39,12 +39,6 @@ set(PROJECT_SOURCES
         StartWindow.ui
 )
 
-set(PROJECT_SOURCES_TEST_DIR
-    TestCurrentDir/test_main.cpp
-   )
-
-add_executable(TestGameTree ${PROJECT_SOURCES_TEST_DIR} ${RCC_FILE})
-
 if(WIN32)
     add_executable(MainGameTree WIN32 ${PROJECT_SOURCES}
                                       ${RCC_FILE}
@@ -68,17 +62,11 @@ target_include_directories(MainGameTree PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Com
                                                 "${CMAKE_CURRENT_SOURCE_DIR}/OtherSourceCode"
                                                 )
 
-target_link_libraries(TestGameTree PRIVATE Qt${QT_VERSION_MAJOR}::Core
-                                          GTest::gtest
-                                          GTest::gtest_main)
 
 if(MSVC)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     target_compile_options(MainGameTree PRIVATE /W3)
-    target_compile_options(TestGameTree PRIVATE /W3)
 else()
     target_compile_options(MainGameTree PRIVATE
-                            -Wall -Wextra -pedantic -Werror)
-    target_compile_options(TestGameTree PRIVATE
                             -Wall -Wextra -pedantic -Werror)
 endif()

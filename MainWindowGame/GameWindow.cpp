@@ -3,27 +3,21 @@
 #include "HideWgdCommand.h"
 #include "ShowWgdCommand.h"
 #include "MainWindowGame.h"
+#include <QAbstractScrollArea>
+#include <QScrollBar>
 
 GameWindow::GameWindow(QWidget* const mainWin):
     managerGameWin(std::make_unique<ManagerGameWindow>(this)),
     linkerMainWindow(std::make_unique<LinkerCommands>()),
     ui(new Ui::GameWindow),
-    mainWindow(mainWin),
-    titleStrategy(QString("Strategy: ")),
-    titleBuilder(QString("Builder: "))
+    mainWindow(mainWin)
 {
     Q_INIT_RESOURCE(BuildData);
     ui->setupUi(this);
-    postAUiTheGameWindow();
     addCommandsInLinkerMainWindow();
     connectToManagerBuildingTree();
     connectToMainWindow();
-}
-
-void GameWindow::postAUiTheGameWindow()
-{
-    ui->formLayoutForLocalUi->addRow(&titleStrategy, &uiGameWin.strategy);
-    ui->formLayoutForLocalUi->addRow(&titleBuilder, &uiGameWin.builder);
+    this->move(250,250);
 }
 
 void GameWindow::addCommandsInLinkerMainWindow()
@@ -34,17 +28,12 @@ void GameWindow::addCommandsInLinkerMainWindow()
 
 void GameWindow::connectToManagerBuildingTree()
 {
-    QObject::connect(ui->insertButton, &QPushButton::clicked, managerGameWin.get(), &ManagerGameWindow::insertNode);
+    QObject::connect(ui->insertButton, &QPushButton::clicked, managerGameWin.get(), &ManagerGameWindow::insertData);
 }
 
 void GameWindow::connectToMainWindow()
 {
     QObject::connect(ui->exitButton, &QPushButton::clicked, linkerMainWindow.get(), &LinkerCommands::executeAllCommands);
-}
-
-void GameWindow::updateUiAboutStrategy(std::unique_ptr<MethodCustomizationUi> method)
-{
-    method->customizationUi(uiGameWin);
 }
 
 void GameWindow::updateInformationAboutNode(std::pair<QString, QPixmap> node)
@@ -68,12 +57,23 @@ void GameWindow::completionConstruction()
 
 void GameWindow::updateStatyManager(GraphicsBuilder *builder)
 {
+    setMethodBuild(builder->methodBuild());
     managerGameWin->updateBuilder(builder);
 }
 
-void GameWindow::updateStatyManager(ArrayNodes *newTypeArray)
+void GameWindow::updateStatyManager(Array * const newTypeArray)
 {
-    managerGameWin->updateArrayNodes(newTypeArray);
+    managerGameWin->updateArray(newTypeArray);
+}
+
+void GameWindow::setNameBuilder(const QString nameBuilder)
+{
+    ui->name->setText(nameBuilder);
+}
+
+void GameWindow::setMethodBuild(const QString methodBuild)
+{
+    ui->method->setText(methodBuild);
 }
 
 GameWindow::~GameWindow()

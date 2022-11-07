@@ -26,6 +26,7 @@ class  WindowInputData : public QWidget
         void addCommandsInDevelopmentConstructionBlocks();
         void connectToInputData();
         void connectWithCurrentWindow();
+        void windowPlacementInParentPos();
     private:
         Ui::WindowInputData *ui;
         MainWindowGame* const mainWindow;

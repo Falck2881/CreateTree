@@ -12,6 +12,7 @@ WindowInputData::WindowInputData(MainWindowGame* const mainWin):
     initializeCondition();
     connectToInputData();
     connectWithCurrentWindow();
+    windowPlacementInParentPos();
 }
 
 void WindowInputData::initializeCondition()
@@ -47,6 +48,10 @@ void WindowInputData::connectWithCurrentWindow()
                      inputData.get(), &KeyboardInput::clearLineEdit);
 }
 
+void WindowInputData::windowPlacementInParentPos()
+{
+    this->move(600,350);
+}
 
 void WindowInputData::show()
 {

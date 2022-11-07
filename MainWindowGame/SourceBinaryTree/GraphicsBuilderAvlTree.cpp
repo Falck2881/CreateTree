@@ -1,6 +1,7 @@
 #include "GraphicsBuilderAvlTree.h"
 
-GraphicsBuilderAvlTree::GraphicsBuilderAvlTree():tree(nullptr)
+GraphicsBuilderAvlTree::GraphicsBuilderAvlTree(const QString methodBuild):
+    GraphicsBuilder(methodBuild),tree(nullptr)
 {
 
 }
@@ -8,29 +9,22 @@ GraphicsBuilderAvlTree::GraphicsBuilderAvlTree():tree(nullptr)
 void GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* const newNode)
 {
     tree = addGraphicsNodeInTree(newNode,tree);
-    updatePositionTree(tree,QPointF(500.0,200.0));
+    tree->update();
 }
 
 GraphicsBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* const itemNode,
                                                                   GraphicsBinaryTree* currentNode)
 {
-    if(currentNode == nullptr)
-    {
+    if(currentNode == nullptr){
         currentNode = new GraphicsBinaryTree(itemNode);
-        sceneNode->addItem(currentNode->itemNode());
-        sceneNode->addItem(currentNode->itemLeftBranch());
-        sceneNode->addItem(currentNode->itemRightBranch());
+        sceneDisplayTree->addItem(currentNode->itemNode());
+        sceneDisplayTree->addItem(currentNode->itemLeftBranch());
+        sceneDisplayTree->addItem(currentNode->itemRightBranch());
     }
     else if(itemNode->key() < currentNode->key())
-    {
-        currentNode->itemLeftBranch()->show();
         currentNode->leftNode = addGraphicsNodeInTree(itemNode,currentNode->leftNode);
-    }
     else if(itemNode->key() > currentNode->key())
-    {
-        currentNode->itemRightBranch()->show();
         currentNode->rightNode = addGraphicsNodeInTree(itemNode, currentNode->rightNode);
-    }
 
     fixBalanced(currentNode);
 
@@ -114,24 +108,7 @@ GraphicsBinaryTree* GraphicsBuilderAvlTree::rotateOnRight(GraphicsBinaryTree *pa
     return newParentNode;
 }
 
-void GraphicsBuilderAvlTree::updatePositionTree(GraphicsBinaryTree *&currentNode,
-                                                const QPointF posNode,
-                                                QGraphicsLineItem *const branch,
-                                                const qsizetype index)
+GraphicsBuilderAvlTree::~GraphicsBuilderAvlTree()
 {
-    if(currentNode == nullptr)
-    {
-        branch->hide();
-        return;
-    }
-    else{
-        currentNode->setPosition(posNode,array.elementAt(index));
-        currentNode->itemLeftBranch()->show();
-        updatePositionTree(currentNode->leftNode,currentNode->p2LeftBranch(),
-                           currentNode->itemLeftBranch(), index + 1);
-        currentNode->itemRightBranch()->show();
-        updatePositionTree(currentNode->rightNode,currentNode->p2RightBranch(),
-                           currentNode->itemRightBranch(), index + 1);
-
-    }
+    delete tree;
 }

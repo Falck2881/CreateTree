@@ -33,6 +33,8 @@ GraphicsBinaryTree::GraphicsBinaryTree(GraphicsBinaryTree&& oldNode)
     oldNode.rightBranch = nullptr;
 }
 
+
+
 GraphicsBinaryTree& GraphicsBinaryTree::operator=(GraphicsBinaryTree &&oldNode)
 {
     if(this == &oldNode)
@@ -80,27 +82,6 @@ qint32 GraphicsBinaryTree::height() const
     return _height;
 }
 
-void GraphicsBinaryTree::setHeight(const qint32 newHeight)
-{
-    _height=newHeight;
-}
-
-void GraphicsBinaryTree::setPosition(const QPointF startPos, ValuesBranches valuesOffset)
-{
-    grNode->setPos(startPos);
-
-    const QPointF p1Begin(grNode->pos().x() + 20.0, grNode->pos().y() + 40.0);
-    const QPointF p2EndLeftBranch(grNode->pos().x() - valuesOffset.valueLeftBranch.first,
-                                  grNode->pos().y() + valuesOffset.valueLeftBranch.second);
-    const QPointF p2EndRightBranch(grNode->pos().x() + valuesOffset.valueRightBranch.first,
-                                   grNode->pos().y() + valuesOffset.valueRightBranch.second);
-
-    leftBranch->setLine(QLineF(p1Begin,p2EndLeftBranch));
-    rightBranch->setLine(QLineF(p1Begin,p2EndRightBranch));
-
-
-}
-
 QPointF GraphicsBinaryTree::p2LeftBranch() const
 {
     const QPointF pos(leftBranch->line().p2().x()-20.0,leftBranch->line().p2().y());
@@ -111,6 +92,41 @@ QPointF GraphicsBinaryTree::p2RightBranch() const
 {
     const QPointF pos(rightBranch->line().p2().x()-20.0,rightBranch->line().p2().y());
     return pos;
+}
+
+qreal GraphicsBinaryTree::posBottomX() const
+{
+    return grNode->pos().x()+20.0;
+}
+
+qreal GraphicsBinaryTree::posBottomY() const
+{
+    return grNode->pos().y()+40.0;
+}
+
+void GraphicsBinaryTree::setPosLeftBranch(const QLineF line)
+{
+    leftBranch->setLine(line);
+}
+
+void GraphicsBinaryTree::setPosRightBranch(const QLineF line)
+{
+    rightBranch->setLine(line);
+}
+
+void GraphicsBinaryTree::setHeight(const qint32 newHeight)
+{
+    _height=newHeight;
+}
+
+void GraphicsBinaryTree::setPosItems(const QPointF startPos)
+{
+    grNode->updatePos(startPos);
+}
+
+void GraphicsBinaryTree::update()
+{
+    tree.updatePositionTree(this);
 }
 
 GraphicsBinaryTree::~GraphicsBinaryTree()

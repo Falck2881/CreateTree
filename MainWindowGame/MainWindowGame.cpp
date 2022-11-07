@@ -24,6 +24,7 @@ MainWindowGame::MainWindowGame():
     addCommandsInLinkerShowGameWindow();
     connectToWindowInputData();
     connectToGameWindow();
+    windowPlacementInParentPos();
     disconect();
 }
 
@@ -44,6 +45,7 @@ void MainWindowGame::addMethodBuildInLinkerMethodsBuilds()
     linkerMethodsBuilds->append(std::make_unique<MethodBuildRandomTree>(ui->randButton));
     linkerMethodsBuilds->append(std::make_unique<MethodBuildPerfectBalancedTree>(ui->pbtButton));
     linkerMethodsBuilds->append(std::make_unique<MethodBuildAvlTree>(ui->avlButton));
+    linkerMethodsBuilds->append(std::make_unique<MethodBuildBTree>(ui->bTreeButton));
 }
 
 void MainWindowGame::addCommandsInLinkerShowGameWindow()
@@ -69,6 +71,11 @@ void MainWindowGame::connectToGameWindow() const
 
 }
 
+void MainWindowGame::windowPlacementInParentPos()
+{
+    this->move(600,350);
+}
+
 void MainWindowGame::disconect() const
 {
     QObject::connect(ui->endButton, &QPushButton::clicked,
@@ -77,19 +84,21 @@ void MainWindowGame::disconect() const
 
 void MainWindowGame::updateStateObjects(const QString nameBuilder)
 {
+    linkerMethodsBuilds->updateDataForBuilding(nameBuilder);
     updateTitleNameBuilder(nameBuilder);
     updateStatyStartButton(nameBuilder);
-    linkerMethodsBuilds->updateNameBuilder(nameBuilder);
 }
 
 void MainWindowGame::updateTitleNameBuilder(const QString &nameBuilder)
 {
     ui->titleNameBuilder->setText(nameBuilder);
+    gameWindow->setNameBuilder(nameBuilder);
 }
 
 void MainWindowGame::updateStatyStartButton(const QString &nameBuilder)
 {
-    if(nameBuilder != "")
+    qsizetype maxLengthUserName{12};
+    if(nameBuilder.size() >= maxLengthUserName)
         ui->startButton->setEnabled(true);
 }
 

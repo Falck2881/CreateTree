@@ -23,6 +23,7 @@ class StartWindow : public QWidget
         void connectLogoGif();
         void connectToWindowInputData();
         void addCommandInLinker();
+        void windowPlacementInParentPos();
     private:
         Ui::StartWindow *ui;
         std::unique_ptr<QWidget> mainWin;

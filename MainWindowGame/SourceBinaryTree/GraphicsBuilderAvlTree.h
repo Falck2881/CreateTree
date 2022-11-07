@@ -3,13 +3,12 @@
 
 #include "GraphicsBuilder.h"
 #include "GraphicsBinaryTree.h"
-#include "OffsetBinaryBranch.h"
 
 class GraphicsBuilderAvlTree: public GraphicsBuilder
 {
     public:
-        GraphicsBuilderAvlTree();
-        ~GraphicsBuilderAvlTree() = default;
+        explicit GraphicsBuilderAvlTree(const QString methodBuild);
+        ~GraphicsBuilderAvlTree();
         void addGraphicsNodeInTree(GraphicsNode* const newNode) override final;
 
     private:
@@ -26,7 +25,6 @@ class GraphicsBuilderAvlTree: public GraphicsBuilder
                                 QGraphicsLineItem* const branch = nullptr,
                                 const qsizetype index = 0);
         GraphicsBinaryTree* tree;
-        ArrayOffsets<OffsetBinaryBranch, ValuesBranches> array;
 };
 
 #endif // BUILDERAVLTREE_H

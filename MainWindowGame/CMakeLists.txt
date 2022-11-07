@@ -47,16 +47,18 @@ set(SOURCE_BINARY_TREE
                           SourceBinaryTree/SimpleRandom.cpp
                           SourceBinaryTree/MethodBuild.h
                           SourceBinaryTree/MethodBuild.cpp
-                          SourceBinaryTree/MethodCustomizationUi.h
-                          SourceBinaryTree/MethodCustomizationUi.cpp
-                          SourceBinaryTree/ArrayNodes.h
-                          SourceBinaryTree/ArrayNodes.cpp
-                          SourceBinaryTree/ArrayOffsets.h
-                          SourceBinaryTree/OffsetBinaryBranch.h
-                          SourceBinaryTree/OffsetBinaryBranch.cpp
-                          SourceBinaryTree/ConceptMethodInitArr.h
+                          SourceBinaryTree/Array.h
+                          SourceBinaryTree/Array.cpp
+                          SourceBinaryTree/UpdateBinaryTree.h
+                          SourceBinaryTree/UpdateBinaryTree.cpp
+                          SourceBinaryTree/UpdateBTree.h
+                          SourceBinaryTree/UpdateBTree.cpp
                           SourceBinaryTree/GraphicsBuilderBTree.h
-                          SourceBinaryTree/GraphicsBuilderBTree.cpp)
+                          SourceBinaryTree/GraphicsBuilderBTree.cpp
+                          SourceBinaryTree/UpdateTree.h
+                          SourceBinaryTree/ConceptUpdateTree.h
+                          SourceBinaryTree/OffsetBranch.h
+                          SourceBinaryTree/OffsetBranch.cpp)
 
 
 add_library(MainWindowGame STATIC ${WINDOWS}

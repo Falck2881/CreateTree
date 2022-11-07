@@ -34,6 +34,7 @@ class MainWindowGame : public QWidget
         void addCommandsInLinkerShowGameWindow();
         void addMethodBuildInLinkerMethodsBuilds();
         void updateStatyStartButton(const QString& nameBuilder);
+        void windowPlacementInParentPos();
     private:
         Ui::MainWindowGame *ui;
         std::unique_ptr<GameWindow> gameWindow;

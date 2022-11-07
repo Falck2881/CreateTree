@@ -11,9 +11,12 @@ class GraphicsNode: public QGraphicsItem
     public:
         GraphicsNode() = default;
         explicit GraphicsNode(const QJsonValue obj);
-        void setPos(QPointF point);
+        void updatePos(QPointF point);
         QPointF pos() const;
+        qreal topRightX() const;
+        qreal topRightY() const;
         QPixmap image() const;
+        QRectF rectItem() const;
         QString keyNameLetter() const;
         uint key() const;
         void setParent(QGraphicsItem* item);
@@ -25,7 +28,8 @@ class GraphicsNode: public QGraphicsItem
         QPixmap imageNode;
         QString _keyNameletter;
         QPointF position;
-        QRectF rect;
+        QRectF boundingRectDisplayItem;
+        QRectF _rectItem;
 };
 
 #endif // GRAPHICSNODE_H

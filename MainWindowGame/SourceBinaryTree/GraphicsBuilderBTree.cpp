@@ -1,9 +1,10 @@
-#include "GraphicsBuilderBTree.h"
+ #include "GraphicsBuilderBTree.h"
 
-GraphicsBuilderBTree::GraphicsBuilderBTree(const quint32 coefficient):
+GraphicsBuilderBTree::GraphicsBuilderBTree(const QString methodBuild, const quint32 coefficient):
+    GraphicsBuilder(methodBuild),
     tree(nullptr),coefficient(coefficient),
     minNumberData(coefficient),minNumberDescendants(coefficient+1),
-    refOnTamporaryNode(nullptr)
+    refOnIntermediateItem(nullptr)
 {
 
 }
@@ -11,153 +12,168 @@ GraphicsBuilderBTree::GraphicsBuilderBTree(const quint32 coefficient):
 void GraphicsBuilderBTree::addGraphicsNodeInTree(GraphicsNode *const newItemNode)
 {
     insertNewData(newItemNode);
+    tree->update();
 }
 
-void GraphicsBuilderBTree::insertNewData(GraphicsNode* const newNode)
+void GraphicsBuilderBTree::insertNewData(GraphicsNode* const newItem)
 {
     if(tree == nullptr)
     {
         tree = new GraphicsBTree(coefficient);
-        tree->addDataInEnd(newNode);
+        tree->addItem(newItem);
+        sceneDisplayTree->addItem(tree->node());
+        sceneDisplayTree->addItem(newItem);
+        return;
     }
     else if(tree->isTerminalVertex())
     {
-        if(tree->notMaximumSizeData())
-            tree->addDataInEnd(newNode);
-        else{
-            findIntermediateDataInNode(newNode,tree);
+        if(tree->notMaximumSizeData()){
+            tree->addItem(newItem);
+            sceneDisplayTree->addItem(newItem);
+        }else{
+            sceneDisplayTree->addItem(newItem);
+            findIntermediateItemInNode(newItem,tree);
             tree = createFirstRootVertex(tree);
-            tree->changeHeight(tree->descendants.first()->height());
+            tree->changeHeight(tree->heightFirstDescendant());
         }
         return;
     }
     else{
-        findNodeForInsertNewData(newNode,tree);
+        findNodeForInsertNewItem(newItem,tree);
         tryInsertTamporaryDataInCurrentNode(tree);
     }
     tree = reconstruction(tree);
-    tree->changeHeight(tree->descendants.first()->height());
+    tree->changeHeight(tree->heightFirstDescendant());
 }
 
-void GraphicsBuilderBTree::findIntermediateDataInNode(GraphicsNode* const newNode, GraphicsBTree*& currentNode)
+void GraphicsBuilderBTree::findIntermediateItemInNode(GraphicsNode* const newItem, GraphicsBTree* currentNode)
 {
-    auto less{[](GraphicsNode* const firstNode, GraphicsNode* const secondNode)
+    auto fromLessToMore{[](GraphicsNode* const firstItem, GraphicsNode* const secondItem)
         {
-            return firstNode->key() < secondNode->key();
+            return firstItem->key() < secondItem->key();
         }};
-    QVector<GraphicsNode*>data{currentNode->nodes};
-    data.push_back(newNode);
-    std::sort(data.begin(), data.end(),less);
-    tamporaryNode = data.at(data.size()/2);
-    refOnTamporaryNode = &tamporaryNode;
-    data.removeAt(data.size()/2);
-    currentNode->nodes = std::move(data);
+    QVector<GraphicsNode*>items{currentNode->items()};
+    items.push_back(newItem);
+    std::sort(items.begin(), items.end(),fromLessToMore);
+    refOnIntermediateItem = items.at(items.size()/2);
+    items.removeAt(items.size()/2);
+    currentNode->updateItems(items);
 }
 
 GraphicsBTree* GraphicsBuilderBTree::createFirstRootVertex(GraphicsBTree* rootNode)
 {
     const int leftAndRightDescendant{2};
     GraphicsBTree* newRootNode = new GraphicsBTree(coefficient);
-    newRootNode->addDataInEnd(refOnTamporaryNode);
-    cancelRefOnTamporaryNode();
+    sceneDisplayTree->addItem(newRootNode->node());
+    newRootNode->addItem(refOnIntermediateItem);
+    cancelRefOnIntermediateItem();
 
     for(int i=0; i < leftAndRightDescendant; ++i)
     {
-        newRootNode->descendants.push_back(new GraphicsBTree(coefficient));
+        newRootNode->addDescendantInEnd(std::make_shared<GraphicsBTree>(coefficient));
+        newRootNode->addBranch(std::make_shared<QGraphicsLineItem>());
+        sceneDisplayTree->addItem(newRootNode->branchLast());
+        sceneDisplayTree->addItem(newRootNode->descendantsAt(i)->node());
         for(int iteration=0; iteration < minNumberData; ++iteration){
-            newRootNode->descendants.at(i)->addDataInEnd(rootNode->nodes.first());
-            rootNode->nodes.removeFirst();
+            newRootNode->descendantsAt(i)->addItem(rootNode->itemsFirst());
+            rootNode->removeFirstItems();
         }
     }
     delete rootNode;
     return newRootNode;
 }
 
-void GraphicsBuilderBTree::findNodeForInsertNewData(GraphicsNode* const newNode, GraphicsBTree*& currentNode)
+void GraphicsBuilderBTree::findNodeForInsertNewItem(GraphicsNode* const newItem, GraphicsBTree* currentNode)
 {
-    auto less{[](GraphicsNode* const firstNode, GraphicsNode* const secondNode)
+    auto fromLessToMore{[](GraphicsNode* const firstItem, GraphicsNode* const secondItem)
         {
-            return firstNode->key() < secondNode->key();
+            return firstItem->key() < secondItem->key();
         }};
-    QVector<GraphicsNode*> data{currentNode->nodes};
-    data.push_back(newNode);
-    std::sort(data.begin(), data.end(),less);
-    qsizetype numberChildBranch{data.indexOf(newNode)};
+    QVector<GraphicsNode*> items{currentNode->items()};
+    items.push_back(newItem);
+    std::sort(items.begin(), items.end(),fromLessToMore);
+    qsizetype numberChildBranch{items.indexOf(newItem)};
 
-    insertNewData(newNode,currentNode->descendants[numberChildBranch], currentNode);
+    insertNewData(newItem,currentNode->descendantsAt(numberChildBranch), currentNode);
 }
 
-void GraphicsBuilderBTree::insertNewData(GraphicsNode* const newNode, GraphicsBTree*& currentNode, GraphicsBTree*& parentNode)
+void GraphicsBuilderBTree::insertNewData(GraphicsNode* const newItem, GraphicsBTree* currentNode, GraphicsBTree* parentNode)
 {
     if(currentNode->isTerminalVertex()){
-        insert(newNode,currentNode,parentNode);
+        insert(newItem,currentNode,parentNode);
         return;
     }
     else{
-        findNodeForInsertNewData(newNode,currentNode);
+        findNodeForInsertNewItem(newItem,currentNode);
         tryInsertTamporaryDataInCurrentNode(currentNode);
     }
     currentNode = reconstruction(currentNode,parentNode);
-    currentNode->changeHeight(currentNode->descendants.first()->height());
+    currentNode->changeHeight(currentNode->heightFirstDescendant());
 }
 
-void GraphicsBuilderBTree::insert(GraphicsNode* const newNode, GraphicsBTree *&currentNode, GraphicsBTree *&parentNode)
+void GraphicsBuilderBTree::insert(GraphicsNode* const newItem, GraphicsBTree *currentNode, GraphicsBTree *parentNode)
 {
-    if(currentNode->notMaximumSizeData())
-        currentNode->addDataInEnd(newNode);
+    if(currentNode->notMaximumSizeData()){
+        currentNode->addItem(newItem);
+        sceneDisplayTree->addItem(newItem);
+    }
     else if(parentNode->notMaximumNumberDescendants())
     {
-        findIntermediateDataInNode(newNode,currentNode);
+        sceneDisplayTree->addItem(newItem);
+        findIntermediateItemInNode(newItem,currentNode);
         insertNewTerminalNode(currentNode,parentNode);
     }
 }
 
-int findIndexForInsertNewNode(GraphicsBTree*& parentNode, GraphicsNode *&tamporaryData)
+int findIndexForInsertNewNode(GraphicsBTree* parentNode, GraphicsNode *tamporaryItem)
 {
-    auto less{[](GraphicsNode* firstAcc, GraphicsNode* secondAcc)
+    auto fromLessToMore{[](GraphicsNode* firstItem, GraphicsNode* secondItem)
         {
-            return firstAcc->key() < secondAcc->key();
+            return firstItem->key() < secondItem->key();
         }};
-    QVector<GraphicsNode*> data{parentNode->nodes};
-    data.push_back(tamporaryData);
-    std::sort(data.begin(),data.end(),less);
-    return data.indexOf(tamporaryData);
+    QVector<GraphicsNode*> items{parentNode->items()};
+    items.push_back(tamporaryItem);
+    std::sort(items.begin(),items.end(),fromLessToMore);
+    return items.indexOf(tamporaryItem);
 }
 
-GraphicsBTree* movePieceDataInNewNode(GraphicsBTree*& currentNode, uint64_t coefficient)
+std::shared_ptr<GraphicsBTree> movePieceItemsInNewNode(GraphicsBTree* currentNode, uint64_t coefficient)
 {
-    GraphicsBTree* newNode{new GraphicsBTree(coefficient)};
-    qsizetype quantityIteration{currentNode->nodes.size()/2};
+    std::shared_ptr<GraphicsBTree> newNode{std::make_shared<GraphicsBTree>(coefficient)};
+    qsizetype quantityIteration{currentNode->quantityItems()/2};
     for(int iteration = 0; iteration < quantityIteration; ++iteration){
-        newNode->addDataInEnd(currentNode->nodes.last());
-        currentNode->nodes.removeLast();
+        newNode->addItem(currentNode->itemsLast());
+        currentNode->removeLastItems();
     }
     return newNode;
 }
 
-void GraphicsBuilderBTree::insertNewTerminalNode(GraphicsBTree*& currentNode, GraphicsBTree*& parentNode)
+void GraphicsBuilderBTree::insertNewTerminalNode(GraphicsBTree* currentNode, GraphicsBTree* parentNode)
 {
-    int index{findIndexForInsertNewNode(parentNode,refOnTamporaryNode)};
-    GraphicsBTree* newTerminalNode{movePieceDataInNewNode(currentNode,coefficient)};
-    parentNode->descendants.insert(index+1,newTerminalNode);
+    int index{findIndexForInsertNewNode(parentNode,refOnIntermediateItem)};
+    parentNode->addBranch(std::make_shared<QGraphicsLineItem>());
+    std::shared_ptr<GraphicsBTree> newTerminalNode{movePieceItemsInNewNode(currentNode,coefficient)};
+    sceneDisplayTree->addItem(parentNode->branchLast());
+    sceneDisplayTree->addItem(newTerminalNode->node());
+    parentNode->insertNewDescendant(index+1,newTerminalNode);
 }
 
-void GraphicsBuilderBTree::tryInsertTamporaryDataInCurrentNode(GraphicsBTree *&currentNode)
+void GraphicsBuilderBTree::tryInsertTamporaryDataInCurrentNode(GraphicsBTree *currentNode)
 {
-    if(refOnTamporaryNode != nullptr)
+    if(refOnIntermediateItem != nullptr)
     {
         if(currentNode->notMaximumSizeData()){
-            currentNode->addDataInEnd(refOnTamporaryNode);
-            cancelRefOnTamporaryNode();
+            currentNode->addItem(refOnIntermediateItem);
+            cancelRefOnIntermediateItem();
         }
         else
-            findIntermediateDataInNode(refOnTamporaryNode,currentNode);
+            findIntermediateItemInNode(refOnIntermediateItem,currentNode);
     }
 }
 
-void GraphicsBuilderBTree::cancelRefOnTamporaryNode()
+void GraphicsBuilderBTree::cancelRefOnIntermediateItem()
 {
-    refOnTamporaryNode = nullptr;
+    refOnIntermediateItem = nullptr;
 }
 
 GraphicsBTree* GraphicsBuilderBTree::reconstruction(GraphicsBTree* currentNode, GraphicsBTree *parentNode)
@@ -174,14 +190,18 @@ GraphicsBTree* GraphicsBuilderBTree::createNewRootVertex(GraphicsBTree* currentN
 {
     const int leftAndRightDescendant{2};
     GraphicsBTree* newRootVertex{new GraphicsBTree(coefficient)};
-    newRootVertex->addDataInEnd(refOnTamporaryNode);
-    cancelRefOnTamporaryNode();
+    sceneDisplayTree->addItem(newRootVertex->node());
+    newRootVertex->addItem(refOnIntermediateItem);
+    cancelRefOnIntermediateItem();
 
     for(int i = 0; i < leftAndRightDescendant; ++i)
     {
-        newRootVertex->descendants.push_back(new GraphicsBTree(coefficient));
+        newRootVertex->addDescendantInEnd(std::make_shared<GraphicsBTree>(coefficient));
+        newRootVertex->addBranch(std::make_shared<QGraphicsLineItem>());
+        sceneDisplayTree->addItem(newRootVertex->branchLast());
+        sceneDisplayTree->addItem(newRootVertex->descendantsAt(i)->node());
         for(int j = 0; j < minNumberDescendants; ++j){
-            transferingDataAndDescendantsFromOldRootVertexInNewDescendant(newRootVertex->descendants.at(i), currentNode);
+            transferingDataAndDescendantsFromOldRootVertexInNewDescendant(newRootVertex->descendantsAt(i), currentNode);
         }
     }
     delete currentNode;
@@ -191,60 +211,69 @@ GraphicsBTree* GraphicsBuilderBTree::createNewRootVertex(GraphicsBTree* currentN
 void GraphicsBuilderBTree::transferingDataAndDescendantsFromOldRootVertexInNewDescendant(GraphicsBTree *newDescendent,
                                                                                         GraphicsBTree *currentNode)
 {
-    if(newDescendent->nodes.size() != minNumberData && newDescendent->descendants.size() != minNumberDescendants){
-        newDescendent->addDataInEnd(currentNode->nodes.first());
-        currentNode->nodes.removeFirst();
-        newDescendent->descendants.push_back(currentNode->descendants.first());
-        newDescendent->changeHeight(currentNode->descendants.first()->height());
-        currentNode->descendants.removeFirst();
+    if(newDescendent->quantityItems() != minNumberData && newDescendent->quantityDescendants() != minNumberDescendants){
+        newDescendent->addItem(currentNode->itemsFirst());
+        currentNode->removeFirstItems();
+        newDescendent->addDescendantInEnd(currentNode->descendantFirst());
+        newDescendent->changeHeight(currentNode->heightFirstDescendant());
+        currentNode->removeFirstDescendant();
     }
-    else if(newDescendent->descendants.size() != minNumberDescendants){
-        newDescendent->descendants.push_back(currentNode->descendants.first());
-        newDescendent->changeHeight(currentNode->descendants.first()->height());
-        currentNode->descendants.removeFirst();
+    else if(newDescendent->quantityDescendants() != minNumberDescendants){
+        newDescendent->addDescendantInEnd(currentNode->descendantFirst());
+        newDescendent->changeHeight(currentNode->heightFirstDescendant());
+        currentNode->removeFirstDescendant();
     }
 }
 
-void GraphicsBuilderBTree::createNewDescendant(GraphicsBTree *&currentNode, GraphicsBTree *&parentNode)
+void GraphicsBuilderBTree::createNewDescendant(GraphicsBTree *currentNode, GraphicsBTree *parentNode)
 {
-    int index{findIndexForInsertNewNode(parentNode,refOnTamporaryNode)};
-    GraphicsBTree* newDescendant(new GraphicsBTree(coefficient));
-    for(int i = 0; i < minNumberDescendants; ++i){
-        transferingDataAndDescendantsFromCurrentNodeInNewDescendant(newDescendant, currentNode);
-    }
-    parentNode->descendants.insert(index+1,newDescendant);
+    int index{findIndexForInsertNewNode(parentNode,refOnIntermediateItem)};
+    parentNode->addBranch(std::make_shared<QGraphicsLineItem>());
+    std::shared_ptr<GraphicsBTree> newDescendant(std::make_shared<GraphicsBTree>(coefficient));
+    sceneDisplayTree->addItem(newDescendant->node());
+    sceneDisplayTree->addItem(parentNode->branchLast());
+
+    for(int i = 0; i < minNumberDescendants; ++i)
+        transferingDataAndDescendantsFromCurrentNodeInNewDescendant(newDescendant.get(), currentNode);
+
+    parentNode->insertNewDescendant(index+1,newDescendant);
 }
 
 void GraphicsBuilderBTree::transferingDataAndDescendantsFromCurrentNodeInNewDescendant(GraphicsBTree *newDescendant,
                                                                                       GraphicsBTree *currentNode)
 {
-    if(newDescendant->nodes.size() != minNumberData && newDescendant->descendants.size() != minNumberDescendants)
+    if(newDescendant->quantityItems() != minNumberData && newDescendant->quantityDescendants() != minNumberDescendants)
     {
-        newDescendant->addDataInBegin(currentNode->nodes.last());
-        currentNode->nodes.removeLast();
-        newDescendant->descendants.push_front(currentNode->descendants.last());
-        newDescendant->changeHeight(currentNode->descendants.last()->height());
-        currentNode->descendants.removeLast();
+        newDescendant->addItem(currentNode->itemsLast());
+        currentNode->removeLastItems();
+        newDescendant->addDescendantInBegin(currentNode->descendantLast());
+        newDescendant->changeHeight(currentNode->heightLastDescendant());
+        currentNode->removeLastItems();
     }
-    else if (newDescendant->descendants.size() != minNumberDescendants)
+    else if (newDescendant->quantityDescendants() != minNumberDescendants)
     {
-        newDescendant->descendants.push_front(currentNode->descendants.last());
-        newDescendant->changeHeight(currentNode->descendants.last()->height());
-        currentNode->descendants.removeLast();
+        newDescendant->addDescendantInBegin(currentNode->descendantLast());
+        newDescendant->changeHeight(currentNode->heightLastDescendant());
+        currentNode->removeLastDescendant();
     }
 }
 
-bool GraphicsBuilderBTree::isRequiredCreateNewRootNode(GraphicsBTree*& currentNode, GraphicsBTree*& parentNode) const
+bool GraphicsBuilderBTree::isRequiredCreateNewRootNode(GraphicsBTree* currentNode, GraphicsBTree* parentNode) const
 {
     return parentNode == nullptr &&
            currentNode->maximumSizeData() &&
            currentNode->maximumNumberDescendants() ?true:false;
 }
 
-bool GraphicsBuilderBTree::isRequiredCreateNewDescendant(GraphicsBTree*& currentNode,GraphicsBTree*& parentNode) const
+bool GraphicsBuilderBTree::isRequiredCreateNewDescendant(GraphicsBTree* currentNode,GraphicsBTree* parentNode) const
 {
     return parentNode != nullptr &&
            parentNode->notMaximumNumberDescendants() &&
            currentNode->maximumSizeData() &&
            currentNode->maximumNumberDescendants() ?true:false;
+}
+
+GraphicsBuilderBTree::~GraphicsBuilderBTree()
+{
+    delete tree;
 }

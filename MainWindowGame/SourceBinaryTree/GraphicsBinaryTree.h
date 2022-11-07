@@ -1,15 +1,12 @@
 #ifndef GRAPHICSBINARYTREE_H
 #define GRAPHICSBINARYTREE_H
 
+#include "UpdateTree.h"
+#include "UpdateBinaryTree.h"
 #include "GraphicsNode.h"
 #include <QStringView>
 #include <utility>
-
-struct ValuesBranches
-{
-    std::pair<qreal,qreal> valueLeftBranch;
-    std::pair<qreal,qreal> valueRightBranch;
-};
+#include <QGraphicsScene>
 
 class GraphicsBinaryTree
 {
@@ -27,14 +24,20 @@ class GraphicsBinaryTree
         qint32 height() const;
         QPointF p2LeftBranch() const;
         QPointF p2RightBranch() const;
-        void setPosition(const QPointF startPos, ValuesBranches valuesOffset);
+        qreal posBottomX() const;
+        qreal posBottomY() const;
+        void setPosLeftBranch(const QLineF line);
+        void setPosRightBranch(const QLineF line);
+        void setPosItems(const QPointF startPos);
         void setHeight(const qint32 newHeight);
+        void update();
     private:
         void setPropertyBrances();
         qint32 _height;
         GraphicsNode* grNode;
         QGraphicsLineItem* leftBranch;
         QGraphicsLineItem* rightBranch;
+        UpdateTree<UpdateBinaryTree> tree;
 };
 
 #endif // GRAPHICSBINARYTREE_H

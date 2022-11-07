@@ -1,12 +1,17 @@
 #include "GraphicsBuilder.h"
-#include <QGraphicsLineItem>
 
-GraphicsBuilder::GraphicsBuilder():sceneNode(std::make_unique<QGraphicsScene>(QRectF(0.0,0.0,1200.0,1200.0)))
+GraphicsBuilder::GraphicsBuilder(const QString methodBuild):
+    method(methodBuild),
+    sceneDisplayTree(std::make_unique<QGraphicsScene>(QRectF(0.0,0.0,1300.0,1200.0)))
 {
-
 }
 
-QGraphicsScene* GraphicsBuilder::scene() const
+QString GraphicsBuilder::methodBuild() const
 {
-    return sceneNode.get();
+    return method;
+}
+
+QGraphicsScene* GraphicsBuilder::scene()
+{
+    return sceneDisplayTree.get();
 }
