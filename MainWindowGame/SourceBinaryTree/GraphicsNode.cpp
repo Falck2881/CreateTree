@@ -3,6 +3,22 @@
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
+GraphicsNode::GraphicsNode(GraphicsNode&& old)
+{
+    this->imageNode = old.imageNode;
+    this->position = old.position;
+    this->_keyNameletter = old._keyNameletter;
+    this->boundingRectDisplayItem = old.boundingRectDisplayItem;
+}
+
+GraphicsNode::GraphicsNode(const GraphicsNode& old)
+{
+    this->imageNode = old.imageNode;
+    this->position = old.position;
+    this->_keyNameletter = old._keyNameletter;
+    this->boundingRectDisplayItem = old.boundingRectDisplayItem;
+}
+
 GraphicsNode::GraphicsNode(const QJsonValue value):position(0.0,0.0),boundingRectDisplayItem(0.0,0.0,2000.0,1600.0)
 {
     Q_INIT_RESOURCE(Images);
@@ -36,11 +52,6 @@ uint GraphicsNode::key() const
     bool ok;
     uint key = _keyNameletter.toUInt(&ok,16);
     return key;
-}
-
-void GraphicsNode::setParent(QGraphicsItem *item)
-{
-    this->setParentItem(item);
 }
 
 void GraphicsNode::updatePos(QPointF newPos)
@@ -83,15 +94,31 @@ void GraphicsNode::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseMoveEvent(event);
 }
 
-GraphicsNode& GraphicsNode::operator=(GraphicsNode* const old)
+GraphicsNode& GraphicsNode::operator=(GraphicsNode old)
 {
-    if(this == old)
+    if(this == &old)
         return *this;
 
-    this->imageNode = old->imageNode;
-    this->position = old->position;
-    this->_keyNameletter = old->_keyNameletter;
-    this->boundingRectDisplayItem = old->boundingRectDisplayItem;
+    this->imageNode = old.imageNode;
+    this->position = old.position;
+    this->_keyNameletter = old._keyNameletter;
+    this->boundingRectDisplayItem = old.boundingRectDisplayItem;
 
     return *this;
+}
+
+bool operator==(const GraphicsNode& firstItem, const GraphicsNode* secondItem)
+{
+    if(firstItem.key() == secondItem->key())
+        return true;
+    else
+        return false;
+}
+
+bool operator!=(const GraphicsNode& firstItem, const GraphicsNode* secondItem)
+{
+    if(firstItem.key() != secondItem->key())
+        return true;
+    else
+        return false;
 }

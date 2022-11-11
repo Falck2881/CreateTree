@@ -7,7 +7,7 @@
 #include <QScrollBar>
 
 GameWindow::GameWindow(QWidget* const mainWin):
-    managerGameWin(std::make_unique<ManagerGameWindow>(this)),
+    tree(std::make_unique<GraphicsTree>(this)),
     linkerMainWindow(std::make_unique<LinkerCommands>()),
     ui(new Ui::GameWindow),
     mainWindow(mainWin)
@@ -28,7 +28,7 @@ void GameWindow::addCommandsInLinkerMainWindow()
 
 void GameWindow::connectToManagerBuildingTree()
 {
-    QObject::connect(ui->insertButton, &QPushButton::clicked, managerGameWin.get(), &ManagerGameWindow::insertData);
+    QObject::connect(ui->insertButton, &QPushButton::clicked, tree.get(), &GraphicsTree::insertNode);
 }
 
 void GameWindow::connectToMainWindow()
@@ -67,15 +67,15 @@ void GameWindow::updateUi()
     ui->unicode->setText(QString("empty"));
 }
 
-void GameWindow::updateStatyManager(GraphicsBuilder *builder)
+void GameWindow::updateStatyManager(std::unique_ptr<GraphicsBuilder> builder)
 {
     setMethodBuild(builder->methodBuild());
-    managerGameWin->updateBuilder(builder);
+    tree->updateBuilder(std::move(builder));
 }
 
-void GameWindow::updateStatyManager(Array * const newTypeArray)
+void GameWindow::updateStatyManager(std::unique_ptr<Array> newTypeArray)
 {
-    managerGameWin->updateArray(newTypeArray);
+    tree->updateArray(std::move(newTypeArray));
 }
 
 void GameWindow::setNameBuilder(const QString nameBuilder)

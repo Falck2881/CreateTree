@@ -11,10 +11,10 @@
 
 MainWindowGame::MainWindowGame():
     ui(new Ui::MainWindowGame),
-    gameWindow{std::make_unique<GameWindow>(this)},
+    gameWindow{std::make_shared<GameWindow>(this)},
     winInputData{std::make_unique<WindowInputData>(this)},
     linkerGameWindow{std::make_unique<LinkerCommands>()},
-    linkerMethodsBuilds{std::make_unique<LinkerMethodsBuilds>(gameWindow.get())}
+    linkerMethodsBuilds{std::make_unique<LinkerMethodsBuilds>(gameWindow)}
 {
     Q_INIT_RESOURCE(DifferentImages);
     ui->setupUi(this);
@@ -37,7 +37,8 @@ void MainWindowGame::setAnimation()
 
 void MainWindowGame::setStatyStartButton()
 {
-   ui->startButton->setEnabled(false);
+   startButton = std::make_unique<ButtonActivityCommand>(ui->startButton);
+   startButton->off();
 }
 
 void MainWindowGame::addMethodBuildInLinkerMethodsBuilds()
@@ -99,7 +100,9 @@ void MainWindowGame::updateStatyStartButton(const QString &nameBuilder)
 {
     qsizetype maxLengthUserName{12};
     if(nameBuilder.size() >= maxLengthUserName)
-        ui->startButton->setEnabled(true);
+        startButton->on();
+    else
+        startButton->off();
 }
 
 

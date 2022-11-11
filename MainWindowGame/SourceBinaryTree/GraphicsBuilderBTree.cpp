@@ -65,8 +65,11 @@ GraphicsBTree* GraphicsBuilderBTree::createFirstRootVertex(GraphicsBTree* rootNo
     const int leftAndRightDescendant{2};
     GraphicsBTree* newRootNode = new GraphicsBTree(coefficient);
     sceneDisplayTree->addItem(newRootNode->node());
-    newRootNode->addItem(refOnIntermediateItem);
-    cancelRefOnIntermediateItem();
+
+    if(refOnIntermediateItem){
+        newRootNode->addItem(refOnIntermediateItem);
+        cancelRefOnIntermediateItem();
+    }
 
     for(int i=0; i < leftAndRightDescendant; ++i)
     {
@@ -191,8 +194,11 @@ GraphicsBTree* GraphicsBuilderBTree::createNewRootVertex(GraphicsBTree* currentN
     const int leftAndRightDescendant{2};
     GraphicsBTree* newRootVertex{new GraphicsBTree(coefficient)};
     sceneDisplayTree->addItem(newRootVertex->node());
-    newRootVertex->addItem(refOnIntermediateItem);
-    cancelRefOnIntermediateItem();
+
+    if(refOnIntermediateItem != nullptr){
+        newRootVertex->addItem(refOnIntermediateItem);
+        cancelRefOnIntermediateItem();
+    }
 
     for(int i = 0; i < leftAndRightDescendant; ++i)
     {

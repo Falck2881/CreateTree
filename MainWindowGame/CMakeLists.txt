@@ -35,8 +35,8 @@ set(SOURCE_BINARY_TREE
                           SourceBinaryTree/GraphicsBinaryTree.cpp
                           SourceBinaryTree/GraphicsBTree.h
                           SourceBinaryTree/GraphicsBTree.cpp
-                          SourceBinaryTree/ManagerGameWindow.h
-                          SourceBinaryTree/ManagerGameWindow.cpp
+                          SourceBinaryTree/GraphicsTree.h
+                          SourceBinaryTree/GraphicsTree.cpp
                           SourceBinaryTree/GraphicsBuilder.h
                           SourceBinaryTree/GraphicsBuilder.cpp
                           SourceBinaryTree/GraphicsBuilderBinaryTree.h

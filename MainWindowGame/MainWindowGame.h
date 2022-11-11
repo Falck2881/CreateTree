@@ -1,6 +1,7 @@
 #ifndef MAINWINDOWGAME_H
 #define MAINWINDOWGAME_H
 
+#include "ButtonActivityCommand.h"
 #include "LinkerCommands.h"
 #include <memory>
 #include <QPixmap>
@@ -37,10 +38,11 @@ class MainWindowGame : public QWidget
         void windowPlacementInParentPos();
     private:
         Ui::MainWindowGame *ui;
-        std::unique_ptr<GameWindow> gameWindow;
+        std::shared_ptr<GameWindow> gameWindow;
         std::unique_ptr<WindowInputData> winInputData;
         std::unique_ptr<LinkerCommands> linkerGameWindow;
         std::unique_ptr<LinkerMethodsBuilds> linkerMethodsBuilds;
+        std::unique_ptr<ButtonActivityCommand> startButton;
 };
 
 #endif // MAINWINDOWGAME_H

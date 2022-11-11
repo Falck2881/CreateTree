@@ -32,14 +32,14 @@ LinearArray::LinearArray(const QString nameBuilder):Array(nameBuilder)
 
 GraphicsNode* LinearArray::getData()
 {
-    GraphicsNode* node = nullptr;
 
     if(currItem != arrItems.end()){
-        node = *currItem;
+        GraphicsNode* node = *currItem;
         ++currItem;
+        return node;
     }
-
-    return node;
+    else
+        throw std::runtime_error(std::string("Array empty"));
 }
 
 ArrayForRandomTree::ArrayForRandomTree(const QString nameBuilder):Array(nameBuilder)
@@ -47,17 +47,17 @@ ArrayForRandomTree::ArrayForRandomTree(const QString nameBuilder):Array(nameBuil
 
 GraphicsNode* ArrayForRandomTree::getData()
 {
-    GraphicsNode* node = nullptr;
 
     if(!arrItems.empty())
     {
         const qint32 index = simplRandom.getNumber(0,arrItems.size()-1);
-        node = *(arrItems.begin()+index);
+        GraphicsNode* node = *(arrItems.begin()+index);
         arrItems.erase(std::begin(arrItems)+index);
         arrItems.shrink_to_fit();
+        return node;
     }
-
-    return node;
+    else
+        throw std::runtime_error(std::string("Array empty"));
 }
 
 ArrayForPBTTree::ArrayForPBTTree(const QString nameBuilder):Array(nameBuilder)
@@ -102,16 +102,16 @@ void ArrayForPBTTree::sortingByInsertion(std::vector<GraphicsNode*> &nodes)
 
 GraphicsNode* ArrayForPBTTree::getData()
 {
-    GraphicsNode* node = nullptr;
 
     if(currIndex != arrIndex.end())
     {
         const quint32 index = *currIndex;
-        node = *(arrItems.begin()+index);
+        GraphicsNode* node = *(arrItems.begin()+index);
         ++currIndex;
         return node;
     }
+    else
+        throw std::runtime_error(std::string("Array empty"));
 
-    return node;
 }
 

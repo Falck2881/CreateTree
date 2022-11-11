@@ -12,8 +12,8 @@ void GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* const newNode)
     tree->update();
 }
 
-GraphicsBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree(GraphicsNode* const itemNode,
-                                                                  GraphicsBinaryTree* currentNode)
+GraphicsBinaryTree* GraphicsBuilderAvlTree::addGraphicsNodeInTree
+(GraphicsNode* const itemNode,GraphicsBinaryTree* currentNode)
 {
     if(currentNode == nullptr){
         currentNode = new GraphicsBinaryTree(itemNode);

@@ -17,21 +17,21 @@ MethodBuildRandomTree::MethodBuildRandomTree(QRadioButton* const ptrButton):Meth
 {
 }
 
-GraphicsBuilder* MethodBuildRandomTree::methodBuild()
+std::unique_ptr<GraphicsBuilder> MethodBuildRandomTree::methodBuild()
 {
-    GraphicsBuilder* builder = nullptr;
+    std::unique_ptr<GraphicsBuilder> builder;
     if(button->isChecked())
-        builder = new GraphicsBuilderBinaryTree("Random Binary Tree");
+        builder = std::make_unique<GraphicsBuilderBinaryTree>("Random Binary Tree");
 
     return builder;
 }
 
-Array* MethodBuildRandomTree::typeArray(const QString data)
+std::unique_ptr<Array> MethodBuildRandomTree::typeArray(const QString data)
 {
-    Array* typeArray = nullptr;
+    std::unique_ptr<Array> typeArray;
 
     if(button->isChecked())
-        typeArray = new ArrayForRandomTree(data);
+        typeArray = std::make_unique<ArrayForRandomTree>(data);
 
     return typeArray;
 }
@@ -39,21 +39,21 @@ Array* MethodBuildRandomTree::typeArray(const QString data)
 MethodBuildPerfectBalancedTree::MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
 {}
 
-GraphicsBuilder* MethodBuildPerfectBalancedTree::methodBuild()
+std::unique_ptr<GraphicsBuilder> MethodBuildPerfectBalancedTree::methodBuild()
 {
-    GraphicsBuilder* builder = nullptr;
+    std::unique_ptr<GraphicsBuilder> builder;
     if(button->isChecked())
-        builder = new GraphicsBuilderBinaryTree(QString("Perfect Balanced Tree"));
+        builder = std::make_unique<GraphicsBuilderBinaryTree>(QString("Perfect Balanced Tree"));
 
     return builder;
 }
 
 
-Array* MethodBuildPerfectBalancedTree::typeArray(const QString data)
+std::unique_ptr<Array> MethodBuildPerfectBalancedTree::typeArray(const QString data)
 {
-    Array* typeArray = nullptr;
+    std::unique_ptr<Array> typeArray;
     if(button->isChecked())
-        typeArray = new ArrayForPBTTree(data);
+        typeArray = std::make_unique<ArrayForPBTTree>(data);
 
     return typeArray;
 }
@@ -61,20 +61,20 @@ Array* MethodBuildPerfectBalancedTree::typeArray(const QString data)
 MethodBuildAvlTree::MethodBuildAvlTree(QRadioButton* const ptrButton):MethodBuild(ptrButton)
 {}
 
-GraphicsBuilder* MethodBuildAvlTree::methodBuild()
+std::unique_ptr<GraphicsBuilder> MethodBuildAvlTree::methodBuild()
 {
-    GraphicsBuilder* builder = nullptr;
+    std::unique_ptr<GraphicsBuilder> builder;
     if(button->isChecked())
-        builder = new GraphicsBuilderAvlTree(QString("Avl Tree"));
+        builder = std::make_unique<GraphicsBuilderAvlTree>(QString("Avl Tree"));
 
     return builder;
 }
 
-Array* MethodBuildAvlTree::typeArray(const QString data)
+std::unique_ptr<Array> MethodBuildAvlTree::typeArray(const QString data)
 {
-    Array* typeArray = nullptr;
+    std::unique_ptr<Array> typeArray;
     if(button->isChecked())
-        typeArray = new LinearArray(data);
+        typeArray = std::make_unique<LinearArray>(data);
 
     return typeArray;
 }
@@ -84,26 +84,26 @@ MethodBuildBTree::MethodBuildBTree(QRadioButton* const ptrButton):MethodBuild(pt
 
 }
 
-GraphicsBuilder* MethodBuildBTree::methodBuild()
+std::unique_ptr<GraphicsBuilder> MethodBuildBTree::methodBuild()
 {
     const quint32 coefficient{2};
-    GraphicsBuilder* builder = nullptr;
+    std::unique_ptr<GraphicsBuilder> builder;
     if(button->isChecked())
-        builder = new GraphicsBuilderBTree(QString("B-Tree"),coefficient);
+        builder = std::make_unique<GraphicsBuilderBTree>(QString("B-Tree"),coefficient);
 
     return builder;
 }
 
-Array* MethodBuildBTree::typeArray(const QString data)
+std::unique_ptr<Array> MethodBuildBTree::typeArray(const QString data)
 {
-    Array* typeArray = nullptr;
+    std::unique_ptr<Array> typeArray;
     if(button->isChecked())
-        typeArray = new LinearArray(data);
+        typeArray = std::make_unique<LinearArray>(data);
 
     return typeArray;
 }
 
-LinkerMethodsBuilds::LinkerMethodsBuilds(GameWindow* const gameWindow):gameWin(gameWindow)
+LinkerMethodsBuilds::LinkerMethodsBuilds(std::shared_ptr<GameWindow> gameWindow):gameWin(gameWindow)
 {
 }
 

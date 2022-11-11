@@ -15,8 +15,8 @@ class MethodBuild
     public:
         virtual ~MethodBuild() = default;
         bool isMethodBuild();
-        virtual GraphicsBuilder* methodBuild() = 0;
-        virtual Array* typeArray(const QString data) = 0;
+        virtual std::unique_ptr<GraphicsBuilder> methodBuild() = 0;
+        virtual std::unique_ptr<Array> typeArray(const QString data) = 0;
     protected:
         MethodBuild(QRadioButton* const ptrButton);
         QRadioButton* const button;
@@ -27,8 +27,8 @@ class MethodBuildRandomTree: public MethodBuild
     public:
         MethodBuildRandomTree(QRadioButton* const ptrButton);
     private:
-        GraphicsBuilder* methodBuild() override final;
-        Array* typeArray(const QString data) override final;
+        std::unique_ptr<GraphicsBuilder> methodBuild() override final;
+        std::unique_ptr<Array> typeArray(const QString data) override final;
 };
 
 class MethodBuildAvlTree: public MethodBuild
@@ -36,8 +36,8 @@ class MethodBuildAvlTree: public MethodBuild
     public:
         MethodBuildAvlTree(QRadioButton* const ptrButton);
     private:
-        GraphicsBuilder* methodBuild() override final;
-        Array* typeArray(const QString data) override final;
+        std::unique_ptr<GraphicsBuilder> methodBuild() override final;
+        std::unique_ptr<Array> typeArray(const QString data) override final;
 };
 
 class MethodBuildPerfectBalancedTree: public MethodBuild
@@ -45,8 +45,8 @@ class MethodBuildPerfectBalancedTree: public MethodBuild
     public:
         MethodBuildPerfectBalancedTree(QRadioButton* const ptrButton);
     private:
-        GraphicsBuilder* methodBuild() override final;
-        Array* typeArray(const QString data) override final;
+        std::unique_ptr<GraphicsBuilder> methodBuild() override final;
+        std::unique_ptr<Array> typeArray(const QString data) override final;
 };
 
 class MethodBuildBTree: public MethodBuild
@@ -54,8 +54,8 @@ class MethodBuildBTree: public MethodBuild
     public:
         MethodBuildBTree(QRadioButton* const ptrButton);
     private:
-        GraphicsBuilder* methodBuild() override final;
-        Array* typeArray(const QString data) override final;
+        std::unique_ptr<GraphicsBuilder> methodBuild() override final;
+        std::unique_ptr<Array> typeArray(const QString data) override final;
 };
 
 class LinkerMethodsBuilds: public QObject
@@ -63,13 +63,13 @@ class LinkerMethodsBuilds: public QObject
     Q_OBJECT
 
     public:
-        LinkerMethodsBuilds(GameWindow* const gameWindow);
+        LinkerMethodsBuilds(std::shared_ptr<GameWindow> gameWindow);
         void append(std::unique_ptr<MethodBuild> newMethod);
         void updateDataForBuilding(const QString nameBuilder);
     public slots:
         void choiceMethodBuilding();
     private:
-        GameWindow* const gameWin;
+        std::shared_ptr<GameWindow> gameWin;
         std::vector<std::shared_ptr<MethodBuild>> methods;
         QString data;
 };

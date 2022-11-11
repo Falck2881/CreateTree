@@ -131,7 +131,6 @@ void GraphicsBinaryTree::update()
 
 GraphicsBinaryTree::~GraphicsBinaryTree()
 {
-    delete grNode;
     delete leftBranch;
     delete rightBranch;
     delete leftNode;

@@ -2,7 +2,7 @@
 #define GAMEWINDOW_H
 
 #include "LinkerCommands.h"
-#include "ManagerGameWindow.h"
+#include "GraphicsTree.h"
 #include <memory>
 #include <utility>
 #include <QPushButton>
@@ -22,8 +22,8 @@ class GameWindow : public QWidget
         void updateGraphicsView(QGraphicsScene* const scene);
         void updateInformationAboutNode(std::pair<QString,QPixmap> node);
         void completionConstruction();
-        void updateStatyManager(GraphicsBuilder* builder);
-        void updateStatyManager(Array* const newTypeArray);
+        void updateStatyManager(std::unique_ptr<GraphicsBuilder> builder);
+        void updateStatyManager(std::unique_ptr<Array> newTypeArray);
         void setNameBuilder(const QString nameBuilder);
         void setMethodBuild(const QString methodBuild);
     private slots:
@@ -34,7 +34,7 @@ class GameWindow : public QWidget
         void connectToManagerBuildingTree();
         void windowPlacementInParentPos();
     private:
-        std::unique_ptr<ManagerGameWindow> managerGameWin;
+        std::unique_ptr<GraphicsTree> tree;
         std::unique_ptr<LinkerCommands> linkerMainWindow;
         Ui::GameWindow *ui;
         QWidget* const mainWindow;

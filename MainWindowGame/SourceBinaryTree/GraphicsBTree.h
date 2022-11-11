@@ -51,8 +51,8 @@ class GraphicsBTree
         QPointF bottomPosItem(const qsizetype index) const;
         qreal widthNode() const;
         void setSquareRect(const QRectF newSquare);
-        QVector<GraphicsNode*> _items;
     private:
+        QVector<GraphicsNode*> _items;
         QVector<std::shared_ptr<GraphicsBTree>> _descendants;
         QVector<std::shared_ptr<QGraphicsLineItem>> _branches;
         quint32 height;
