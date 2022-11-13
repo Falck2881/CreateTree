@@ -12,7 +12,7 @@ std::pair<QLineF,QLineF> UpdateBinaryTree::getStartOffsetsBranches()
 {
     std::pair<QLineF,QLineF> startOffset;
 
-    const QPointF rootPosNode(1000.0,500.0);
+    const QPointF rootPosNode(1000.0,600.0);
 
     const QPointF p1Begin(rootPosNode.x() + 20.0 , rootPosNode.y() + 40.0);
     const QPointF p2EndLeftBranch(rootPosNode.x() - 200.0, rootPosNode.y() + 60.0);
@@ -51,7 +51,7 @@ void UpdateBinaryTree::initializeOffsetBranches(std::pair<QLineF,QLineF> startOf
 
 void UpdateBinaryTree::updatePositionTree(GraphicsBinaryTree *tree)
 {
-    updatePositionTree(tree,QPointF(1000.0,500.0));
+    updatePositionTree(tree,QPointF(1000.0,600.0));
 }
 
 void UpdateBinaryTree::updatePositionTree(GraphicsBinaryTree *currentNode,const QPointF posNode,

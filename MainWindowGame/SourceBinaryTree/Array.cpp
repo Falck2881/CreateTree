@@ -1,4 +1,4 @@
-﻿#include "Array.h"
+#include "Array.h"
 #include "StreamJson.h"
 #include "GameWindow.h"
 
@@ -39,7 +39,7 @@ GraphicsNode* LinearArray::getData()
         return node;
     }
     else
-        throw std::runtime_error(std::string("Array empty"));
+        throw std::runtime_error(std::string("The new data is no more"));
 }
 
 ArrayForRandomTree::ArrayForRandomTree(const QString nameBuilder):Array(nameBuilder)
@@ -48,16 +48,14 @@ ArrayForRandomTree::ArrayForRandomTree(const QString nameBuilder):Array(nameBuil
 GraphicsNode* ArrayForRandomTree::getData()
 {
 
-    if(!arrItems.empty())
+    if(simplRandom.quantityOfGeneratedNumbers() != arrItems.size())
     {
-        const qint32 index = simplRandom.getNumber(0,arrItems.size()-1);
-        GraphicsNode* node = *(arrItems.begin()+index);
-        arrItems.erase(std::begin(arrItems)+index);
-        arrItems.shrink_to_fit();
+        const qint32 index = simplRandom.getNumber(0,arrItems.size());
+        GraphicsNode* node = arrItems.at(index);
         return node;
     }
     else
-        throw std::runtime_error(std::string("Array empty"));
+        throw std::runtime_error(std::string("The new data is no more"));
 }
 
 ArrayForPBTTree::ArrayForPBTTree(const QString nameBuilder):Array(nameBuilder)
@@ -111,7 +109,7 @@ GraphicsNode* ArrayForPBTTree::getData()
         return node;
     }
     else
-        throw std::runtime_error(std::string("Array empty"));
+        throw std::runtime_error(std::string("The new data is no more"));
 
 }
 

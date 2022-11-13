@@ -6,14 +6,16 @@ SimpleRandom::SimpleRandom()
 
 }
 
+quint32 SimpleRandom::quantityOfGeneratedNumbers() const
+{
+    return oldRandomNumbers.size();
+}
+
 qint32 SimpleRandom::getNumber(const qint32 min, const qint32 max)
 {
-    qint32 newRandomNumber;
-
-    if(max <= 1)
-        newRandomNumber = max;
-    else
-        newRandomNumber = generationNumber(min, max);
+    qint32 newRandomNumber = generationNumber(min, max);
+    if(newRandomNumber == max)
+        newRandomNumber-=1;
 
     return newRandomNumber;
 }

@@ -44,7 +44,7 @@ void StartWindow::connectToWindowInputData()
 
 void StartWindow::windowPlacementInParentPos()
 {
-    this->move(600,350);
+    this->move(600,250);
 }
 
 void StartWindow::paintEvent(QPaintEvent *)

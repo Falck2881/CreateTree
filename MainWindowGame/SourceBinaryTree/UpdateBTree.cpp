@@ -6,7 +6,7 @@
 void UpdateBTree::updatePositionTree(GraphicsBTree *tree)
 {
 
-    updateNode(QPointF(1000.0,500.0),tree);
+    updateNode(QPointF(1000.0,600.0),tree);
 }
 
 void UpdateBTree::updateNode(const QPointF startPosNode, GraphicsBTree *tree, QGraphicsLineItem *const branch)

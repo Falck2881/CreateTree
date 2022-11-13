@@ -9,6 +9,7 @@ class SimpleRandom
     public:
         SimpleRandom();
         qint32 getNumber(const qint32 min, const qint32 max);
+        quint32 quantityOfGeneratedNumbers() const;
     private:
         qint32 generationNumber(const qint32 min, const qint32 max);
         bool checkOnCoincidences(const qint32 newRandomNumber);

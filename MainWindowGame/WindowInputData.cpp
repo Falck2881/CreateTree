@@ -50,7 +50,7 @@ void WindowInputData::connectWithCurrentWindow()
 
 void WindowInputData::windowPlacementInParentPos()
 {
-    this->move(600,350);
+    this->move(600,250);
 }
 
 void WindowInputData::show()

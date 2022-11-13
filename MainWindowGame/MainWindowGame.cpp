@@ -74,7 +74,7 @@ void MainWindowGame::connectToGameWindow() const
 
 void MainWindowGame::windowPlacementInParentPos()
 {
-    this->move(600,350);
+    this->move(600,250);
 }
 
 void MainWindowGame::disconect() const

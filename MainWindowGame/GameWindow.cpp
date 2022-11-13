@@ -39,7 +39,7 @@ void GameWindow::connectToMainWindow()
 
 void GameWindow::windowPlacementInParentPos()
 {
-    this->move(250,250);
+    this->move(100,100);
 }
 
 void GameWindow::updateInformationAboutNode(std::pair<QString, QPixmap> node)
