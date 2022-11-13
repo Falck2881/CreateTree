@@ -1,5 +1,11 @@
 #CreateTree
 
+Готовое приложение для: 
+
+Windows -
+
+Linux - 
+
 ![изображение](https://user-images.githubusercontent.com/100667839/201526845-a304ef98-ec82-47c5-aff9-1d1e74192473.png)
 
 Create Tree - это проект нацелен на отображение построения
