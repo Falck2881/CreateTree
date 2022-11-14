@@ -72,5 +72,5 @@ Thumbs.db
 *.exe
 
 #directories build
-
+*.txt.user*
 /build*
