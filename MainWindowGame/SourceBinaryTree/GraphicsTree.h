@@ -19,7 +19,7 @@ class GraphicsTree: public QObject
         void updateBuilder(std::unique_ptr<GraphicsBuilder> newBuilder);
         void updateArray(std::unique_ptr<Array> newTypeArray);
     public slots:
-        void insertNode();
+        void insertData();
     private:
         GameWindow* const gameWin;
         std::unique_ptr<GraphicsBuilder> builder;

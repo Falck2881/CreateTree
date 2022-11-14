@@ -123,8 +123,8 @@ void LinkerMethodsBuilds::choiceMethodBuilding()
     {
        if(method->isMethodBuild())
        {
-           gameWin->updateStatyManager(method->methodBuild());
-           gameWin->updateStatyManager(method->typeArray(data));
+           gameWin->updateStatyTree(method->methodBuild());
+           gameWin->updateStatyTree(method->typeArray(data));
            break;
        }
     }

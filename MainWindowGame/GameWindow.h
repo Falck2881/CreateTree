@@ -22,8 +22,8 @@ class GameWindow : public QWidget
         void updateGraphicsView(QGraphicsScene* const scene);
         void updateInformationAboutNode(std::pair<QString,QPixmap> node);
         void completionConstruction();
-        void updateStatyManager(std::unique_ptr<GraphicsBuilder> builder);
-        void updateStatyManager(std::unique_ptr<Array> newTypeArray);
+        void updateStatyTree(std::unique_ptr<GraphicsBuilder> builder);
+        void updateStatyTree(std::unique_ptr<Array> newTypeArray);
         void setNameBuilder(const QString nameBuilder);
         void setMethodBuild(const QString methodBuild);
     private slots:

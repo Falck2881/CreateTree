@@ -39,7 +39,7 @@ void GraphicsTree::updateArray(std::unique_ptr<Array> newTypeArray)
     }
 }
 
-void GraphicsTree::insertNode()
+void GraphicsTree::insertData()
 {
     try{
         GraphicsNode* node = array->getData();

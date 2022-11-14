@@ -28,7 +28,7 @@ void GameWindow::addCommandsInLinkerMainWindow()
 
 void GameWindow::connectToManagerBuildingTree()
 {
-    QObject::connect(ui->insertButton, &QPushButton::clicked, tree.get(), &GraphicsTree::insertNode);
+    QObject::connect(ui->insertButton, &QPushButton::clicked, tree.get(), &GraphicsTree::insertData);
 }
 
 void GameWindow::connectToMainWindow()
@@ -67,13 +67,13 @@ void GameWindow::updateUi()
     ui->unicode->setText(QString("empty"));
 }
 
-void GameWindow::updateStatyManager(std::unique_ptr<GraphicsBuilder> builder)
+void GameWindow::updateStatyTree(std::unique_ptr<GraphicsBuilder> builder)
 {
     setMethodBuild(builder->methodBuild());
     tree->updateBuilder(std::move(builder));
 }
 
-void GameWindow::updateStatyManager(std::unique_ptr<Array> newTypeArray)
+void GameWindow::updateStatyTree(std::unique_ptr<Array> newTypeArray)
 {
     tree->updateArray(std::move(newTypeArray));
 }
