@@ -12,9 +12,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(MainWindowGame)
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets Xml REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets Xml REQUIRED)
-qt6_add_resources(RCC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Style/StyleSyNet.qrc"
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Xml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Xml)
+qt_add_resources(RCC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Style/StyleSyNet.qrc"
                             "${CMAKE_CURRENT_SOURCE_DIR}/Image/RccImage.qrc")
 
 set(PATTERNS_COMMANDS

@@ -10,11 +10,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
-find_package(Qt6 COMPONENTS Widgets Core REQUIRED)
-qt6_add_resources(QRC_DIFF_IMG "${CMAKE_CURRENT_SOURCE_DIR}/DifferentImages/DifferentImages.qrc")
-qt6_add_resources(QRC_BUILD_DATA "${CMAKE_CURRENT_SOURCE_DIR}/BuildDataQrc/BuildData.qrc")
-qt6_add_resources(QRC_IMAGE_NODE_DATA "${CMAKE_CURRENT_SOURCE_DIR}/ImagesNode/Images.qrc")
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Core)
+qt_add_resources(QRC_DIFF_IMG "${CMAKE_CURRENT_SOURCE_DIR}/DifferentImages/DifferentImages.qrc")
+qt_add_resources(QRC_BUILD_DATA "${CMAKE_CURRENT_SOURCE_DIR}/BuildDataQrc/BuildData.qrc")
+qt_add_resources(QRC_IMAGE_NODE_DATA "${CMAKE_CURRENT_SOURCE_DIR}/ImagesNode/Images.qrc")
 
 set(WINDOWS MainWindowGame.cpp
             MainWindowGame.h
@@ -67,8 +67,8 @@ add_library(MainWindowGame STATIC ${WINDOWS}
                                   ${QRC_BUILD_DATA}
                                   ${QRC_DIFF_IMG})
 
-target_link_libraries(MainWindowGame PRIVATE Qt6::Widgets
-                                             Qt6::Core)
+target_link_libraries(MainWindowGame PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+                                             Qt${QT_VERSION_MAJOR}::Core)
 
 target_include_directories(MainWindowGame PRIVATE "../Commands" "${CMAKE_CURRENT_SOURCE_DIR}/SourceBinaryTree")
 
