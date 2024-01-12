@@ -2,9 +2,9 @@
 
 Готовое приложение для: 
 
-Windows - https://drive.google.com/drive/folders/1HXi0iMsHXLEzIiiePead8xuhPNap6Kod?usp=share_link
+Windows - https://drive.google.com/drive/folders/1x0Mcv3sLE9Qkv6q6G5MBwUl6KPS8WqFn?usp=drive_link
 
-Linux - https://drive.google.com/drive/folders/17bAEDD7hAMhAbri1RsySK-JgmxITX6k_?usp=share_link
+Linux - https://drive.google.com/drive/folders/17bAEDD7hAMhAbri1RsySK-JgmxITX6k_?usp=sharing
 
 ![изображение](https://user-images.githubusercontent.com/100667839/201526845-a304ef98-ec82-47c5-aff9-1d1e74192473.png)
 
