@@ -16,6 +16,8 @@ StartWindow::StartWindow(QWidget *parent) :
     mainWin{std::make_unique<MainWindowGame>()},
     linkerWinSwitching{std::make_unique<LinkerCommands>()}
 {
+
+
     ui->setupUi(this); 
     connectLogoGif();
     addCommandInLinker();

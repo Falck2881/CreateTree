@@ -13,6 +13,7 @@ class StartWindow : public QWidget
 {
     Q_OBJECT
 
+
     public:
         explicit StartWindow(QWidget *parent = nullptr);
         ~StartWindow();
