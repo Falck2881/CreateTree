@@ -34,12 +34,15 @@
     <rect>
      <x>70</x>
      <y>10</y>
-     <width>340</width>
+     <width>351</width>
      <height>210</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="startButton">
@@ -57,7 +60,6 @@
   </widget>
  </widget>
  <resources>
-  <include location="Image/RccImage.qrc"/>
   <include location="Image/RccImage.qrc"/>
  </resources>
  <connections/>

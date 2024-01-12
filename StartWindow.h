@@ -8,6 +8,7 @@ namespace Ui {
 class StartWindow;
 }
 
+
 class StartWindow : public QWidget
 {
     Q_OBJECT
@@ -29,5 +30,6 @@ class StartWindow : public QWidget
         std::unique_ptr<QWidget> mainWin;
         std::unique_ptr<LinkerCommands> linkerWinSwitching;
 };
+
 
 #endif // STARTWINDOW_H

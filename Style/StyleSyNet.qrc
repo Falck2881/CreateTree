@@ -2,5 +2,6 @@
     <qresource prefix="/Style">
         <file>SyNet.qss</file>
         <file>Toolery.qss</file>
+
     </qresource>
 </RCC>

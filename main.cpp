@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QApplication>
+
 int main(int argc, char *argv[])
 {
     QFile fileStyle(QString(":/Style/Toolery.qss"));
@@ -12,4 +13,5 @@ int main(int argc, char *argv[])
     StartWindow startWin;
     startWin.show();
     return app.exec();
+
 }

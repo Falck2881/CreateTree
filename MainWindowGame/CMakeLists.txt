@@ -26,6 +26,8 @@ set(WINDOWS MainWindowGame.cpp
             GameWindow.h
             GameWindow.ui)
 
+
+
 set(SOURCE_BINARY_TREE
                           SourceBinaryTree/GraphicsNode.cpp
                           SourceBinaryTree/GraphicsNode.h
